@@ -107,6 +107,42 @@ test("the pseudonymizer refuses when an original value would remain", () => {
   assert.ok(problems.some((p) => p.startsWith("notes.txt: an original rg remains")), problems.join("\n"));
 });
 
+test("file names are pseudonymized, and app and backend IDs are identifying", () => {
+  const files = sample();
+  files.push({ name: "functions/contoso-ccof-admin.json", text: JSON.stringify({ app: "contoso-ccof-admin", functions: [] }) });
+  files.push({ name: "gateway/backends.json", text: JSON.stringify([{ backendId: "contoso-foundry-eus" }]) });
+  files.push({ name: "gateway/fragment-outbound.xml", text: "<when condition='backendId == \"contoso-foundry-eus\"' />" });
+  const { files: out, map, problems } = pseudonymize(files);
+  assert.deepEqual(problems, []);
+  const admin = out.find((f) => f.text.includes(map["contoso-ccof-admin"].fake));
+  assert.equal(admin?.name, `functions/${map["contoso-ccof-admin"].fake}.json`);
+  assert.ok(!out.some((f) => /contoso/i.test(f.name + f.text)), "no original name in any path or content");
+});
+
+test("any name that contains a known name's generated suffix is replaced too", () => {
+  const files = sample();
+  files[1].text = files[1].text.replace(/contosoapim7x2/g, "ccof-ab12cd34ef-apim");
+  files.push({ name: "notes.txt", text: "the sync app ccof-ab12cd34ef-sync stores in ccofab12cd34efsyn" });
+  const { files: out, problems } = pseudonymize(files);
+  assert.deepEqual(problems, []);
+  assert.ok(!out.some((f) => f.text.toLowerCase().includes("ab12cd34ef")), "no generated suffix remains");
+});
+
+test("guest UPNs, user-profile paths and the subscription name are replaced", () => {
+  const files = sample();
+  files.push({ name: "state2.json", text: JSON.stringify({
+    subscription: { name: "CONTOSO-PROD-SUB-01", id: "22222222-3333-4444-8555-666666666666" },
+    signedInUser: { upn: "jane.doe_contoso.com#EXT#@contosotenant.onmicrosoft.com" },
+    client: { clientConfig: "C:\\Users\\janedoe\\ccof-private\\.staged-state\\generated\\client.json", other: "/home/janedoe/x" },
+  }, null, 2) });
+  const { files: out, problems } = pseudonymize(files);
+  assert.deepEqual(problems, []);
+  const text = out.map((f) => f.text).join("\n").toLowerCase();
+  for (const original of ["contoso-prod-sub-01", "jane.doe", "contosotenant", "janedoe", "#ext#"]) assert.ok(!text.includes(original), `${original} remains`);
+  assert.ok(scanForLeaks("C:\\Users\\janedoe\\x").length === 1, "the scan flags a real user-profile path");
+  assert.ok(scanForLeaks("x_y.com#EXT#@t.onmicrosoft.com").length === 1, "the scan flags a guest UPN");
+});
+
 test("the leak scan catches unknown GUIDs, customer hosts, emails, JWTs and secrets", () => {
   assert.ok(scanForLeaks(TENANT).length === 1);
   assert.ok(scanForLeaks("https://contoso-api.azure-api.net/x").length >= 1);

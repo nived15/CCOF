@@ -1,0 +1,353 @@
+{
+  "schemaVersion": 1,
+  "tenantId": "00000000-0000-4000-8000-000000100001",
+  "subscriptionId": "00000000-0000-4000-8000-000000100004",
+  "resourceGroup": "fake-rg-01",
+  "location": "centralindia",
+  "tags": {
+    "workload": "claude-code-on-foundry",
+    "deployment": "staged"
+  },
+  "stage1": {
+    "prefix": "ccofstg",
+    "includeAdmin": true,
+    "cosmosCapacityMode": "provisioned",
+    "cosmosLocations": [
+      { "locationName": "centralindia", "isZoneRedundant": false }
+    ],
+    "cosmosConsistency": { "defaultConsistencyLevel": "Session" },
+    "cosmosPublicNetworkAccess": "Disabled",
+    "storagePublicNetworkAccess": "Disabled",
+    "functionsPublicNetworkAccess": "Enabled",
+    "storageSku": "Standard_LRS",
+    "retentionInDays": 30,
+    "maximumInstanceCount": 40,
+    "instanceMemoryMB": 2048,
+    "approveNewPublicApimBootstrap": true,
+    "apimPublisherEmail": "person01@example.test",
+    "apimPublisherName": "Fake Name 07",
+    "apimSku": "StandardV2",
+    "apimUnits": 1,
+    "foundry": {
+      "create": false,
+      "accountName": "fake-name-05",
+      "publicNetworkAccess": "Disabled",
+      "deployments": [
+        {
+          "name": "claude-haiku-5-5",
+          "model": "claude-haiku-5-5",
+          "version": "20251001",
+          "sku": "GlobalStandard",
+          "capacity": 10
+        },
+        {
+          "name": "claude-sonnet-5-5",
+          "model": "claude-sonnet-5-5",
+          "version": "2",
+          "sku": "GlobalStandard",
+          "capacity": 10
+        },
+        {
+          "name": "claude-opus-5",
+          "model": "claude-opus-5",
+          "version": "2",
+          "sku": "GlobalStandard",
+          "capacity": 10
+        }
+      ],
+      "modelProviderData": {
+        "organizationName": "Microsoft",
+        "countryCode": "US",
+        "industry": "technology"
+      }
+    }
+  },
+  "network": {
+    "mode": "create",
+    "modeNote": "verify (default): the customer builds the VNet, subnets, private DNS zones, private endpoints and VNet integrations; Stage 6 only checks them. existing: the driver creates private endpoints and integrations in these subnets. create: lab only; the driver also creates the VNet from the create block.",
+    "existing": {
+      "functionsSubnetId": "/subscriptions/REPLACE-00000000-0000-4000-8000-000000000003/resourceGroups/REPLACE-network-rg/providers/Microsoft.Network/virtualNetworks/REPLACE-vnet/subnets/snet-functions",
+      "privateEndpointSubnetId": "/subscriptions/REPLACE-00000000-0000-4000-8000-000000000003/resourceGroups/REPLACE-network-rg/providers/Microsoft.Network/virtualNetworks/REPLACE-vnet/subnets/snet-private-endpoints",
+      "apimSubnetId": "/subscriptions/REPLACE-00000000-0000-4000-8000-000000000003/resourceGroups/REPLACE-network-rg/providers/Microsoft.Network/virtualNetworks/REPLACE-vnet/subnets/snet-apim"
+    },
+    "create": {
+      "vnetName": "fake-name-08",
+      "addressSpace": "10.64.0.0/16",
+      "apimNsgName": "fake-name-09",
+      "subnets": {
+        "apim": {
+          "name": "snet-apim",
+          "prefix": "10.64.1.0/24"
+        },
+        "privateEndpoints": {
+          "name": "snet-private-endpoints",
+          "prefix": "10.64.2.0/24"
+        },
+        "functions": {
+          "name": "snet-functions",
+          "prefix": "10.64.3.0/24"
+        }
+      }
+    }
+  },
+  "cosmos": {
+    "databaseName": "ccof",
+    "capacityMode": "provisioned-autoscale",
+    "autoscaleMaxThroughput": 1000,
+    "roleNames": {
+      "syncWriter": "ccof sync entitlement writer",
+      "reconcilerWriter": "ccof reconciler budget writer",
+      "projectWriter": "ccof onboarding project writer",
+      "adminEditor": "Fake Name 12 project editor"
+    }
+  },
+  "apim": {
+    "existing": null,
+    "apiId": "claude-messages",
+    "apiPath": "anthropic",
+    "apiDisplayName": "Claude Messages (staged)"
+  },
+  "backends": [
+    {
+      "id": "fake-name-06",
+      "subscriptionId": "00000000-0000-4000-8000-000000100004",
+      "resourceGroup": "fake-rg-01",
+      "accountName": "fake-name-05",
+      "url": "https://fake-name-05.services.ai.azure.com/anthropic",
+      "resource": "https://cognitiveservices.azure.com",
+      "deploymentInferenceGeo": {
+        "claude-haiku-5-5": "global",
+        "claude-sonnet-5-5": "global",
+        "claude-opus-5": "global"
+      },
+      "assignCognitiveServicesUser": true,
+      "privateEndpoint": true
+    }
+  ],
+  "entra": {
+    "gatewayAppDisplayName": "Fake Name 10",
+    "resolverAppDisplayName": "Fake Name 11",
+    "adminAppDisplayName": "Fake Name 12",
+    "allowAzureCliClient": true,
+    "adminEditors": [
+      "@me"
+    ],
+    "adminReaders": []
+  },
+  "groups": [
+    {
+      "kind": "group",
+      "groupDisplayName": "Fake Name 13",
+      "members": [
+        "@me"
+      ],
+      "displayName": "Fake Name 14",
+      "backendId": "fake-name-06",
+      "priority": 100,
+      "chargebackId": null,
+      "budget": {
+        "mode": "autoScale",
+        "perUser": {
+          "amount": 25000,
+          "currency": "CCU",
+          "period": "monthly"
+        },
+        "groupCap": null
+      },
+      "restrictedFamiliesApproved": false,
+      "familyPolicy": {
+        "aggregateLimits": {
+          "person": {
+            "tokensPerMinute": 200000,
+            "tokenQuota": 500000,
+            "tokenQuotaPeriod": "Daily"
+          },
+          "group": {
+            "tokensPerMinute": null,
+            "tokenQuota": 2000000,
+            "tokenQuotaPeriod": "Daily"
+          }
+        },
+        "families": {
+          "haiku": {
+            "models": [
+              "claude-haiku-5-5"
+            ],
+            "person": {
+              "tokensPerMinute": null,
+              "tokenQuota": null,
+              "tokenQuotaPeriod": null
+            },
+            "group": {
+              "tokensPerMinute": null,
+              "tokenQuota": null,
+              "tokenQuotaPeriod": null
+            }
+          },
+          "sonnet": {
+            "models": [
+              "claude-sonnet-5-5"
+            ],
+            "person": {
+              "tokensPerMinute": null,
+              "tokenQuota": null,
+              "tokenQuotaPeriod": null
+            },
+            "group": {
+              "tokensPerMinute": null,
+              "tokenQuota": null,
+              "tokenQuotaPeriod": null
+            }
+          }
+        }
+      },
+      "surfaces": [
+        "code"
+      ],
+      "cacheProfile": {
+        "expectedCacheReadPercent": 85,
+        "basis": "suggested"
+      }
+    }
+  ],
+  "client": {
+    "group": "Fake Name 13",
+    "signInMethod": "msal",
+    "models": {
+      "default": "claude-sonnet-5-5",
+      "sonnet": "claude-sonnet-5-5",
+      "haiku": "claude-haiku-5-5",
+      "opus": "claude-sonnet-5-5"
+    }
+  },
+  "resolver": {
+    "budgetEnforcement": "token-limits-only",
+    "requireCompleteUsage": false,
+    "cosmosRequestTimeoutMs": 2000,
+    "cosmosRetryAttempts": 2,
+    "cosmosRetryMaxWaitSeconds": 2,
+    "requestDeadlineMs": 4000,
+    "usageGroupTotals": false
+  },
+  "sync": {
+    "mode": "delegated-snapshot",
+    "schedule": "0 */1 * * * *",
+    "leaseSeconds": 300,
+    "maxRemovalsPerRun": 5,
+    "maxRemovalFraction": "0.1",
+    "memberTypes": "user",
+    "graphMaxRetries": 3,
+    "graphMaxRetryAfterSeconds": 30,
+    "graphTimeoutSeconds": 30,
+    "writeMode": "apply"
+  },
+  "syncTimerEnabled": false,
+  "reconciler": {
+    "timerEnabled": true,
+    "schedule": "0 */2 * * * *",
+    "validitySeconds": 600,
+    "leaseSeconds": 300,
+    "ledgerTimeoutSeconds": 60,
+    "ledgerMaxRows": 100000,
+    "maxStates": 10000,
+    "writeConcurrency": 8,
+    "logAnalyticsEndpoint": "https://api.loganalytics.io",
+    "budgetGuard": { "warnPercent": 80, "overshootPercent": 5, "projectionMinutes": 5 }
+  },
+  "budgetState": {
+    "graceSeconds": 900,
+    "hardLimitSeconds": 3600
+  },
+  "gateway": {
+    "configurationId": "ccof-staged-gateway-1",
+    "surfaceClients": [],
+    "admission": {
+      "perPerson": {
+        "calls": 120,
+        "renewalPeriodSeconds": 60
+      },
+      "resolverMisses": {
+        "calls": 200,
+        "renewalPeriodSeconds": 1,
+        "maxConcurrent": 100
+      },
+      "usage": {
+        "calls": 10,
+        "renewalPeriodSeconds": 60
+      }
+    },
+    "resolverTimeoutSeconds": 10,
+    "projectHeaderName": "x-ccof-project",
+    "keyVersion": 1,
+    "entitlementCache": {
+      "cachingType": "internal",
+      "allowTtlSeconds": 120,
+      "refusalTtlSeconds": 30,
+      "lastKnownGoodGraceSeconds": 3600,
+      "refreshBackoffSeconds": 30,
+      "unavailableRetryAfterSeconds": 5
+    },
+    "tokenLimits": {
+      "estimatePromptTokens": false,
+      "headers": {
+        "personRemainingQuota": "x-ccof-person-quota-remaining",
+        "personRemainingTokens": "x-ccof-person-tokens-remaining",
+        "groupRemainingQuota": "x-ccof-group-quota-remaining",
+        "groupRemainingTokens": "x-ccof-group-tokens-remaining",
+        "tokensConsumed": "x-ccof-tokens-consumed"
+      }
+    },
+    "defaultAnthropicVersion": "2023-06-01"
+  },
+  "rateCard": {
+    "path": "config/rate-card.json",
+    "contractSchedulePath": "config/contract-schedule.json"
+  },
+  "workbook": {
+    "resourceName": "00000000-0000-4000-8000-000000100005",
+    "displayName": "Fake Name 15",
+    "readerPrincipalIds": [],
+    "settings": {
+      "defaultProjectId": "*",
+      "maxRows": 1000,
+      "topUsers": 25,
+      "maxQueryDays": 62,
+      "budgetLookbackDays": 31
+    }
+  },
+  "admin": {
+    "v3Enabled": true,
+    "extraAllowedClientIds": [],
+    "groupSearchEnabled": false,
+    "userNamesEnabled": false
+  },
+  "audit": {
+    "archive": {
+      "enabled": true,
+      "retentionDays": 2555,
+      "immutabilityDays": null,
+      "storageSku": "Standard_LRS"
+    },
+    "chargebackHistory": {
+      "enabled": true,
+      "closeAfterDays": 2,
+      "ttlDays": null
+    }
+  },
+  "acceptance": {
+    "selectorNote": "Requests carry no project selector: the caller's group with the higher month-to-date spend applies (ADR-0034).",
+    "allowed": [
+      {
+        "model": "claude-haiku-5-5"
+      }
+    ],
+    "denied": [
+      {
+        "model": "claude-opus-5",
+        "expectedStatus": 403,
+        "reason": "opus is not in the pilot group's model families"
+      }
+    ]
+  },
+  "sharedResourceGroup": true
+}

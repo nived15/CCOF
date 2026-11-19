@@ -25,6 +25,9 @@ param(
     [string]$ConfigPath,
     [string]$StateDirectory,
     [string]$OutputDirectory,
+    [string]$ResourceGroup,
+    [string]$SubscriptionId,
+    [string]$ApiId = 'claude-messages',
     [switch]$IncludeCosmos,
     [ValidateRange(1, 10)] [int]$CosmosSampleCount = 3,
     [switch]$DotSourceOnly
@@ -113,7 +116,7 @@ function Get-FixtureGateway {
     Save-FixtureJson $revisions (Join-Path $dir 'revisions.json')
     $fragments = @(Invoke-FixtureAz @('rest', '--method', 'get', '--url', "$base/policyFragments?$v", '--query', 'value[].{name:name, value:properties.value}', '-o', 'json') | ConvertFrom-Json)
     foreach ($f in $fragments) { [IO.File]::WriteAllText((Join-Path $dir "fragment-$($f.name).xml"), $f.value, [Text.UTF8Encoding]::new($false)) }
-    $backends = @(Invoke-FixtureAz @('rest', '--method', 'get', '--url', "$base/backends?$v", '--query', 'value[].{name:name, url:properties.url, protocol:properties.protocol}', '-o', 'json') | ConvertFrom-Json)
+    $backends = @(Invoke-FixtureAz @('rest', '--method', 'get', '--url', "$base/backends?$v", '--query', 'value[].{backendId:name, url:properties.url, protocol:properties.protocol}', '-o', 'json') | ConvertFrom-Json)
     Save-FixtureJson $backends (Join-Path $dir 'backends.json')
 }
 
@@ -153,31 +156,48 @@ function Get-FixtureCosmos {
 }
 
 if ($DotSourceOnly) { return }
-if ($DeployedCommit -notmatch '^[0-9a-f]{7,40}$') { throw 'Usage: -DeployedCommit <git sha the customer runs> -ConfigPath <staged.config.json> [-StateDirectory <dir>] [-IncludeCosmos]' }
-if (-not $ConfigPath -or -not (Test-Path -LiteralPath $ConfigPath -PathType Leaf)) { throw "config_missing: $ConfigPath" }
+$usage = 'Usage: -DeployedCommit <sha> (-ConfigPath <staged.config.json> [-StateDirectory <dir>] | -ResourceGroup <rg> -SubscriptionId <id> [-ApiId <id>]) [-IncludeCosmos]'
+if ($DeployedCommit -notmatch '^[0-9a-f]{7,40}$') { throw $usage }
+if (-not $ConfigPath -and -not ($ResourceGroup -and $SubscriptionId)) { throw $usage }
+if ($ConfigPath -and -not (Test-Path -LiteralPath $ConfigPath -PathType Leaf)) { throw "config_missing: $ConfigPath" }
 
 $out = Resolve-FixtureOutput $OutputDirectory
-. (Join-Path $script:FixtureRepo 'infra/staged/Invoke-StagedDeployment.ps1') -DotSourceOnly
-$ErrorActionPreference = 'Stop'
-$cfg = Read-StgConfig $ConfigPath
-$stateDir = if ($StateDirectory) { [IO.Path]::GetFullPath($StateDirectory) } else { Join-Path (Split-Path $cfg.__path -Parent) '.staged-state' }
-$statePath = Join-Path $stateDir 'state.json'
-if (-not (Test-Path -LiteralPath $statePath -PathType Leaf)) { throw "state_missing: $statePath" }
-$state = Get-Content -LiteralPath $statePath -Raw | ConvertFrom-Json -AsHashtable -Depth 100
-if (-not $state.stageLayout -or $state.stageLayout -lt 2) { throw 'state_layout_1: run any stage preview once so the driver migrates the state file, then collect' }
 $account = Invoke-FixtureAz @('account', 'show', '--query', '{tenantId:tenantId, subscriptionId:id}', '-o', 'json') | ConvertFrom-Json
-if ($account.tenantId -ne $cfg.tenantId) { throw "wrong_tenant: az is signed in to another tenant than the configuration's" }
+# Dot-sourcing the staged driver runs its param block, which resets $ConfigPath and $StateDirectory here: keep copies.
+$configFile = $ConfigPath; $stateDirectoryArg = $StateDirectory; $commit = $DeployedCommit; $withCosmos = [bool]$IncludeCosmos; $sampleCount = $CosmosSampleCount
+if ($configFile) {
+    . (Join-Path $script:FixtureRepo 'infra/staged/Invoke-StagedDeployment.ps1') -DotSourceOnly
+    $ErrorActionPreference = 'Stop'
+    $cfg = Read-StgConfig $configFile
+    $stateDir = if ($stateDirectoryArg) { [IO.Path]::GetFullPath($stateDirectoryArg) } else { Join-Path (Split-Path $cfg.__path -Parent) '.staged-state' }
+    $statePath = Join-Path $stateDir 'state.json'
+    if (-not (Test-Path -LiteralPath $statePath -PathType Leaf)) { throw "state_missing: $statePath" }
+    $state = Get-Content -LiteralPath $statePath -Raw | ConvertFrom-Json -AsHashtable -Depth 100
+    if (-not $state.stageLayout -or $state.stageLayout -lt 2) { throw 'state_layout_1: run any stage preview once so the driver migrates the state file, then collect' }
+    if ($account.tenantId -ne $cfg.tenantId) { throw "wrong_tenant: az is signed in to another tenant than the configuration's" }
+} else {
+    # Discovery mode: no staged config or state on this machine. The API Management instance is found in the group.
+    $apims = @(Invoke-FixtureAz @('resource', 'list', '-g', $ResourceGroup, '--subscription', $SubscriptionId, '--resource-type', 'Microsoft.ApiManagement/service', '--query', '[].name', '-o', 'json') | ConvertFrom-Json)
+    if ($apims.Count -ne 1) { throw "apim_not_unique: found $($apims.Count) API Management instances in the resource group; use -ConfigPath" }
+    $cfg = @{ tenantId = $account.tenantId; subscriptionId = $SubscriptionId; resourceGroup = $ResourceGroup; cosmos = @{ databaseName = 'ccof' }
+              apim = @{ apiId = $ApiId; existing = @{ name = $apims[0]; subscriptionId = $SubscriptionId; resourceGroup = $ResourceGroup } } }
+    $state = @{ stages = @{} }
+}
 
 New-Item -ItemType Directory -Force -Path $out | Out-Null
-Copy-Item -LiteralPath $cfg.__path -Destination (Join-Path $out 'staged.config.json')
-Copy-Item -LiteralPath $statePath -Destination (Join-Path $out 'state.json')
-Save-FixtureJson (Get-FixtureFreshness $cfg $state) (Join-Path $out 'freshness.json')
+if ($configFile) {
+    Copy-Item -LiteralPath $cfg.__path -Destination (Join-Path $out 'staged.config.json')
+    Copy-Item -LiteralPath $statePath -Destination (Join-Path $out 'state.json')
+    Save-FixtureJson (Get-FixtureFreshness $cfg $state) (Join-Path $out 'freshness.json')
+}
 Get-FixtureGateway $cfg $state $out
 Get-FixtureFunctions $cfg $out
-$cosmosNote = if ($IncludeCosmos) { Get-FixtureCosmos $cfg $out $CosmosSampleCount } else { 'not requested (-IncludeCosmos)' }
+$cosmosNote = if ($withCosmos) { Get-FixtureCosmos $cfg $out $sampleCount } else { 'not requested (-IncludeCosmos)' }
 $azVersion = (Invoke-FixtureAz @('version', '-o', 'json') | ConvertFrom-Json).'azure-cli'
 Save-FixtureJson ([ordered]@{
-    deployedCommit = $DeployedCommit; collectedAt = [DateTime]::UtcNow.ToString('o'); azureCli = $azVersion
+    deployedCommit = $commit; collectedAt = [DateTime]::UtcNow.ToString('o'); azureCli = $azVersion
+    stagedConfig = [bool]$configFile
+    stagedConfigNote = if ($configFile) { 'copied' } else { 'discovery mode: no staged config or state on the collecting machine; no freshness' }
     cosmosSamples = [bool](Test-Path -LiteralPath (Join-Path $out 'cosmos')); cosmosNote = $cosmosNote
     files = @(Get-ChildItem -LiteralPath $out -Recurse -File | ForEach-Object { [IO.Path]::GetRelativePath($out, $_.FullName).Replace('\', '/') } | Sort-Object)
 }) (Join-Path $out 'manifest.json')

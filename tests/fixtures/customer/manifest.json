@@ -1,0 +1,29 @@
+{
+  "deployedCommit": "9faa1fc",
+  "collectedAt": "2026-11-19T08:20:53.8565822Z",
+  "azureCli": "2.93.0",
+  "stagedConfig": true,
+  "stagedConfigNote": "copied",
+  "cosmosSamples": false,
+  "cosmosNote": "not requested (-IncludeCosmos)",
+  "files": [
+    "freshness.json",
+    "functions/fake-name-01.json",
+    "functions/fake-name-02.json",
+    "functions/fake-name-03.json",
+    "functions/fake-name-04.json",
+    "gateway/api-policy.xml",
+    "gateway/backends.json",
+    "gateway/fragment-claude-messages-backend-b097052b2da6.xml",
+    "gateway/fragment-claude-messages-inbound-438024281d5c.xml",
+    "gateway/fragment-claude-messages-inbound-d749120b0f6d.xml",
+    "gateway/fragment-claude-messages-on-error-5840ac337089.xml",
+    "gateway/fragment-claude-messages-outbound-28fa2d0bb3c7.xml",
+    "gateway/global-policy.xml",
+    "gateway/op-get-my-usage.xml",
+    "gateway/operations.json",
+    "gateway/revisions.json",
+    "staged.config.json",
+    "state.json"
+  ]
+}

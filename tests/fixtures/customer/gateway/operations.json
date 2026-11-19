@@ -1,0 +1,12 @@
+[
+  {
+    "method": "POST",
+    "name": "create-message",
+    "urlTemplate": "/v1/messages"
+  },
+  {
+    "method": "GET",
+    "name": "get-my-usage",
+    "urlTemplate": "/ccof/me/usage"
+  }
+]

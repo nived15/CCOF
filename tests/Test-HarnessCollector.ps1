@@ -34,6 +34,9 @@ Assert-That ($default.StartsWith((Join-Path $root '.env.customer-fixture'))) 'th
 $collector = Get-Content -Raw (Join-Path $root 'harness/customer/Collect-CustomerFixture.ps1')
 Assert-That ($collector -notmatch "(?i)'--method',\s*'(put|patch|post|delete)'") 'the collector names no write method'
 Assert-That ($collector -match "appsettings', 'list'\)[^\r\n]*'\[\]\.name'") 'app settings are listed by name only, inside az'
+# Dot-sourcing the staged driver resets the collector's parameters of the same names; nothing after it may read them.
+$afterDotSource = $collector.Substring($collector.IndexOf("infra/staged/Invoke-StagedDeployment.ps1') -DotSourceOnly"))
+Assert-That ($afterDotSource -notmatch '\$(ConfigPath|StateDirectory|IncludeCosmos|DeployedCommit|CosmosSampleCount)\b') 'no parameter is read after the staged driver is dot-sourced'
 
 # Freshness from the staged driver: a stage recorded with this config's hash is fresh; one changed since is not.
 . (Join-Path $root 'infra/staged/Invoke-StagedDeployment.ps1') -DotSourceOnly

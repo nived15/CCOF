@@ -1,0 +1,30 @@
+<!--
+  claude-messages gateway policy, generated from configuration ccof-staged-gateway-1 (sha256 6f4f32826a1db244823565ebb6111500f69afd62cca9cd91667ba694a50c149d)
+  and template sha256 5828ff469f17429ef520f30c24faed23df537ea55905ce5eee25b0da48b3ad66. Do not edit it in the portal: change the configuration or
+  infra/gateway/policy/claude-messages.template.xml, render with infra/gateway/render.ts and deploy a new
+  revision with infra/gateway/Deploy-GatewayRevision.ps1.
+  Design: docs/adr/0017-gateway-policy-entitlement-and-limits.md. Operator guide: docs/GATEWAY.md.
+
+  Inbound runs in stages. A path the API does not serve is answered 404 first (step 0). Each stage after
+  authentication runs only while ccofRefusal is empty; every refusal leaves through the single exit at the end of
+  inbound, in Anthropic's error shape. Errors a
+  policy raises (token validation, admission and token limits, backend credential, forwarding), and a
+  request that matches no operation of the API (404), are answered in on-error, in the same shape.
+-->
+<policies>
+	<inbound>
+		<base />
+		<include-fragment fragment-id="claude-messages-inbound-438024281d5c" />
+	</inbound>
+	<backend>
+		<include-fragment fragment-id="claude-messages-backend-b097052b2da6" />
+	</backend>
+	<outbound>
+		<base />
+		<include-fragment fragment-id="claude-messages-outbound-28fa2d0bb3c7" />
+	</outbound>
+	<on-error>
+		<base />
+		<include-fragment fragment-id="claude-messages-on-error-5840ac337089" />
+	</on-error>
+</policies>

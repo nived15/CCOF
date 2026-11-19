@@ -1,0 +1,783 @@
+{
+  "schemaVersion": 1,
+  "stages": {
+    "0": {
+      "configHash": "bbf5a35e606056bc26dc7beadf6dbd37b75d53f082d0b5e7bdf1a07f9c1cdcbb",
+      "dependencyHashes": {},
+      "outputs": {
+        "subscription": {
+          "name": "Fake Name 25",
+          "tenant": "00000000-0000-4000-8000-000000100001",
+          "user": "person01@example.test",
+          "id": "00000000-0000-4000-8000-000000100004"
+        },
+        "resourceGroup": {
+          "exists": true,
+          "resourceCount": 2,
+          "name": "fake-rg-01"
+        },
+        "providers": {
+          "Microsoft.Web": "Registered",
+          "Microsoft.DocumentDB": "Registered",
+          "Microsoft.Storage": "Registered",
+          "Microsoft.Network": "Registered",
+          "Microsoft.OperationalInsights": "Registered",
+          "Microsoft.Insights": "Registered",
+          "Microsoft.ManagedIdentity": "Registered",
+          "Microsoft.ApiManagement": "Registered",
+          "Microsoft.AlertsManagement": "Registered"
+        },
+        "flexConsumptionRegion": "centralindia",
+        "backends": [
+          {
+            "id": "fake-name-06",
+            "account": "fake-name-05",
+            "publicNetworkAccess": "Enabled",
+            "deployments": [
+              "claude-haiku-5-5",
+              "claude-sonnet-5-5",
+              "claude-opus-5"
+            ]
+          }
+        ],
+        "operator": {
+          "id": "00000000-0000-4000-8000-000000100006",
+          "upn": "person02@example.test"
+        },
+        "durationSeconds": 35
+      },
+      "completedAt": "2026-10-26T16:24:50.3389541Z"
+    },
+    "1": {
+      "dependencyHashes": {},
+      "outputs": {
+        "foundryAnthropicUrl": "",
+        "verify": {
+          "apps": [
+            {
+              "app": "resolver",
+              "name": "fake-name-03",
+              "publicNetworkAccess": "Enabled",
+              "subnet": "",
+              "settings": 0,
+              "principalId": "00000000-0000-4000-8000-000000100007"
+            },
+            {
+              "app": "sync",
+              "name": "fake-name-04",
+              "publicNetworkAccess": "Enabled",
+              "subnet": "",
+              "settings": 0,
+              "principalId": "00000000-0000-4000-8000-000000100008"
+            },
+            {
+              "app": "reconciler",
+              "name": "fake-name-02",
+              "publicNetworkAccess": "Enabled",
+              "subnet": "",
+              "settings": 0,
+              "principalId": "00000000-0000-4000-8000-000000100009"
+            },
+            {
+              "app": "admin",
+              "name": "fake-name-01",
+              "publicNetworkAccess": "Enabled",
+              "subnet": "",
+              "settings": 0,
+              "principalId": "00000000-0000-4000-8000-000000100010"
+            }
+          ],
+          "cosmos": {
+            "consistency": "Session",
+            "localAuthDisabled": true,
+            "name": "fake-name-17",
+            "automaticFailover": false,
+            "regions": [
+              "Central India"
+            ],
+            "publicNetworkAccess": "Disabled"
+          },
+          "roleAssignmentsOnDeployedResources": 0,
+          "cosmosDataAssignments": 0,
+          "applicationInsights": [
+            {
+              "name": "fake-name-31",
+              "localAuthDisabled": true,
+              "workspaceId": "/subscriptions/00000000-0000-4000-8000-000000100004/resourceGroups/fake-rg-01/providers/Microsoft.OperationalInsights/workspaces/fake-name-16"
+            },
+            {
+              "name": "fake-name-32",
+              "localAuthDisabled": true,
+              "workspaceId": "/subscriptions/00000000-0000-4000-8000-000000100004/resourceGroups/fake-rg-01/providers/Microsoft.OperationalInsights/workspaces/fake-name-16"
+            },
+            {
+              "name": "fake-name-33",
+              "localAuthDisabled": true,
+              "workspaceId": "/subscriptions/00000000-0000-4000-8000-000000100004/resourceGroups/fake-rg-01/providers/Microsoft.OperationalInsights/workspaces/fake-name-16"
+            },
+            {
+              "name": "fake-name-34",
+              "localAuthDisabled": true,
+              "workspaceId": "/subscriptions/00000000-0000-4000-8000-000000100004/resourceGroups/fake-rg-01/providers/Microsoft.OperationalInsights/workspaces/fake-name-16"
+            }
+          ],
+          "apim": {
+            "diagnosticWorkspaceId": "/subscriptions/00000000-0000-4000-8000-000000100004/resourceGroups/fake-rg-01/providers/Microsoft.OperationalInsights/workspaces/fake-name-16",
+            "principalId": "00000000-0000-4000-8000-000000100011",
+            "publicNetworkAccess": "Enabled",
+            "sku": "StandardV2"
+          },
+          "apimStatus": "new-public-shell-needs-approved-private-cutover"
+        },
+        "workspaceId": "/subscriptions/00000000-0000-4000-8000-000000100004/resourceGroups/fake-rg-01/providers/Microsoft.OperationalInsights/workspaces/fake-name-16",
+        "foundryAccountId": "",
+        "durationSeconds": 413,
+        "names": {
+          "apps": {
+            "admin": {
+              "appInsights": "fake-name-34",
+              "deploymentContainer": "app-package",
+              "functionApp": "fake-name-01",
+              "plan": "fake-name-35",
+              "storageAccount": "fakename26"
+            },
+            "reconciler": {
+              "appInsights": "fake-name-33",
+              "deploymentContainer": "app-package",
+              "functionApp": "fake-name-02",
+              "plan": "fake-name-36",
+              "storageAccount": "fakename27"
+            },
+            "resolver": {
+              "appInsights": "fake-name-31",
+              "deploymentContainer": "app-package",
+              "functionApp": "fake-name-03",
+              "plan": "fake-name-37",
+              "storageAccount": "fakename28"
+            },
+            "sync": {
+              "appInsights": "fake-name-32",
+              "deploymentContainer": "app-package",
+              "functionApp": "fake-name-04",
+              "plan": "fake-name-38",
+              "storageAccount": "fakename29"
+            }
+          },
+          "cosmosAccount": "fake-name-17",
+          "deploymentPrefix": "ccofstg",
+          "identities": {
+            "reconciler": "fake-name-39",
+            "sync": "fake-name-40"
+          },
+          "logAnalyticsWorkspace": "fake-name-16",
+          "resourceGroup": "fake-rg-01",
+          "subscriptionId": "00000000-0000-4000-8000-000000100004"
+        },
+        "apimName": "fake-name-18",
+        "principals": {
+          "admin": "00000000-0000-4000-8000-000000100010",
+          "sync": "00000000-0000-4000-8000-000000100008",
+          "reconciler": "00000000-0000-4000-8000-000000100009",
+          "resolver": "00000000-0000-4000-8000-000000100007"
+        },
+        "cosmosEndpoint": "https://fake-name-17.documents.azure.com:443/",
+        "apimPrincipalId": "00000000-0000-4000-8000-000000100011",
+        "cosmosAccountId": "/subscriptions/00000000-0000-4000-8000-000000100004/resourceGroups/fake-rg-01/providers/Microsoft.DocumentDB/databaseAccounts/fake-name-17",
+        "workspaceCustomerId": "00000000-0000-4000-8000-000000100012",
+        "apimGatewayUrl": "https://fake-name-18.azure-api.net",
+        "clientIds": {
+          "admin": "",
+          "sync": "00000000-0000-4000-8000-000000100013",
+          "reconciler": "00000000-0000-4000-8000-000000100014",
+          "resolver": ""
+        },
+        "apimStatus": "new-public-shell-needs-approved-private-cutover",
+        "apimId": "/subscriptions/00000000-0000-4000-8000-000000100004/resourceGroups/fake-rg-01/providers/Microsoft.ApiManagement/service/fake-name-18"
+      },
+      "completedAt": "2026-10-26T16:46:18.1054707Z",
+      "configHash": "30b832e18b48fd01a25871f57141d533e48b76462f3f0bbc50a5e1ccf04a23b7"
+    },
+    "2": {
+      "dependencyHashes": {
+        "1": "03cd6bf55a018316e12bbcae088cf61fefc352ddd218b1642fc2c7b86b56c6c0"
+      },
+      "outputs": {
+        "durationSeconds": 230,
+        "databaseName": "ccof",
+        "containers": [
+          {
+            "name": "entitlement",
+            "partitionKey": "/personId"
+          },
+          {
+            "name": "projects",
+            "partitionKey": "/projectId"
+          },
+          {
+            "name": "subscriptionIndex",
+            "partitionKey": "/subscriptionId"
+          },
+          {
+            "name": "budgetState",
+            "partitionKey": "/personId"
+          },
+          {
+            "name": "aggregateBudgetState",
+            "partitionKey": "/scopeId"
+          },
+          {
+            "name": "syncLease",
+            "partitionKey": "/id"
+          },
+          {
+            "name": "reconcilerLease",
+            "partitionKey": "/id"
+          },
+          {
+            "name": "backends",
+            "partitionKey": "/backendId"
+          },
+          {
+            "name": "adminConfig",
+            "partitionKey": "/scopeId"
+          },
+          {
+            "name": "chargebackDaily",
+            "partitionKey": "/month"
+          }
+        ]
+      },
+      "configHash": "4003cd4b7c48c983f171367b78dd8d055ab4873c1d86f379c3efe04e64b0bafb",
+      "completedAt": "2026-10-26T16:51:36.7833271Z"
+    },
+    "3": {
+      "outputs": {
+        "apimPrincipalId": "00000000-0000-4000-8000-000000100011",
+        "durationSeconds": 909,
+        "verify": {
+          "azure": [
+            {
+              "principal": "admin",
+              "assignments": [
+                "Log Analytics Reader @ fake-name-16",
+                "Monitoring Metrics Publisher @ fake-name-34",
+                "Storage Blob Data Owner @ fakename26"
+              ]
+            },
+            {
+              "principal": "reconciler",
+              "assignments": [
+                "Log Analytics Reader @ fake-name-16",
+                "Monitoring Metrics Publisher @ fake-name-33",
+                "Storage Blob Data Owner @ fakename27"
+              ]
+            },
+            {
+              "principal": "resolver",
+              "assignments": [
+                "Monitoring Metrics Publisher @ fake-name-31",
+                "Storage Blob Data Owner @ fakename28"
+              ]
+            },
+            {
+              "principal": "sync",
+              "assignments": [
+                "Monitoring Metrics Publisher @ fake-name-32",
+                "Storage Blob Data Owner @ fakename29"
+              ]
+            }
+          ],
+          "cosmos": [
+            "admin -> dbs/ccof/colls/adminConfig",
+            "admin -> dbs/ccof/colls/chargebackDaily",
+            "admin -> dbs/ccof/colls/projects",
+            "reconciler -> dbs/ccof/colls/aggregateBudgetState",
+            "reconciler -> dbs/ccof/colls/budgetState",
+            "reconciler -> dbs/ccof/colls/chargebackDaily",
+            "reconciler -> dbs/ccof/colls/chargebackDaily",
+            "reconciler -> dbs/ccof/colls/entitlement",
+            "reconciler -> dbs/ccof/colls/projects",
+            "reconciler -> dbs/ccof/colls/reconcilerLease",
+            "resolver -> dbs/ccof",
+            "sync -> dbs/ccof/colls/adminConfig",
+            "sync -> dbs/ccof/colls/backends",
+            "sync -> dbs/ccof/colls/entitlement",
+            "sync -> dbs/ccof/colls/projects",
+            "sync -> dbs/ccof/colls/projects",
+            "sync -> dbs/ccof/colls/syncLease"
+          ],
+          "foundry": [
+            "fake-name-06: Cognitive Services User"
+          ],
+          "rgScopedAssignments": 10
+        },
+        "cosmosAssignmentIds": [
+          "resolver-cosmos-data-reader",
+          "sync-entitlement-writer",
+          "sync-lease-writer",
+          "sync-projects-reader",
+          "reconciler-projects-reader",
+          "reconciler-entitlement-reader",
+          "reconciler-budget-state-writer",
+          "reconciler-aggregate-state-writer",
+          "reconciler-lease-writer",
+          "qs-sync-projects-writer",
+          "qs-sync-backends-writer",
+          "admin-projects-editor",
+          "admin-config-editor",
+          "sync-limits-reader",
+          "reconciler-history-writer",
+          "reconciler-history-reader",
+          "admin-history-reader"
+        ]
+      },
+      "configHash": "998f225c29fd861e7ca5d56c172ef6b7344971905f552176dfae318ab47f7343",
+      "dependencyHashes": {
+        "1": "03cd6bf55a018316e12bbcae088cf61fefc352ddd218b1642fc2c7b86b56c6c0",
+        "2": "81bd90b97b4c5ec1b4fb8200c819be224d3708153d08b5a314dcc35b2c4765b1"
+      },
+      "completedAt": "2026-10-26T17:07:56.5268416Z"
+    },
+    "4": {
+      "outputs": {
+        "groups": {
+          "group/Fake Name 13": {
+            "members": [
+              "00000000-0000-4000-8000-000000100006"
+            ],
+            "id": "00000000-0000-4000-8000-000000100015",
+            "displayName": "Fake Name 13"
+          }
+        },
+        "gatewayIdentifierUri": "api://00000000-0000-4000-8000-000000100002",
+        "resolverServicePrincipalId": "00000000-0000-4000-8000-000000100016",
+        "gatewayServicePrincipalId": "00000000-0000-4000-8000-000000100017",
+        "admin": {
+          "servicePrincipalId": "00000000-0000-4000-8000-000000100018",
+          "appId": "00000000-0000-4000-8000-000000100019",
+          "redirects": [
+            "https://fake-name-01.azurewebsites.net/api/console",
+            "https://fake-name-01.azurewebsites.net/api/console-v3"
+          ]
+        },
+        "durationSeconds": 40,
+        "graphApplicationPermission": "not granted (sync.mode delegated-snapshot)",
+        "registrations": {
+          "gatewayApi": {
+            "scope": "access_as_user",
+            "appId": "00000000-0000-4000-8000-000000100002",
+            "accessTokenVersion": 2
+          },
+          "resolverApi": {
+            "appId": "00000000-0000-4000-8000-000000100003"
+          },
+          "developerSignIn": {
+            "appId": "00000000-0000-4000-8000-000000100002"
+          }
+        },
+        "azureCliClientAllowed": true
+      },
+      "completedAt": "2026-10-26T19:13:57.9213133Z",
+      "dependencyHashes": {
+        "1": "03cd6bf55a018316e12bbcae088cf61fefc352ddd218b1642fc2c7b86b56c6c0"
+      },
+      "configHash": "eb99e6e68f32430fce0ef381c31e59b1bf614d5b736472b9b9d95aa61c35722d"
+    },
+    "5": {
+      "completedAt": "2026-10-26T19:16:09.8537584Z",
+      "outputs": {
+        "verify": {
+          "settings": {
+            "admin": [
+              "ADMIN_ALLOWED_CLIENT_IDS",
+              "ADMIN_AUDIENCE",
+              "ADMIN_BACKENDS",
+              "ADMIN_CHARGEBACK_HISTORY_CONTAINER",
+              "ADMIN_CLIENT_ID",
+              "ADMIN_CONFIG_CONTAINER",
+              "ADMIN_EDITOR_IDS",
+              "ADMIN_GATEWAY_RESOURCE_ID",
+              "ADMIN_GATEWAY_URL",
+              "ADMIN_GROUP_SEARCH_ENABLED",
+              "ADMIN_LOG_RESOURCE_IDS",
+              "ADMIN_LOG_RETENTION_DAYS",
+              "ADMIN_PROJECT_HEADER",
+              "ADMIN_PROJECTS_CONTAINER",
+              "ADMIN_READER_IDS",
+              "ADMIN_RECONCILER_INTERVAL_MINUTES",
+              "ADMIN_RECONCILER_RESOURCE_ID",
+              "ADMIN_SCOPE",
+              "ADMIN_TENANT_ID",
+              "ADMIN_UI_CLIENT_ID",
+              "ADMIN_UI_SCOPE",
+              "ADMIN_USER_NAMES_ENABLED",
+              "ADMIN_V3_ENABLED",
+              "ADMIN_WORKSPACE_ID",
+              "APPLICATIONINSIGHTS_AUTHENTICATION_STRING",
+              "APPLICATIONINSIGHTS_CONNECTION_STRING",
+              "AzureWebJobsStorage__accountName",
+              "AzureWebJobsStorage__credential",
+              "COSMOS_DATABASE",
+              "COSMOS_ENDPOINT"
+            ],
+            "reconciler": [
+              "AzureWebJobs.reconcileBudgets.Disabled",
+              "AzureWebJobsStorage__accountName",
+              "AzureWebJobsStorage__clientId",
+              "AzureWebJobsStorage__credential",
+              "CCOF_APP_ROLE",
+              "COSMOS_DATABASE",
+              "COSMOS_ENDPOINT",
+              "RECONCILER_AGGREGATE_STATE_CONTAINER",
+              "RECONCILER_BUDGET_STATE_CONTAINER",
+              "RECONCILER_BUDGET_WARN_PERCENT",
+              "RECONCILER_ENTITLEMENT_CONTAINER",
+              "RECONCILER_HISTORY_CLOSE_AFTER_DAYS",
+              "RECONCILER_HISTORY_CONTAINER",
+              "RECONCILER_LEASE_CONTAINER",
+              "RECONCILER_LEASE_SECONDS",
+              "RECONCILER_LEDGER_GATEWAY_RESOURCE_ID",
+              "RECONCILER_LEDGER_MAX_ROWS",
+              "RECONCILER_LEDGER_TIMEOUT_SECONDS",
+              "RECONCILER_LOG_ANALYTICS_ENDPOINT",
+              "RECONCILER_LOG_ANALYTICS_WORKSPACE_ID",
+              "RECONCILER_MANAGED_IDENTITY_CLIENT_ID",
+              "RECONCILER_MAX_STATES",
+              "RECONCILER_OVERSHOOT_PERCENT",
+              "RECONCILER_PROJECTION_MINUTES",
+              "RECONCILER_PROJECTS_CONTAINER",
+              "RECONCILER_SCHEDULE",
+              "RECONCILER_VALIDITY_SECONDS",
+              "RECONCILER_WRITE_CONCURRENCY"
+            ],
+            "resolver": [
+              "APPLICATIONINSIGHTS_AUTHENTICATION_STRING",
+              "APPLICATIONINSIGHTS_CONNECTION_STRING",
+              "AzureWebJobsStorage__accountName",
+              "AzureWebJobsStorage__credential",
+              "CCOF_APP_ROLE",
+              "COSMOS_DATABASE",
+              "COSMOS_ENDPOINT",
+              "COSMOS_PREFERRED_REGIONS",
+              "RESOLVER_BUDGET_ENFORCEMENT",
+              "RESOLVER_COSMOS_REQUEST_TIMEOUT_MS",
+              "RESOLVER_COSMOS_RETRY_ATTEMPTS",
+              "RESOLVER_COSMOS_RETRY_MAX_WAIT_SECONDS",
+              "RESOLVER_REQUEST_DEADLINE_MS",
+              "RESOLVER_REQUIRE_COMPLETE_USAGE",
+              "RESOLVER_USAGE_GROUP_TOTALS"
+            ],
+            "sync": [
+              "APPLICATIONINSIGHTS_AUTHENTICATION_STRING",
+              "APPLICATIONINSIGHTS_CONNECTION_STRING",
+              "AzureWebJobs.registrySeed.Disabled",
+              "AzureWebJobs.snapshotApply.Disabled",
+              "AzureWebJobs.syncEntitlement.Disabled",
+              "AzureWebJobsStorage__accountName",
+              "AzureWebJobsStorage__clientId",
+              "AzureWebJobsStorage__credential",
+              "CCOF_APP_ROLE",
+              "COSMOS_DATABASE",
+              "COSMOS_ENDPOINT",
+              "SYNC_ENTITLEMENT_CONTAINER",
+              "SYNC_GRAPH_MAX_RETRIES",
+              "SYNC_GRAPH_MAX_RETRY_AFTER_SECONDS",
+              "SYNC_GRAPH_TIMEOUT_SECONDS",
+              "SYNC_LEASE_CONTAINER",
+              "SYNC_LEASE_SECONDS",
+              "SYNC_LIMITS_CONTAINER",
+              "SYNC_MANAGED_IDENTITY_CLIENT_ID",
+              "SYNC_MAX_REMOVAL_FRACTION",
+              "SYNC_MAX_REMOVALS_PER_RUN",
+              "SYNC_MEMBER_TYPES",
+              "SYNC_PROJECTS_CONTAINER",
+              "SYNC_SCHEDULE",
+              "SYNC_TENANT_ID",
+              "SYNC_WRITE_MODE"
+            ]
+          },
+          "resolverAuth": {
+            "allowedApplications": [
+              "00000000-0000-4000-8000-000000100020"
+            ],
+            "enabled": true
+          },
+          "api": {
+            "policySha256": "d2269260244038100fd60b1b40458af31b844e2c907e3230d120d6323bf8189c",
+            "path": "anthropic",
+            "id": "claude-messages"
+          },
+          "usageOperation": {
+            "policySha256": "001e1f99895f35ef6d0ddd21b2ef981dfdcfc6654f98cc703736fc608ba76972",
+            "method": "GET",
+            "deployedPolicyChecked": true,
+            "urlTemplate": "/ccof/me/usage"
+          },
+          "timers": {
+            "sync": false,
+            "reconciler": true
+          },
+          "audit": {
+            "enabled": true,
+            "account": "fakename30",
+            "location": "Central India",
+            "network": "public-disabled",
+            "retentionDays": 2555,
+            "immutabilityDays": null,
+            "diagnosticSetting": "ccof-gateway-archive",
+            "workspaceRetentionDays": null
+          },
+          "logRetention": {
+            "days": 30,
+            "heldFrom": null
+          }
+        },
+        "durationSeconds": 119,
+        "gatewayUrl": "https://fake-name-18.azure-api.net/anthropic",
+        "settingsWritten": [
+          "resolver",
+          "sync",
+          "reconciler",
+          "resolver-auth",
+          "admin"
+        ],
+        "apimIdentityAppId": "00000000-0000-4000-8000-000000100020",
+        "workbookDeployed": true
+      },
+      "configHash": "49f5ec8d46f096436c17a5db9aa615367c5ea44a35f7b5f0e865a24e14c6fbe0",
+      "dependencyHashes": {
+        "1": "03cd6bf55a018316e12bbcae088cf61fefc352ddd218b1642fc2c7b86b56c6c0",
+        "3": "d9c7a7d44f1c64001c483ad01f709163cf0c3cc2a985d7de9785f4c8ed483822",
+        "4": "8c1142d12d238b4fbe3012c7d09b16a50002b4cf3efc71bb7796f94272be5fdb"
+      }
+    },
+    "6": {
+      "dependencyHashes": {
+        "1": "03cd6bf55a018316e12bbcae088cf61fefc352ddd218b1642fc2c7b86b56c6c0"
+      },
+      "completedAt": "2026-10-26T19:18:39.6447622Z",
+      "outputs": {
+        "foundryPrivateDnsZoneIds": [
+          "/subscriptions/00000000-0000-4000-8000-000000100004/resourceGroups/fake-rg-01/providers/Microsoft.Network/privateDnsZones/privatelink.cognitiveservices.azure.com",
+          "/subscriptions/00000000-0000-4000-8000-000000100004/resourceGroups/fake-rg-01/providers/Microsoft.Network/privateDnsZones/privatelink.openai.azure.com",
+          "/subscriptions/00000000-0000-4000-8000-000000100004/resourceGroups/fake-rg-01/providers/Microsoft.Network/privateDnsZones/privatelink.services.ai.azure.com"
+        ],
+        "foundryPrivateEndpointIds": [
+          "/subscriptions/00000000-0000-4000-8000-000000100004/resourceGroups/fake-rg-01/providers/Microsoft.Network/privateEndpoints/fake-name-19"
+        ],
+        "vnetId": "/subscriptions/00000000-0000-4000-8000-000000100004/resourceGroups/fake-rg-01/providers/Microsoft.Network/virtualNetworks/fake-name-08",
+        "apimSubnetId": "/subscriptions/00000000-0000-4000-8000-000000100004/resourceGroups/fake-rg-01/providers/Microsoft.Network/virtualNetworks/fake-name-08/subnets/snet-apim",
+        "functionApps": [
+          "fake-name-01",
+          "fake-name-02",
+          "fake-name-03",
+          "fake-name-04"
+        ],
+        "storagePrivateEndpointIds": [
+          "/subscriptions/00000000-0000-4000-8000-000000100004/resourceGroups/fake-rg-01/providers/Microsoft.Network/privateEndpoints/fake-name-20",
+          "/subscriptions/00000000-0000-4000-8000-000000100004/resourceGroups/fake-rg-01/providers/Microsoft.Network/privateEndpoints/fake-name-21",
+          "/subscriptions/00000000-0000-4000-8000-000000100004/resourceGroups/fake-rg-01/providers/Microsoft.Network/privateEndpoints/fake-name-22",
+          "/subscriptions/00000000-0000-4000-8000-000000100004/resourceGroups/fake-rg-01/providers/Microsoft.Network/privateEndpoints/fake-name-23"
+        ],
+        "functionsSubnetId": "/subscriptions/00000000-0000-4000-8000-000000100004/resourceGroups/fake-rg-01/providers/Microsoft.Network/virtualNetworks/fake-name-08/subnets/snet-functions",
+        "privateEndpointSubnetId": "/subscriptions/00000000-0000-4000-8000-000000100004/resourceGroups/fake-rg-01/providers/Microsoft.Network/virtualNetworks/fake-name-08/subnets/snet-private-endpoints",
+        "cosmosPrivateEndpointId": "/subscriptions/00000000-0000-4000-8000-000000100004/resourceGroups/fake-rg-01/providers/Microsoft.Network/privateEndpoints/fake-name-24",
+        "privateDnsZoneIds": {
+          "blob": "/subscriptions/00000000-0000-4000-8000-000000100004/resourceGroups/fake-rg-01/providers/Microsoft.Network/privateDnsZones/privatelink.blob.core.windows.net",
+          "cosmos": "/subscriptions/00000000-0000-4000-8000-000000100004/resourceGroups/fake-rg-01/providers/Microsoft.Network/privateDnsZones/privatelink.documents.azure.com"
+        },
+        "verify": {
+          "privateEndpoints": [
+            {
+              "name": "fake-name-20",
+              "connection": "Approved",
+              "dns": [
+                "fakename26.privatelink.blob.core.windows.net=10.64.2.12"
+              ]
+            },
+            {
+              "name": "fake-name-21",
+              "connection": "Approved",
+              "dns": [
+                "fakename27.privatelink.blob.core.windows.net=10.64.2.8"
+              ]
+            },
+            {
+              "name": "fake-name-22",
+              "connection": "Approved",
+              "dns": [
+                "fakename28.privatelink.blob.core.windows.net=10.64.2.9"
+              ]
+            },
+            {
+              "name": "fake-name-23",
+              "connection": "Approved",
+              "dns": [
+                "fakename29.privatelink.blob.core.windows.net=10.64.2.4"
+              ]
+            },
+            {
+              "name": "fake-name-24",
+              "connection": "Approved",
+              "dns": [
+                "fake-name-17.privatelink.documents.azure.com=10.64.2.10",
+                "fake-name-41.privatelink.documents.azure.com=10.64.2.11"
+              ]
+            },
+            {
+              "name": "fake-name-19",
+              "connection": "Approved",
+              "dns": [
+                "fake-name-05.privatelink.cognitiveservices.azure.com=10.64.2.5",
+                "fake-name-05.privatelink.openai.azure.com=10.64.2.6",
+                "fake-name-05.privatelink.services.ai.azure.com=10.64.2.7"
+              ]
+            }
+          ],
+          "privateDnsLinks": [
+            {
+              "zoneId": "/subscriptions/00000000-0000-4000-8000-000000100004/resourceGroups/fake-rg-01/providers/Microsoft.Network/privateDnsZones/privatelink.documents.azure.com",
+              "vnetId": "/subscriptions/00000000-0000-4000-8000-000000100004/resourceGroups/fake-rg-01/providers/Microsoft.Network/virtualNetworks/fake-name-08",
+              "linkCount": 1
+            },
+            {
+              "zoneId": "/subscriptions/00000000-0000-4000-8000-000000100004/resourceGroups/fake-rg-01/providers/Microsoft.Network/privateDnsZones/privatelink.blob.core.windows.net",
+              "vnetId": "/subscriptions/00000000-0000-4000-8000-000000100004/resourceGroups/fake-rg-01/providers/Microsoft.Network/virtualNetworks/fake-name-08",
+              "linkCount": 1
+            },
+            {
+              "zoneId": "/subscriptions/00000000-0000-4000-8000-000000100004/resourceGroups/fake-rg-01/providers/Microsoft.Network/privateDnsZones/privatelink.cognitiveservices.azure.com",
+              "vnetId": "/subscriptions/00000000-0000-4000-8000-000000100004/resourceGroups/fake-rg-01/providers/Microsoft.Network/virtualNetworks/fake-name-08",
+              "linkCount": 1
+            },
+            {
+              "zoneId": "/subscriptions/00000000-0000-4000-8000-000000100004/resourceGroups/fake-rg-01/providers/Microsoft.Network/privateDnsZones/privatelink.openai.azure.com",
+              "vnetId": "/subscriptions/00000000-0000-4000-8000-000000100004/resourceGroups/fake-rg-01/providers/Microsoft.Network/virtualNetworks/fake-name-08",
+              "linkCount": 1
+            },
+            {
+              "zoneId": "/subscriptions/00000000-0000-4000-8000-000000100004/resourceGroups/fake-rg-01/providers/Microsoft.Network/privateDnsZones/privatelink.services.ai.azure.com",
+              "vnetId": "/subscriptions/00000000-0000-4000-8000-000000100004/resourceGroups/fake-rg-01/providers/Microsoft.Network/virtualNetworks/fake-name-08",
+              "linkCount": 1
+            }
+          ],
+          "apps": [
+            {
+              "app": "admin",
+              "subnet": "snet-functions"
+            },
+            {
+              "app": "reconciler",
+              "subnet": "snet-functions"
+            },
+            {
+              "app": "resolver",
+              "subnet": "snet-functions"
+            },
+            {
+              "app": "sync",
+              "subnet": "snet-functions"
+            }
+          ],
+          "apim": {
+            "name": "fake-name-18",
+            "sku": "StandardV2",
+            "virtualNetworkType": "External",
+            "subnet": "snet-apim",
+            "publicNetworkAccess": "Enabled",
+            "identityUnchanged": true
+          }
+        },
+        "durationSeconds": 141
+      },
+      "configHash": "b440a0b99798b1452fd3c5c042a1dd1b8457d20f2ebf25b22130c5a1397c6157"
+    },
+    "7": {
+      "outputs": {
+        "code": {
+          "deployed": [
+            "resolver",
+            "sync",
+            "reconciler"
+          ],
+          "functions": {
+            "resolver": [
+              "health",
+              "myUsage",
+              "resolve"
+            ],
+            "sync": [
+              "syncEntitlement"
+            ],
+            "reconciler": [
+              "reconcileBudgets"
+            ]
+          },
+          "digests": {
+            "resolver": "64718d1bec90cb33f93b81baac4f2161f2becd10a7a6bc1c4261a2e823aa23b1",
+            "sync": "04f033a620c6b85f214f4236394b3b4d839ac7d6c52205964871f45449bf0e22",
+            "reconciler": "7253090c331ce7e4c72f20457501fe4f70df101c1b9ea7f8688929a96f8937be"
+          }
+        },
+        "durationSeconds": 1223,
+        "admin": {
+          "functions": [
+            "adminHealth",
+            "adminHome",
+            "adminUi",
+            "adminUiV3",
+            "adminV2",
+            "adminV3",
+            "classificationPolicy",
+            "group",
+            "groupAction",
+            "groupDirectoryMembers",
+            "groups",
+            "project",
+            "projectRetire",
+            "projects",
+            "projectSettings",
+            "userTagPeople",
+            "userTagPerson",
+            "userTags",
+            "userTagSettings"
+          ],
+          "sha256": "bd1b047df40dbabe047d2083f44c986a37e9330b07060b4f8d6c0ac4a73ffd8b"
+        },
+        "snapshot": {
+          "groups": [
+            "group/Fake Name 13"
+          ],
+          "sha256": "d951c2e2610b3011c6de168cb101b3fff8695590f7ebfa8d78d42c59649b92fa"
+        },
+        "seed": {
+          "mechanism": "registrySeed",
+          "documents": [
+            "backends/fake-name-06: present-equal",
+            "projects/00000000-0000-4000-8000-000000100015: present-equal"
+          ],
+          "kept": [],
+          "seedId": "1d90cc40949a4022bffe16a3d0f96dcb"
+        },
+        "client": {
+          "onboardingJson": "C:\\Users\\fakeuser01\\ccof-private\\.staged-state\\generated\\onboarding.json",
+          "clientConfig": "C:\\Users\\fakeuser01\\ccof-private\\.staged-state\\generated\\client-config.json"
+        }
+      },
+      "configHash": "01dcea1bf5035a27726bd4e07a3492e6dad6d3703335c182c3e28f21e078632a",
+      "dependencyHashes": {
+        "1": "03cd6bf55a018316e12bbcae088cf61fefc352ddd218b1642fc2c7b86b56c6c0",
+        "4": "ff8b496f6c66c021c373f5b4bdd7ab29c0e1f0baa934779ce824d23cd54bbf17",
+        "5": "d3be5e1b92cce1f998905f420385bc06cdb4479b384dbbe8f8a9a7deccfc3313",
+        "6": "058d478d9236ab3214be7862414ab93143e5855154b6a4b2048853e3d45c2c8f"
+      },
+      "completedAt": "2026-10-26T18:20:01.4339723Z"
+    }
+  },
+  "stageLayout": 2,
+  "target": {
+    "tenantId": "00000000-0000-4000-8000-000000100001",
+    "subscriptionId": "00000000-0000-4000-8000-000000100004",
+    "resourceGroup": "fake-rg-01"
+  }
+}

@@ -12,6 +12,10 @@ pwsh -File harness/customer/Collect-CustomerFixture.ps1 -DeployedCommit <sha the
 ```
 
 - `-StateDirectory <dir>`: the folder holding `state.json`. It defaults to `.staged-state` next to the config.
+- Discovery mode, when the staged config is not on your machine: instead of `-ConfigPath`, pass
+  `-ResourceGroup <rg> -SubscriptionId <id>` (and `-ApiId <id>` if the API is not `claude-messages`). The collector
+  finds the single API Management instance in the group and collects everything except the config, the state and
+  `freshness.json`; `manifest.json` records `"stagedConfig": false`.
 - `-IncludeCosmos`: also read a few documents from `entitlement`, `budgetState` and `projects`. A Cosmos account
   behind a private endpoint is not reachable from outside the VNet; the collector then skips the samples and says so
   in `manifest.json`.
@@ -28,10 +32,12 @@ hashes, so the P4 replay uses this file.
 node harness/pseudonymize-fixture.mjs --from .env.customer-fixture/<collection folder>
 ```
 
-This replaces tenant, subscription, object and group IDs, resource and display names, emails, hostnames and config
-hashes with stable fake values, consistently across files, and writes `tests/fixtures/customer/`. The mapping
+This replaces tenant, subscription, object and group IDs, resource, app, backend, subscription and display names, emails and guest UPNs, user-profile paths,
+hostnames and config hashes with stable fake values, consistently across file contents and file names, and writes
+`tests/fixtures/customer/`. The mapping
 from original to fake values stays in `.env.customer-fixture/pseudonym-map.json` (gitignored), so a later
-collection gets the same fakes. It writes nothing if any original value would remain, or if a GUID, hostname, email,
+collection gets the same fakes. It writes nothing if any original value would remain, if a generated part of a known
+name (such as the deployment's unique suffix) survives in a name it did not recognise, or if a GUID, hostname, email,
 JWT or secret marker that is not on the allow-list would be left.
 
 ## 3. Review and test

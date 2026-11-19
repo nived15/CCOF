@@ -1,0 +1,60 @@
+[
+  {
+    "stage": 0,
+    "configFresh": false,
+    "dependenciesFresh": {}
+  },
+  {
+    "stage": 1,
+    "configFresh": true,
+    "dependenciesFresh": {}
+  },
+  {
+    "stage": 2,
+    "configFresh": true,
+    "dependenciesFresh": {
+      "1": true
+    }
+  },
+  {
+    "stage": 3,
+    "configFresh": true,
+    "dependenciesFresh": {
+      "1": true,
+      "2": true
+    }
+  },
+  {
+    "stage": 4,
+    "configFresh": true,
+    "dependenciesFresh": {
+      "1": true
+    }
+  },
+  {
+    "stage": 5,
+    "configFresh": true,
+    "dependenciesFresh": {
+      "1": true,
+      "3": true,
+      "4": true
+    }
+  },
+  {
+    "stage": 6,
+    "configFresh": true,
+    "dependenciesFresh": {
+      "1": true
+    }
+  },
+  {
+    "stage": 7,
+    "configFresh": false,
+    "dependenciesFresh": {
+      "1": true,
+      "4": false,
+      "5": true,
+      "6": true
+    }
+  }
+]

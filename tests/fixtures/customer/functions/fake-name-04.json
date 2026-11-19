@@ -1,0 +1,38 @@
+{
+  "app": "fake-name-04",
+  "functions": [
+    {
+      "name": "syncEntitlement",
+      "disabled": true,
+      "trigger": "timerTrigger"
+    }
+  ],
+  "appSettingNames": [
+    "APPLICATIONINSIGHTS_AUTHENTICATION_STRING",
+    "APPLICATIONINSIGHTS_CONNECTION_STRING",
+    "AzureWebJobs.registrySeed.Disabled",
+    "AzureWebJobs.snapshotApply.Disabled",
+    "AzureWebJobs.syncEntitlement.Disabled",
+    "AzureWebJobsStorage__accountName",
+    "AzureWebJobsStorage__clientId",
+    "AzureWebJobsStorage__credential",
+    "CCOF_APP_ROLE",
+    "COSMOS_DATABASE",
+    "COSMOS_ENDPOINT",
+    "SYNC_ENTITLEMENT_CONTAINER",
+    "SYNC_GRAPH_MAX_RETRIES",
+    "SYNC_GRAPH_MAX_RETRY_AFTER_SECONDS",
+    "SYNC_GRAPH_TIMEOUT_SECONDS",
+    "SYNC_LEASE_CONTAINER",
+    "SYNC_LEASE_SECONDS",
+    "SYNC_LIMITS_CONTAINER",
+    "SYNC_MANAGED_IDENTITY_CLIENT_ID",
+    "SYNC_MAX_REMOVAL_FRACTION",
+    "SYNC_MAX_REMOVALS_PER_RUN",
+    "SYNC_MEMBER_TYPES",
+    "SYNC_PROJECTS_CONTAINER",
+    "SYNC_SCHEDULE",
+    "SYNC_TENANT_ID",
+    "SYNC_WRITE_MODE"
+  ]
+}
