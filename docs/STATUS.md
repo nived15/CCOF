@@ -1,8 +1,19 @@
 # Current work
 
+## Harness P3: customer fixture (2026-11-19)
+
+**Active packet:** P3 of `docs/harness/BUILD-PLAN.md` on `harness/p3`. No runtime change.
+
+- Tooling, synthetic Cosmos documents and tests are done: `tests/harness-fixture-clean.test.ts` 7/7 and
+  `tests/Test-HarnessCollector.ps1` 24/24. Run in memory on the live gateway policy XML, the pseudonymizer took
+  32 leak findings to 0.
+- Waiting for the human: run the collector and pseudonymizer (`docs/harness/CUSTOMER-FIXTURE.md`), then read every
+  file in `tests/fixtures/customer/` before it is committed. The live Cosmos account is private, so the synthetic
+  documents stay.
+
 ## Harness P2: risk tiers and change classifier (2026-11-19)
 
-**Active packet:** P2 of `docs/harness/BUILD-PLAN.md` on `harness/p2`. No runtime change.
+**Done:** merged in #4.
 
 - All 1,169 tracked files match exactly one rule: T0 531, T1 291, T2 93, T3 254. `tests/harness-tiers.test.ts`: 8/8;
   an overlapping rule, a file left without a rule and lowest-instead-of-highest tier were each caught.

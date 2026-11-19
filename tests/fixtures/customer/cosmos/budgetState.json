@@ -1,0 +1,25 @@
+{
+  "synthetic": true,
+  "container": "budgetState",
+  "partitionKey": "/personId",
+  "type": "BudgetStateDocument (src/reconciler/documents.ts)",
+  "note": "Synthetic: Cosmos was not reachable from the collecting machine (private endpoint), so these documents are built from the TypeScript types and the shared test helpers, not copied from the customer.",
+  "documents": [
+    {
+      "id": "00000000-0000-4000-8000-000000900002:00000000-0000-4000-8000-000000900001",
+      "personId": "00000000-0000-4000-8000-000000900002",
+      "projectId": "00000000-0000-4000-8000-000000900001",
+      "classification": "group",
+      "spentCcu": "1250.00",
+      "budgetCcu": "25000",
+      "exhausted": false,
+      "period": "2026-11",
+      "rateCardVersion": "2026-10-01",
+      "contractScheduleVersion": "2026-10-01",
+      "computedAt": "2026-11-18T12:00:00Z",
+      "validUntil": "2026-11-18T12:10:00Z",
+      "completeness": "complete",
+      "realtimeCeilingTokensPerMinute": 200000
+    }
+  ]
+}
