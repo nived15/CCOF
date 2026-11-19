@@ -10,7 +10,7 @@ const root = path.resolve(import.meta.dirname, "..");
 const read = (p: string) => readFileSync(path.join(root, p), "utf8");
 
 // Lower this when a gap closes. Raising it needs the explicit approval rule 4 of the instructions file asks for.
-const KNOWN_GAPS_CEILING = 8;
+const KNOWN_GAPS_CEILING = 3;
 
 type Invariant = {
   id: string; category: string; statement: string; status: string;

@@ -1,0 +1,14 @@
+{
+  "deployedCommit": "9faa1fc",
+  "note": "state.sealed.json: state.json with the hashes of stages fresh at collection recomputed by the deployed commit's driver. Regenerate with harness/customer/Seal-FixtureState.ps1.",
+  "expected": {
+    "0": "stale",
+    "1": "fresh",
+    "2": "fresh",
+    "3": "fresh",
+    "4": "fresh",
+    "5": "fresh",
+    "6": "fresh",
+    "7": "stale"
+  }
+}

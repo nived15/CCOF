@@ -1,8 +1,21 @@
 # Current work
 
+## Harness P4: golden contracts (2026-11-19)
+
+**Active packet:** P4 of `docs/harness/BUILD-PLAN.md` on `harness/p4`. No runtime change.
+
+- Six golden tests (policy, Bicep inventory, runtime names, admin API, rate card, customer replay); each failed on a
+  deliberate change of its kind (`docs/harness/GOLDEN.md`). The customer replay passes against the deployed commit
+  `9faa1fc`: the current driver keeps stages 1-6 fresh.
+- `knownGaps` 8 → 3: DEP-06 (non-current revision not asserted), CLI-01, DOC-01. Next: P5 (version skew).
+- Environment issue K-7 (not this branch; also on `main`): with VS Code open on this machine, `tests/Test-ConfigImport.ps1`
+  hangs because the client inventory's `Code.exe --list-extensions` never exits under the test's redirected profile, and
+  its open pipes outlast the child timeout. Full suite run without that one suite: Node 1387/1393 (6 live skips);
+  PowerShell all pass except K-5 (`Test-QuickstartSeed.ps1`).
+
 ## Harness P3: customer fixture (2026-11-19)
 
-**Active packet:** P3 of `docs/harness/BUILD-PLAN.md` on `harness/p3`. No runtime change.
+**Done:** merged in #5 and #6.
 
 - Tooling, synthetic Cosmos documents and tests are done: `tests/harness-fixture-clean.test.ts` 7/7 and
   `tests/Test-HarnessCollector.ps1` 24/24. Run in memory on the live gateway policy XML, the pseudonymizer took

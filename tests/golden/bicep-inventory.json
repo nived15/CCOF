@@ -1,0 +1,846 @@
+{
+  "infra/staged/apim-service.bicep :: Microsoft.ApiManagement/service [parameters('name')]": {
+    "type": "Microsoft.ApiManagement/service",
+    "name": "[parameters('name')]",
+    "apiVersion": "2025-03-01-preview",
+    "createOnly": {
+      "sku.name": "[parameters('sku')]"
+    }
+  },
+  "infra/staged/apim-service.bicep :: Microsoft.Insights/diagnosticSettings ccof-gateway-logs": {
+    "type": "Microsoft.Insights/diagnosticSettings",
+    "name": "ccof-gateway-logs",
+    "apiVersion": "2021-05-01-preview",
+    "createOnly": {}
+  },
+  "infra/staged/foundry-account.bicep :: Microsoft.CognitiveServices/accounts [parameters('name')]": {
+    "type": "Microsoft.CognitiveServices/accounts",
+    "name": "[parameters('name')]",
+    "apiVersion": "2025-06-01",
+    "createOnly": {
+      "kind": "AIServices",
+      "properties.customSubDomainName": "[parameters('name')]"
+    }
+  },
+  "infra/staged/foundry-account.bicep :: Microsoft.CognitiveServices/accounts/deployments [format('{0}/{1}', parameters('name'), parameters('deployments')[copyIndex()].name)]": {
+    "type": "Microsoft.CognitiveServices/accounts/deployments",
+    "name": "[format('{0}/{1}', parameters('name'), parameters('deployments')[copyIndex()].name)]",
+    "apiVersion": "2025-10-01-preview",
+    "createOnly": {}
+  },
+  "infra/staged/function-service.bicep :: Microsoft.Insights/components [format('{0}-ai', parameters('functionAppName'))]": {
+    "type": "Microsoft.Insights/components",
+    "name": "[format('{0}-ai', parameters('functionAppName'))]",
+    "apiVersion": "2020-02-02",
+    "createOnly": {
+      "kind": "web",
+      "properties.Application_Type": "web"
+    }
+  },
+  "infra/staged/function-service.bicep :: Microsoft.Insights/diagnosticSettings ccof-function-logs": {
+    "type": "Microsoft.Insights/diagnosticSettings",
+    "name": "ccof-function-logs",
+    "apiVersion": "2021-05-01-preview",
+    "createOnly": {}
+  },
+  "infra/staged/function-service.bicep :: Microsoft.Storage/storageAccounts [parameters('storageAccountName')]": {
+    "type": "Microsoft.Storage/storageAccounts",
+    "name": "[parameters('storageAccountName')]",
+    "apiVersion": "2024-01-01",
+    "createOnly": {
+      "kind": "StorageV2"
+    }
+  },
+  "infra/staged/function-service.bicep :: Microsoft.Storage/storageAccounts/blobServices [format('{0}/{1}', parameters('storageAccountName'), 'default')]": {
+    "type": "Microsoft.Storage/storageAccounts/blobServices",
+    "name": "[format('{0}/{1}', parameters('storageAccountName'), 'default')]",
+    "apiVersion": "2024-01-01",
+    "createOnly": {}
+  },
+  "infra/staged/function-service.bicep :: Microsoft.Storage/storageAccounts/blobServices/containers [format('{0}/{1}/{2}', parameters('storageAccountName'), 'default', variables('deploymentContainerName'))]": {
+    "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+    "name": "[format('{0}/{1}/{2}', parameters('storageAccountName'), 'default', variables('deploymentContainerName'))]",
+    "apiVersion": "2024-01-01",
+    "createOnly": {}
+  },
+  "infra/staged/function-service.bicep :: Microsoft.Web/serverfarms [format('{0}-plan', parameters('functionAppName'))]": {
+    "type": "Microsoft.Web/serverfarms",
+    "name": "[format('{0}-plan', parameters('functionAppName'))]",
+    "apiVersion": "2024-04-01",
+    "createOnly": {
+      "sku": {
+        "name": "FC1",
+        "tier": "FlexConsumption"
+      }
+    }
+  },
+  "infra/staged/function-service.bicep :: Microsoft.Web/sites [parameters('functionAppName')]": {
+    "type": "Microsoft.Web/sites",
+    "name": "[parameters('functionAppName')]",
+    "apiVersion": "2024-04-01",
+    "createOnly": {
+      "kind": "functionapp,linux"
+    }
+  },
+  "infra/staged/main.bicep :: [format('stage1-{0}', variables('apps')[copyIndex()].key)] :: Microsoft.Insights/components [format('{0}-ai', parameters('functionAppName'))]": {
+    "type": "Microsoft.Insights/components",
+    "name": "[format('{0}-ai', parameters('functionAppName'))]",
+    "apiVersion": "2020-02-02",
+    "createOnly": {
+      "kind": "web",
+      "properties.Application_Type": "web"
+    }
+  },
+  "infra/staged/main.bicep :: [format('stage1-{0}', variables('apps')[copyIndex()].key)] :: Microsoft.Insights/diagnosticSettings ccof-function-logs": {
+    "type": "Microsoft.Insights/diagnosticSettings",
+    "name": "ccof-function-logs",
+    "apiVersion": "2021-05-01-preview",
+    "createOnly": {}
+  },
+  "infra/staged/main.bicep :: [format('stage1-{0}', variables('apps')[copyIndex()].key)] :: Microsoft.Storage/storageAccounts [parameters('storageAccountName')]": {
+    "type": "Microsoft.Storage/storageAccounts",
+    "name": "[parameters('storageAccountName')]",
+    "apiVersion": "2024-01-01",
+    "createOnly": {
+      "kind": "StorageV2"
+    }
+  },
+  "infra/staged/main.bicep :: [format('stage1-{0}', variables('apps')[copyIndex()].key)] :: Microsoft.Storage/storageAccounts/blobServices [format('{0}/{1}', parameters('storageAccountName'), 'default')]": {
+    "type": "Microsoft.Storage/storageAccounts/blobServices",
+    "name": "[format('{0}/{1}', parameters('storageAccountName'), 'default')]",
+    "apiVersion": "2024-01-01",
+    "createOnly": {}
+  },
+  "infra/staged/main.bicep :: [format('stage1-{0}', variables('apps')[copyIndex()].key)] :: Microsoft.Storage/storageAccounts/blobServices/containers [format('{0}/{1}/{2}', parameters('storageAccountName'), 'default', variables('deploymentContainerName'))]": {
+    "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+    "name": "[format('{0}/{1}/{2}', parameters('storageAccountName'), 'default', variables('deploymentContainerName'))]",
+    "apiVersion": "2024-01-01",
+    "createOnly": {}
+  },
+  "infra/staged/main.bicep :: [format('stage1-{0}', variables('apps')[copyIndex()].key)] :: Microsoft.Web/serverfarms [format('{0}-plan', parameters('functionAppName'))]": {
+    "type": "Microsoft.Web/serverfarms",
+    "name": "[format('{0}-plan', parameters('functionAppName'))]",
+    "apiVersion": "2024-04-01",
+    "createOnly": {
+      "sku": {
+        "name": "FC1",
+        "tier": "FlexConsumption"
+      }
+    }
+  },
+  "infra/staged/main.bicep :: [format('stage1-{0}', variables('apps')[copyIndex()].key)] :: Microsoft.Web/sites [parameters('functionAppName')]": {
+    "type": "Microsoft.Web/sites",
+    "name": "[parameters('functionAppName')]",
+    "apiVersion": "2024-04-01",
+    "createOnly": {
+      "kind": "functionapp,linux"
+    }
+  },
+  "infra/staged/main.bicep :: Microsoft.DocumentDB/databaseAccounts [format('{0}-cosmos', variables('stem'))]": {
+    "type": "Microsoft.DocumentDB/databaseAccounts",
+    "name": "[format('{0}-cosmos', variables('stem'))]",
+    "apiVersion": "2024-11-15",
+    "createOnly": {
+      "kind": "GlobalDocumentDB",
+      "properties.databaseAccountOfferType": "Standard"
+    }
+  },
+  "infra/staged/main.bicep :: Microsoft.ManagedIdentity/userAssignedIdentities [format('{0}-reconciler-id', variables('stem'))]": {
+    "type": "Microsoft.ManagedIdentity/userAssignedIdentities",
+    "name": "[format('{0}-reconciler-id', variables('stem'))]",
+    "apiVersion": "2023-01-31",
+    "createOnly": {}
+  },
+  "infra/staged/main.bicep :: Microsoft.ManagedIdentity/userAssignedIdentities [format('{0}-sync-id', variables('stem'))]": {
+    "type": "Microsoft.ManagedIdentity/userAssignedIdentities",
+    "name": "[format('{0}-sync-id', variables('stem'))]",
+    "apiVersion": "2023-01-31",
+    "createOnly": {}
+  },
+  "infra/staged/main.bicep :: Microsoft.OperationalInsights/workspaces [format('{0}-law', variables('stem'))]": {
+    "type": "Microsoft.OperationalInsights/workspaces",
+    "name": "[format('{0}-law', variables('stem'))]",
+    "apiVersion": "2023-09-01",
+    "createOnly": {}
+  },
+  "infra/staged/main.bicep :: Microsoft.Resources/deployments [format('stage1-{0}', variables('apps')[copyIndex()].key)]": {
+    "type": "Microsoft.Resources/deployments",
+    "name": "[format('stage1-{0}', variables('apps')[copyIndex()].key)]",
+    "apiVersion": "2025-04-01",
+    "createOnly": {}
+  },
+  "infra/staged/main.bicep :: Microsoft.Resources/deployments stage1-apim": {
+    "type": "Microsoft.Resources/deployments",
+    "name": "stage1-apim",
+    "apiVersion": "2025-04-01",
+    "createOnly": {}
+  },
+  "infra/staged/main.bicep :: Microsoft.Resources/deployments stage1-foundry": {
+    "type": "Microsoft.Resources/deployments",
+    "name": "stage1-foundry",
+    "apiVersion": "2025-04-01",
+    "createOnly": {}
+  },
+  "infra/staged/main.bicep :: Microsoft.Resources/deployments stage1-foundry-failover": {
+    "type": "Microsoft.Resources/deployments",
+    "name": "stage1-foundry-failover",
+    "apiVersion": "2025-04-01",
+    "createOnly": {}
+  },
+  "infra/staged/main.bicep :: stage1-apim :: Microsoft.ApiManagement/service [parameters('name')]": {
+    "type": "Microsoft.ApiManagement/service",
+    "name": "[parameters('name')]",
+    "apiVersion": "2025-03-01-preview",
+    "createOnly": {
+      "sku.name": "[parameters('sku')]"
+    }
+  },
+  "infra/staged/main.bicep :: stage1-apim :: Microsoft.Insights/diagnosticSettings ccof-gateway-logs": {
+    "type": "Microsoft.Insights/diagnosticSettings",
+    "name": "ccof-gateway-logs",
+    "apiVersion": "2021-05-01-preview",
+    "createOnly": {}
+  },
+  "infra/staged/main.bicep :: stage1-foundry :: Microsoft.CognitiveServices/accounts [parameters('name')]": {
+    "type": "Microsoft.CognitiveServices/accounts",
+    "name": "[parameters('name')]",
+    "apiVersion": "2025-06-01",
+    "createOnly": {
+      "kind": "AIServices",
+      "properties.customSubDomainName": "[parameters('name')]"
+    }
+  },
+  "infra/staged/main.bicep :: stage1-foundry :: Microsoft.CognitiveServices/accounts/deployments [format('{0}/{1}', parameters('name'), parameters('deployments')[copyIndex()].name)]": {
+    "type": "Microsoft.CognitiveServices/accounts/deployments",
+    "name": "[format('{0}/{1}', parameters('name'), parameters('deployments')[copyIndex()].name)]",
+    "apiVersion": "2025-10-01-preview",
+    "createOnly": {}
+  },
+  "infra/staged/main.bicep :: stage1-foundry-failover :: Microsoft.CognitiveServices/accounts [parameters('name')]": {
+    "type": "Microsoft.CognitiveServices/accounts",
+    "name": "[parameters('name')]",
+    "apiVersion": "2025-06-01",
+    "createOnly": {
+      "kind": "AIServices",
+      "properties.customSubDomainName": "[parameters('name')]"
+    }
+  },
+  "infra/staged/main.bicep :: stage1-foundry-failover :: Microsoft.CognitiveServices/accounts/deployments [format('{0}/{1}', parameters('name'), parameters('deployments')[copyIndex()].name)]": {
+    "type": "Microsoft.CognitiveServices/accounts/deployments",
+    "name": "[format('{0}/{1}', parameters('name'), parameters('deployments')[copyIndex()].name)]",
+    "apiVersion": "2025-10-01-preview",
+    "createOnly": {}
+  },
+  "infra/staged/stage2-schema.bicep :: Microsoft.DocumentDB/databaseAccounts/sqlDatabases [format('{0}/{1}', parameters('names').cosmosAccount, parameters('databaseName'))]": {
+    "type": "Microsoft.DocumentDB/databaseAccounts/sqlDatabases",
+    "name": "[format('{0}/{1}', parameters('names').cosmosAccount, parameters('databaseName'))]",
+    "apiVersion": "2024-11-15",
+    "createOnly": {
+      "properties.resource.id": "[parameters('databaseName')]"
+    }
+  },
+  "infra/staged/stage2-schema.bicep :: Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers [format('{0}/{1}/{2}', parameters('names').cosmosAccount, parameters('databaseName'), variables('allContainers')[copyIndex()].name)]": {
+    "type": "Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers",
+    "name": "[format('{0}/{1}/{2}', parameters('names').cosmosAccount, parameters('databaseName'), variables('allContainers')[copyIndex()].name)]",
+    "apiVersion": "2024-11-15",
+    "createOnly": {
+      "properties.resource": "[union(createObject('id', variables('allContainers')[copyIndex()].name, 'partitionKey', createObject('paths', createArray(variables('allContainers')[copyIndex()].partitionKey), 'kind', 'Hash')), if(equals(variables('allContainers')[copyIndex()].name, 'chargebackDaily'), variables('historyResource'), createObject()))]",
+      "variables": {
+        "allContainers": "[concat(variables('cosmosContainers'), variables('adminContainers'), variables('historyContainers'))]",
+        "cosmosContainers": [
+          {
+            "name": "entitlement",
+            "partitionKey": "/personId"
+          },
+          {
+            "name": "projects",
+            "partitionKey": "/projectId"
+          },
+          {
+            "name": "subscriptionIndex",
+            "partitionKey": "/subscriptionId"
+          },
+          {
+            "name": "budgetState",
+            "partitionKey": "/personId"
+          },
+          {
+            "name": "aggregateBudgetState",
+            "partitionKey": "/scopeId"
+          },
+          {
+            "name": "syncLease",
+            "partitionKey": "/id"
+          },
+          {
+            "name": "reconcilerLease",
+            "partitionKey": "/id"
+          },
+          {
+            "name": "backends",
+            "partitionKey": "/backendId"
+          }
+        ],
+        "adminContainers": "[if(parameters('includeAdmin'), createArray(createObject('name', 'adminConfig', 'partitionKey', '/scopeId')), createArray())]",
+        "historyContainers": "[if(variables('historyEnabled'), createArray(createObject('name', 'chargebackDaily', 'partitionKey', '/month')), createArray())]",
+        "historyEnabled": "[coalesce(tryGet(parameters('chargebackHistory'), 'enabled'), false())]",
+        "historyResource": "[union(createObject('indexingPolicy', createObject('indexingMode', 'consistent', 'automatic', true(), 'includedPaths', createArray(createObject('path', '/day/?'), createObject('path', '/chargebackId/?'), createObject('path', '/projectId/?'), createObject('path', '/classification/?'), createObject('path', '/personId/?'), createObject('path', '/model/?')), 'excludedPaths', createArray(createObject('path', '/*')))), if(equals(variables('historyTtlDays'), null()), createObject(), createObject('defaultTtl', mul(variables('historyTtlDays'), 86400))))]",
+        "historyTtlDays": "[tryGet(parameters('chargebackHistory'), 'ttlDays')]"
+      }
+    }
+  },
+  "infra/staged/stage3-grants.bicep :: [format('{0}-stage3-foundry-{1}', parameters('names').deploymentPrefix, parameters('backends')[copyIndex()].id)] :: Microsoft.Authorization/roleAssignments [guid(resourceId('Microsoft.CognitiveServices/accounts', parameters('accountName')), parameters('apimResourceId'), variables('roleId'))]": {
+    "type": "Microsoft.Authorization/roleAssignments",
+    "name": "[guid(resourceId('Microsoft.CognitiveServices/accounts', parameters('accountName')), parameters('apimResourceId'), variables('roleId'))]",
+    "apiVersion": "2022-04-01",
+    "createOnly": {
+      "scope": "[resourceId('Microsoft.CognitiveServices/accounts', parameters('accountName'))]",
+      "properties.roleDefinitionId": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', variables('roleId'))]",
+      "properties.principalId": "[parameters('principalId')]",
+      "variables": {
+        "roleId": "a97b65f3-24c7-4388-baec-2e87135dc908"
+      }
+    }
+  },
+  "infra/staged/stage3-grants.bicep :: Microsoft.Authorization/roleAssignments [guid(resourceId('Microsoft.Insights/components', parameters('names').apps[variables('appKeys')[copyIndex()]].appInsights), variables('appKeys')[copyIndex()], variables('metricsPublisher'))]": {
+    "type": "Microsoft.Authorization/roleAssignments",
+    "name": "[guid(resourceId('Microsoft.Insights/components', parameters('names').apps[variables('appKeys')[copyIndex()]].appInsights), variables('appKeys')[copyIndex()], variables('metricsPublisher'))]",
+    "apiVersion": "2022-04-01",
+    "createOnly": {
+      "scope": "[resourceId('Microsoft.Insights/components', parameters('names').apps[variables('appKeys')[copyIndex()]].appInsights)]",
+      "properties.roleDefinitionId": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', variables('metricsPublisher'))]",
+      "properties.principalId": "[parameters('principals')[variables('appKeys')[copyIndex()]]]",
+      "variables": {
+        "appKeys": "[filter(map(items(parameters('names').apps), lambda('a', lambdaVariables('a').key)), lambda('k', not(empty(coalesce(tryGet(parameters('principals'), lambdaVariables('k')), '')))))]",
+        "metricsPublisher": "3913510d-42f4-4e42-8a64-420c390055eb"
+      }
+    }
+  },
+  "infra/staged/stage3-grants.bicep :: Microsoft.Authorization/roleAssignments [guid(resourceId('Microsoft.OperationalInsights/workspaces', parameters('names').logAnalyticsWorkspace), variables('workspaceReaders')[copyIndex()], variables('logReader'))]": {
+    "type": "Microsoft.Authorization/roleAssignments",
+    "name": "[guid(resourceId('Microsoft.OperationalInsights/workspaces', parameters('names').logAnalyticsWorkspace), variables('workspaceReaders')[copyIndex()], variables('logReader'))]",
+    "apiVersion": "2022-04-01",
+    "createOnly": {
+      "scope": "[resourceId('Microsoft.OperationalInsights/workspaces', parameters('names').logAnalyticsWorkspace)]",
+      "properties.roleDefinitionId": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', variables('logReader'))]",
+      "properties.principalId": "[parameters('principals')[variables('workspaceReaders')[copyIndex()]]]",
+      "variables": {
+        "logReader": "73c42c96-874c-492b-b04d-ab87d138a893",
+        "workspaceReaders": "[filter(createArray('reconciler', 'admin'), lambda('k', not(empty(coalesce(tryGet(parameters('principals'), lambdaVariables('k')), '')))))]"
+      }
+    }
+  },
+  "infra/staged/stage3-grants.bicep :: Microsoft.Authorization/roleAssignments [guid(resourceId('Microsoft.Storage/storageAccounts', parameters('names').apps[variables('appKeys')[copyIndex()]].storageAccount), variables('appKeys')[copyIndex()], variables('blobOwner'))]": {
+    "type": "Microsoft.Authorization/roleAssignments",
+    "name": "[guid(resourceId('Microsoft.Storage/storageAccounts', parameters('names').apps[variables('appKeys')[copyIndex()]].storageAccount), variables('appKeys')[copyIndex()], variables('blobOwner'))]",
+    "apiVersion": "2022-04-01",
+    "createOnly": {
+      "scope": "[resourceId('Microsoft.Storage/storageAccounts', parameters('names').apps[variables('appKeys')[copyIndex()]].storageAccount)]",
+      "properties.roleDefinitionId": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', variables('blobOwner'))]",
+      "properties.principalId": "[parameters('principals')[variables('appKeys')[copyIndex()]]]",
+      "variables": {
+        "appKeys": "[filter(map(items(parameters('names').apps), lambda('a', lambdaVariables('a').key)), lambda('k', not(empty(coalesce(tryGet(parameters('principals'), lambdaVariables('k')), '')))))]",
+        "blobOwner": "b7e6dc6d-f1e8-4753-8033-0f276bb0955b"
+      }
+    }
+  },
+  "infra/staged/stage3-grants.bicep :: Microsoft.DocumentDB/databaseAccounts/sqlRoleAssignments [format('{0}/{1}', parameters('names').cosmosAccount, guid(resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('names').cosmosAccount), 'ccof-staged', variables('activeAssignments')[copyIndex()].id))]": {
+    "type": "Microsoft.DocumentDB/databaseAccounts/sqlRoleAssignments",
+    "name": "[format('{0}/{1}', parameters('names').cosmosAccount, guid(resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('names').cosmosAccount), 'ccof-staged', variables('activeAssignments')[copyIndex()].id))]",
+    "apiVersion": "2024-11-15",
+    "createOnly": {
+      "properties.roleDefinitionId": "[if(startsWith(variables('activeAssignments')[copyIndex()].role, 'custom:'), format('{0}/sqlRoleDefinitions/{1}', resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('names').cosmosAccount), guid(resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('names').cosmosAccount), 'ccof-staged', substring(variables('activeAssignments')[copyIndex()].role, 7))), format('{0}/sqlRoleDefinitions/{1}', resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('names').cosmosAccount), variables('activeAssignments')[copyIndex()].role))]",
+      "properties.principalId": "[parameters('principals')[variables('activeAssignments')[copyIndex()].principal]]",
+      "properties.scope": "[if(empty(variables('activeAssignments')[copyIndex()].container), format('{0}/dbs/{1}', resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('names').cosmosAccount), parameters('databaseName')), format('{0}/dbs/{1}/colls/{2}', resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('names').cosmosAccount), parameters('databaseName'), variables('activeAssignments')[copyIndex()].container))]",
+      "variables": {
+        "activeAssignments": "[filter(variables('cosmosAssignments'), lambda('a', and(and(or(or(empty(lambdaVariables('a').when), equals(lambdaVariables('a').when, parameters('syncMode'))), and(equals(lambdaVariables('a').when, 'chargebackHistory'), parameters('chargebackHistoryEnabled'))), not(empty(coalesce(tryGet(parameters('principals'), lambdaVariables('a').principal), '')))), or(not(equals(lambdaVariables('a').container, 'adminConfig')), not(empty(coalesce(tryGet(parameters('principals'), 'admin'), '')))))))]",
+        "cosmosAssignments": [
+          {
+            "id": "resolver-cosmos-data-reader",
+            "principal": "resolver",
+            "role": "00000000-0000-0000-0000-000000000001",
+            "container": "",
+            "when": ""
+          },
+          {
+            "id": "sync-entitlement-writer",
+            "principal": "sync",
+            "role": "custom:syncEntitlementWriter",
+            "container": "entitlement",
+            "when": ""
+          },
+          {
+            "id": "sync-lease-writer",
+            "principal": "sync",
+            "role": "custom:syncEntitlementWriter",
+            "container": "syncLease",
+            "when": ""
+          },
+          {
+            "id": "sync-projects-reader",
+            "principal": "sync",
+            "role": "00000000-0000-0000-0000-000000000001",
+            "container": "projects",
+            "when": ""
+          },
+          {
+            "id": "reconciler-projects-reader",
+            "principal": "reconciler",
+            "role": "00000000-0000-0000-0000-000000000001",
+            "container": "projects",
+            "when": ""
+          },
+          {
+            "id": "reconciler-entitlement-reader",
+            "principal": "reconciler",
+            "role": "00000000-0000-0000-0000-000000000001",
+            "container": "entitlement",
+            "when": ""
+          },
+          {
+            "id": "reconciler-budget-state-writer",
+            "principal": "reconciler",
+            "role": "custom:reconcilerStateWriter",
+            "container": "budgetState",
+            "when": ""
+          },
+          {
+            "id": "reconciler-aggregate-state-writer",
+            "principal": "reconciler",
+            "role": "custom:reconcilerStateWriter",
+            "container": "aggregateBudgetState",
+            "when": ""
+          },
+          {
+            "id": "reconciler-lease-writer",
+            "principal": "reconciler",
+            "role": "custom:reconcilerStateWriter",
+            "container": "reconcilerLease",
+            "when": ""
+          },
+          {
+            "id": "qs-sync-projects-writer",
+            "principal": "sync",
+            "role": "custom:onbProjectWriter",
+            "container": "projects",
+            "when": ""
+          },
+          {
+            "id": "qs-sync-backends-writer",
+            "principal": "sync",
+            "role": "custom:onbProjectWriter",
+            "container": "backends",
+            "when": ""
+          },
+          {
+            "id": "admin-projects-editor",
+            "principal": "admin",
+            "role": "custom:adminProjectEditor",
+            "container": "projects",
+            "when": ""
+          },
+          {
+            "id": "admin-config-editor",
+            "principal": "admin",
+            "role": "custom:adminProjectEditor",
+            "container": "adminConfig",
+            "when": ""
+          },
+          {
+            "id": "sync-limits-reader",
+            "principal": "sync",
+            "role": "00000000-0000-0000-0000-000000000001",
+            "container": "adminConfig",
+            "when": ""
+          },
+          {
+            "id": "reconciler-history-writer",
+            "principal": "reconciler",
+            "role": "custom:reconcilerStateWriter",
+            "container": "chargebackDaily",
+            "when": "chargebackHistory"
+          },
+          {
+            "id": "reconciler-history-reader",
+            "principal": "reconciler",
+            "role": "00000000-0000-0000-0000-000000000001",
+            "container": "chargebackDaily",
+            "when": "chargebackHistory"
+          },
+          {
+            "id": "admin-history-reader",
+            "principal": "admin",
+            "role": "00000000-0000-0000-0000-000000000001",
+            "container": "chargebackDaily",
+            "when": "chargebackHistory"
+          }
+        ]
+      }
+    }
+  },
+  "infra/staged/stage3-grants.bicep :: Microsoft.DocumentDB/databaseAccounts/sqlRoleDefinitions [format('{0}/{1}', parameters('names').cosmosAccount, guid(resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('names').cosmosAccount), 'ccof-staged', variables('cosmosRoleDefinitions')[copyIndex()].key))]": {
+    "type": "Microsoft.DocumentDB/databaseAccounts/sqlRoleDefinitions",
+    "name": "[format('{0}/{1}', parameters('names').cosmosAccount, guid(resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('names').cosmosAccount), 'ccof-staged', variables('cosmosRoleDefinitions')[copyIndex()].key))]",
+    "apiVersion": "2024-11-15",
+    "createOnly": {}
+  },
+  "infra/staged/stage3-grants.bicep :: Microsoft.Resources/deployments [format('{0}-stage3-foundry-{1}', parameters('names').deploymentPrefix, parameters('backends')[copyIndex()].id)]": {
+    "type": "Microsoft.Resources/deployments",
+    "name": "[format('{0}-stage3-foundry-{1}', parameters('names').deploymentPrefix, parameters('backends')[copyIndex()].id)]",
+    "apiVersion": "2025-04-01",
+    "createOnly": {}
+  },
+  "infra/staged/stage5-api-telemetry.bicep :: Microsoft.ApiManagement/service/apis/diagnostics [format('{0}/{1}/{2}', parameters('apimName'), parameters('apiId'), 'azuremonitor')]": {
+    "type": "Microsoft.ApiManagement/service/apis/diagnostics",
+    "name": "[format('{0}/{1}/{2}', parameters('apimName'), parameters('apiId'), 'azuremonitor')]",
+    "apiVersion": "2024-06-01-preview",
+    "createOnly": {}
+  },
+  "infra/staged/stage5-api-telemetry.bicep :: Microsoft.ApiManagement/service/loggers [format('{0}/{1}', parameters('apimName'), 'azuremonitor')]": {
+    "type": "Microsoft.ApiManagement/service/loggers",
+    "name": "[format('{0}/{1}', parameters('apimName'), 'azuremonitor')]",
+    "apiVersion": "2024-06-01-preview",
+    "createOnly": {}
+  },
+  "infra/staged/stage5-audit-archive.bicep :: Microsoft.Storage/storageAccounts [parameters('accountName')]": {
+    "type": "Microsoft.Storage/storageAccounts",
+    "name": "[parameters('accountName')]",
+    "apiVersion": "2023-05-01",
+    "createOnly": {
+      "kind": "StorageV2"
+    }
+  },
+  "infra/staged/stage5-audit-archive.bicep :: Microsoft.Storage/storageAccounts/blobServices/containers [format('{0}/{1}/{2}', parameters('accountName'), 'default', variables('containers')[copyIndex()])]": {
+    "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+    "name": "[format('{0}/{1}/{2}', parameters('accountName'), 'default', variables('containers')[copyIndex()])]",
+    "apiVersion": "2023-05-01",
+    "createOnly": {}
+  },
+  "infra/staged/stage5-audit-archive.bicep :: Microsoft.Storage/storageAccounts/blobServices/containers/immutabilityPolicies [format('{0}/{1}/{2}/{3}', parameters('accountName'), 'default', variables('containers')[copyIndex()], 'default')]": {
+    "type": "Microsoft.Storage/storageAccounts/blobServices/containers/immutabilityPolicies",
+    "name": "[format('{0}/{1}/{2}/{3}', parameters('accountName'), 'default', variables('containers')[copyIndex()], 'default')]",
+    "apiVersion": "2023-05-01",
+    "createOnly": {}
+  },
+  "infra/staged/stage5-audit-archive.bicep :: Microsoft.Storage/storageAccounts/managementPolicies [format('{0}/{1}', parameters('accountName'), 'default')]": {
+    "type": "Microsoft.Storage/storageAccounts/managementPolicies",
+    "name": "[format('{0}/{1}', parameters('accountName'), 'default')]",
+    "apiVersion": "2023-05-01",
+    "createOnly": {}
+  },
+  "infra/staged/stage5-audit-diagnostic.bicep :: Microsoft.Insights/diagnosticSettings ccof-gateway-archive": {
+    "type": "Microsoft.Insights/diagnosticSettings",
+    "name": "ccof-gateway-archive",
+    "apiVersion": "2021-05-01-preview",
+    "createOnly": {}
+  },
+  "infra/staged/stage5-config.bicep :: [format('{0}-stage5-api-telemetry', parameters('names').deploymentPrefix)] :: Microsoft.ApiManagement/service/apis/diagnostics [format('{0}/{1}/{2}', parameters('apimName'), parameters('apiId'), 'azuremonitor')]": {
+    "type": "Microsoft.ApiManagement/service/apis/diagnostics",
+    "name": "[format('{0}/{1}/{2}', parameters('apimName'), parameters('apiId'), 'azuremonitor')]",
+    "apiVersion": "2024-06-01-preview",
+    "createOnly": {}
+  },
+  "infra/staged/stage5-config.bicep :: [format('{0}-stage5-api-telemetry', parameters('names').deploymentPrefix)] :: Microsoft.ApiManagement/service/loggers [format('{0}/{1}', parameters('apimName'), 'azuremonitor')]": {
+    "type": "Microsoft.ApiManagement/service/loggers",
+    "name": "[format('{0}/{1}', parameters('apimName'), 'azuremonitor')]",
+    "apiVersion": "2024-06-01-preview",
+    "createOnly": {}
+  },
+  "infra/staged/stage5-config.bicep :: [format('{0}-stage5-api', parameters('names').deploymentPrefix)] :: Microsoft.ApiManagement/service/apis [format('{0}/{1}', parameters('apimName'), parameters('apiId'))]": {
+    "type": "Microsoft.ApiManagement/service/apis",
+    "name": "[format('{0}/{1}', parameters('apimName'), parameters('apiId'))]",
+    "apiVersion": "2024-05-01",
+    "createOnly": {}
+  },
+  "infra/staged/stage5-config.bicep :: [format('{0}-stage5-api', parameters('names').deploymentPrefix)] :: Microsoft.ApiManagement/service/apis/operations [format('{0}/{1}/{2}', parameters('apimName'), parameters('apiId'), 'create-message')]": {
+    "type": "Microsoft.ApiManagement/service/apis/operations",
+    "name": "[format('{0}/{1}/{2}', parameters('apimName'), parameters('apiId'), 'create-message')]",
+    "apiVersion": "2024-05-01",
+    "createOnly": {}
+  },
+  "infra/staged/stage5-config.bicep :: [format('{0}-stage5-api', parameters('names').deploymentPrefix)] :: Microsoft.ApiManagement/service/apis/operations [format('{0}/{1}/{2}', parameters('apimName'), parameters('apiId'), 'get-my-usage')]": {
+    "type": "Microsoft.ApiManagement/service/apis/operations",
+    "name": "[format('{0}/{1}/{2}', parameters('apimName'), parameters('apiId'), 'get-my-usage')]",
+    "apiVersion": "2024-05-01",
+    "createOnly": {}
+  },
+  "infra/staged/stage5-config.bicep :: [format('{0}-stage5-api', parameters('names').deploymentPrefix)] :: Microsoft.ApiManagement/service/apis/operations/policies [format('{0}/{1}/{2}/{3}', parameters('apimName'), parameters('apiId'), 'get-my-usage', 'policy')]": {
+    "type": "Microsoft.ApiManagement/service/apis/operations/policies",
+    "name": "[format('{0}/{1}/{2}/{3}', parameters('apimName'), parameters('apiId'), 'get-my-usage', 'policy')]",
+    "apiVersion": "2024-05-01",
+    "createOnly": {}
+  },
+  "infra/staged/stage5-config.bicep :: [format('{0}-stage5-api', parameters('names').deploymentPrefix)] :: Microsoft.ApiManagement/service/apis/policies [format('{0}/{1}/{2}', parameters('apimName'), parameters('apiId'), 'policy')]": {
+    "type": "Microsoft.ApiManagement/service/apis/policies",
+    "name": "[format('{0}/{1}/{2}', parameters('apimName'), parameters('apiId'), 'policy')]",
+    "apiVersion": "2024-05-01",
+    "createOnly": {}
+  },
+  "infra/staged/stage5-config.bicep :: [format('{0}-stage5-api', parameters('names').deploymentPrefix)] :: Microsoft.ApiManagement/service/backends [format('{0}/{1}', parameters('apimName'), parameters('backends')[copyIndex()].id)]": {
+    "type": "Microsoft.ApiManagement/service/backends",
+    "name": "[format('{0}/{1}', parameters('apimName'), parameters('backends')[copyIndex()].id)]",
+    "apiVersion": "2024-05-01",
+    "createOnly": {}
+  },
+  "infra/staged/stage5-config.bicep :: [format('{0}-stage5-api', parameters('names').deploymentPrefix)] :: Microsoft.ApiManagement/service/backends [format('{0}/{1}', parameters('apimName'), variables('singles')[copyIndex()].id)]": {
+    "type": "Microsoft.ApiManagement/service/backends",
+    "name": "[format('{0}/{1}', parameters('apimName'), variables('singles')[copyIndex()].id)]",
+    "apiVersion": "2024-05-01",
+    "createOnly": {}
+  },
+  "infra/staged/stage5-config.bicep :: [format('{0}-stage5-api', parameters('names').deploymentPrefix)] :: Microsoft.ApiManagement/service/policyFragments [format('{0}/{1}', parameters('apimName'), parameters('policyFragments')[copyIndex()].id)]": {
+    "type": "Microsoft.ApiManagement/service/policyFragments",
+    "name": "[format('{0}/{1}', parameters('apimName'), parameters('policyFragments')[copyIndex()].id)]",
+    "apiVersion": "2024-05-01",
+    "createOnly": {}
+  },
+  "infra/staged/stage5-config.bicep :: [format('{0}-stage5-audit-archive', parameters('names').deploymentPrefix)] :: Microsoft.Storage/storageAccounts [parameters('accountName')]": {
+    "type": "Microsoft.Storage/storageAccounts",
+    "name": "[parameters('accountName')]",
+    "apiVersion": "2023-05-01",
+    "createOnly": {
+      "kind": "StorageV2"
+    }
+  },
+  "infra/staged/stage5-config.bicep :: [format('{0}-stage5-audit-archive', parameters('names').deploymentPrefix)] :: Microsoft.Storage/storageAccounts/blobServices/containers [format('{0}/{1}/{2}', parameters('accountName'), 'default', variables('containers')[copyIndex()])]": {
+    "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+    "name": "[format('{0}/{1}/{2}', parameters('accountName'), 'default', variables('containers')[copyIndex()])]",
+    "apiVersion": "2023-05-01",
+    "createOnly": {}
+  },
+  "infra/staged/stage5-config.bicep :: [format('{0}-stage5-audit-archive', parameters('names').deploymentPrefix)] :: Microsoft.Storage/storageAccounts/blobServices/containers/immutabilityPolicies [format('{0}/{1}/{2}/{3}', parameters('accountName'), 'default', variables('containers')[copyIndex()], 'default')]": {
+    "type": "Microsoft.Storage/storageAccounts/blobServices/containers/immutabilityPolicies",
+    "name": "[format('{0}/{1}/{2}/{3}', parameters('accountName'), 'default', variables('containers')[copyIndex()], 'default')]",
+    "apiVersion": "2023-05-01",
+    "createOnly": {}
+  },
+  "infra/staged/stage5-config.bicep :: [format('{0}-stage5-audit-archive', parameters('names').deploymentPrefix)] :: Microsoft.Storage/storageAccounts/managementPolicies [format('{0}/{1}', parameters('accountName'), 'default')]": {
+    "type": "Microsoft.Storage/storageAccounts/managementPolicies",
+    "name": "[format('{0}/{1}', parameters('accountName'), 'default')]",
+    "apiVersion": "2023-05-01",
+    "createOnly": {}
+  },
+  "infra/staged/stage5-config.bicep :: [format('{0}-stage5-audit-diagnostic', parameters('names').deploymentPrefix)] :: Microsoft.Insights/diagnosticSettings ccof-gateway-archive": {
+    "type": "Microsoft.Insights/diagnosticSettings",
+    "name": "ccof-gateway-archive",
+    "apiVersion": "2021-05-01-preview",
+    "createOnly": {}
+  },
+  "infra/staged/stage5-config.bicep :: [format('{0}-stage5-gateway-logs', parameters('names').deploymentPrefix)] :: Microsoft.Insights/diagnosticSettings [parameters('settingName')]": {
+    "type": "Microsoft.Insights/diagnosticSettings",
+    "name": "[parameters('settingName')]",
+    "apiVersion": "2021-05-01-preview",
+    "createOnly": {}
+  },
+  "infra/staged/stage5-config.bicep :: [format('{0}-stage5-settings', parameters('names').deploymentPrefix)] :: Microsoft.Web/sites/config [format('{0}/{1}', parameters('names').apps.reconciler.functionApp, 'appsettings')]": {
+    "type": "Microsoft.Web/sites/config",
+    "name": "[format('{0}/{1}', parameters('names').apps.reconciler.functionApp, 'appsettings')]",
+    "apiVersion": "2024-04-01",
+    "createOnly": {}
+  },
+  "infra/staged/stage5-config.bicep :: [format('{0}-stage5-settings', parameters('names').deploymentPrefix)] :: Microsoft.Web/sites/config [format('{0}/{1}', parameters('names').apps.resolver.functionApp, 'appsettings')]": {
+    "type": "Microsoft.Web/sites/config",
+    "name": "[format('{0}/{1}', parameters('names').apps.resolver.functionApp, 'appsettings')]",
+    "apiVersion": "2024-04-01",
+    "createOnly": {}
+  },
+  "infra/staged/stage5-config.bicep :: [format('{0}-stage5-settings', parameters('names').deploymentPrefix)] :: Microsoft.Web/sites/config [format('{0}/{1}', parameters('names').apps.resolver.functionApp, 'authsettingsV2')]": {
+    "type": "Microsoft.Web/sites/config",
+    "name": "[format('{0}/{1}', parameters('names').apps.resolver.functionApp, 'authsettingsV2')]",
+    "apiVersion": "2024-04-01",
+    "createOnly": {}
+  },
+  "infra/staged/stage5-config.bicep :: [format('{0}-stage5-settings', parameters('names').deploymentPrefix)] :: Microsoft.Web/sites/config [format('{0}/{1}', parameters('names').apps.sync.functionApp, 'appsettings')]": {
+    "type": "Microsoft.Web/sites/config",
+    "name": "[format('{0}/{1}', parameters('names').apps.sync.functionApp, 'appsettings')]",
+    "apiVersion": "2024-04-01",
+    "createOnly": {}
+  },
+  "infra/staged/stage5-config.bicep :: [format('{0}-stage5-workbook', parameters('names').deploymentPrefix)] :: Microsoft.Insights/workbooks [parameters('workbookResourceName')]": {
+    "type": "Microsoft.Insights/workbooks",
+    "name": "[parameters('workbookResourceName')]",
+    "apiVersion": "2023-06-01",
+    "createOnly": {}
+  },
+  "infra/staged/stage5-config.bicep :: Microsoft.Resources/deployments [format('{0}-stage5-api-telemetry', parameters('names').deploymentPrefix)]": {
+    "type": "Microsoft.Resources/deployments",
+    "name": "[format('{0}-stage5-api-telemetry', parameters('names').deploymentPrefix)]",
+    "apiVersion": "2025-04-01",
+    "createOnly": {}
+  },
+  "infra/staged/stage5-config.bicep :: Microsoft.Resources/deployments [format('{0}-stage5-api', parameters('names').deploymentPrefix)]": {
+    "type": "Microsoft.Resources/deployments",
+    "name": "[format('{0}-stage5-api', parameters('names').deploymentPrefix)]",
+    "apiVersion": "2025-04-01",
+    "createOnly": {}
+  },
+  "infra/staged/stage5-config.bicep :: Microsoft.Resources/deployments [format('{0}-stage5-audit-archive', parameters('names').deploymentPrefix)]": {
+    "type": "Microsoft.Resources/deployments",
+    "name": "[format('{0}-stage5-audit-archive', parameters('names').deploymentPrefix)]",
+    "apiVersion": "2025-04-01",
+    "createOnly": {}
+  },
+  "infra/staged/stage5-config.bicep :: Microsoft.Resources/deployments [format('{0}-stage5-audit-diagnostic', parameters('names').deploymentPrefix)]": {
+    "type": "Microsoft.Resources/deployments",
+    "name": "[format('{0}-stage5-audit-diagnostic', parameters('names').deploymentPrefix)]",
+    "apiVersion": "2025-04-01",
+    "createOnly": {}
+  },
+  "infra/staged/stage5-config.bicep :: Microsoft.Resources/deployments [format('{0}-stage5-gateway-logs', parameters('names').deploymentPrefix)]": {
+    "type": "Microsoft.Resources/deployments",
+    "name": "[format('{0}-stage5-gateway-logs', parameters('names').deploymentPrefix)]",
+    "apiVersion": "2025-04-01",
+    "createOnly": {}
+  },
+  "infra/staged/stage5-config.bicep :: Microsoft.Resources/deployments [format('{0}-stage5-settings', parameters('names').deploymentPrefix)]": {
+    "type": "Microsoft.Resources/deployments",
+    "name": "[format('{0}-stage5-settings', parameters('names').deploymentPrefix)]",
+    "apiVersion": "2025-04-01",
+    "createOnly": {}
+  },
+  "infra/staged/stage5-config.bicep :: Microsoft.Resources/deployments [format('{0}-stage5-workbook', parameters('names').deploymentPrefix)]": {
+    "type": "Microsoft.Resources/deployments",
+    "name": "[format('{0}-stage5-workbook', parameters('names').deploymentPrefix)]",
+    "apiVersion": "2025-04-01",
+    "createOnly": {}
+  },
+  "infra/staged/stage5-config.bicep :: Microsoft.Web/sites/config [format('{0}/{1}', coalesce(tryGet(tryGet(parameters('names').apps, 'admin'), 'functionApp'), 'none'), 'appsettings')]": {
+    "type": "Microsoft.Web/sites/config",
+    "name": "[format('{0}/{1}', coalesce(tryGet(tryGet(parameters('names').apps, 'admin'), 'functionApp'), 'none'), 'appsettings')]",
+    "apiVersion": "2024-04-01",
+    "createOnly": {}
+  },
+  "infra/staged/stage5-gateway-logs.bicep :: Microsoft.Insights/diagnosticSettings [parameters('settingName')]": {
+    "type": "Microsoft.Insights/diagnosticSettings",
+    "name": "[parameters('settingName')]",
+    "apiVersion": "2021-05-01-preview",
+    "createOnly": {}
+  },
+  "infra/staged/stage6-foundry-failover.bicep :: Microsoft.Network/privateDnsZones [last(split(parameters('zoneIds')[copyIndex()], '/'))]": {
+    "type": "Microsoft.Network/privateDnsZones",
+    "name": "[last(split(parameters('zoneIds')[copyIndex()], '/'))]",
+    "apiVersion": "2024-06-01",
+    "createOnly": {}
+  },
+  "infra/staged/stage6-foundry-failover.bicep :: Microsoft.Network/privateDnsZones/virtualNetworkLinks [format('{0}/{1}', last(split(parameters('zoneIds')[copyIndex()], '/')), 'ccof-foundry-failover')]": {
+    "type": "Microsoft.Network/privateDnsZones/virtualNetworkLinks",
+    "name": "[format('{0}/{1}', last(split(parameters('zoneIds')[copyIndex()], '/')), 'ccof-foundry-failover')]",
+    "apiVersion": "2024-06-01",
+    "createOnly": {}
+  },
+  "infra/staged/stage6-foundry-failover.bicep :: Microsoft.Network/privateEndpoints [parameters('name')]": {
+    "type": "Microsoft.Network/privateEndpoints",
+    "name": "[parameters('name')]",
+    "apiVersion": "2024-05-01",
+    "createOnly": {
+      "properties.subnet": {
+        "id": "[parameters('subnetId')]"
+      }
+    }
+  },
+  "infra/staged/stage6-foundry-failover.bicep :: Microsoft.Network/privateEndpoints/privateDnsZoneGroups [format('{0}/{1}', parameters('name'), 'default')]": {
+    "type": "Microsoft.Network/privateEndpoints/privateDnsZoneGroups",
+    "name": "[format('{0}/{1}', parameters('name'), 'default')]",
+    "apiVersion": "2024-05-01",
+    "createOnly": {}
+  },
+  "infra/staged/stage6-network.bicep :: [format('{0}-stage6-vnet', parameters('names').deploymentPrefix)] :: Microsoft.Network/networkSecurityGroups [parameters('apimNsgName')]": {
+    "type": "Microsoft.Network/networkSecurityGroups",
+    "name": "[parameters('apimNsgName')]",
+    "apiVersion": "2024-05-01",
+    "createOnly": {}
+  },
+  "infra/staged/stage6-network.bicep :: [format('{0}-stage6-vnet', parameters('names').deploymentPrefix)] :: Microsoft.Network/privateDnsZones [variables('zoneNames')[copyIndex()]]": {
+    "type": "Microsoft.Network/privateDnsZones",
+    "name": "[variables('zoneNames')[copyIndex()]]",
+    "apiVersion": "2024-06-01",
+    "createOnly": {}
+  },
+  "infra/staged/stage6-network.bicep :: [format('{0}-stage6-vnet', parameters('names').deploymentPrefix)] :: Microsoft.Network/privateDnsZones/virtualNetworkLinks [format('{0}/{1}', variables('zoneNames')[copyIndex()], format('{0}-link', parameters('vnetName')))]": {
+    "type": "Microsoft.Network/privateDnsZones/virtualNetworkLinks",
+    "name": "[format('{0}/{1}', variables('zoneNames')[copyIndex()], format('{0}-link', parameters('vnetName')))]",
+    "apiVersion": "2024-06-01",
+    "createOnly": {}
+  },
+  "infra/staged/stage6-network.bicep :: [format('{0}-stage6-vnet', parameters('names').deploymentPrefix)] :: Microsoft.Network/virtualNetworks [parameters('vnetName')]": {
+    "type": "Microsoft.Network/virtualNetworks",
+    "name": "[parameters('vnetName')]",
+    "apiVersion": "2024-05-01",
+    "createOnly": {}
+  },
+  "infra/staged/stage6-network.bicep :: Microsoft.Network/privateDnsZones [variables('foundryZoneNames')[copyIndex()]]": {
+    "type": "Microsoft.Network/privateDnsZones",
+    "name": "[variables('foundryZoneNames')[copyIndex()]]",
+    "apiVersion": "2024-06-01",
+    "createOnly": {}
+  },
+  "infra/staged/stage6-network.bicep :: Microsoft.Network/privateDnsZones/virtualNetworkLinks [format('{0}/{1}', variables('foundryZoneNames')[copyIndex()], format('{0}-link', coalesce(tryGet(tryGet(parameters('network'), 'create'), 'vnetName'), 'vnet')))]": {
+    "type": "Microsoft.Network/privateDnsZones/virtualNetworkLinks",
+    "name": "[format('{0}/{1}', variables('foundryZoneNames')[copyIndex()], format('{0}-link', coalesce(tryGet(tryGet(parameters('network'), 'create'), 'vnetName'), 'vnet')))]",
+    "apiVersion": "2024-06-01",
+    "createOnly": {}
+  },
+  "infra/staged/stage6-network.bicep :: Microsoft.Network/privateEndpoints [format('{0}-account-pe', parameters('foundryAccounts')[copyIndex()])]": {
+    "type": "Microsoft.Network/privateEndpoints",
+    "name": "[format('{0}-account-pe', parameters('foundryAccounts')[copyIndex()])]",
+    "apiVersion": "2024-05-01",
+    "createOnly": {
+      "properties.subnet": {
+        "id": "[if(variables('createNetwork'), createObject('privateEndpoints', reference(resourceId('Microsoft.Resources/deployments', format('{0}-stage6-vnet', parameters('names').deploymentPrefix)), '2025-04-01').outputs.privateEndpointSubnetId.value, 'functions', reference(resourceId('Microsoft.Resources/deployments', format('{0}-stage6-vnet', parameters('names').deploymentPrefix)), '2025-04-01').outputs.functionsSubnetId.value, 'apim', reference(resourceId('Microsoft.Resources/deployments', format('{0}-stage6-vnet', parameters('names').deploymentPrefix)), '2025-04-01').outputs.apimSubnetId.value, 'cosmosZone', reference(resourceId('Microsoft.Resources/deployments', format('{0}-stage6-vnet', parameters('names').deploymentPrefix)), '2025-04-01').outputs.cosmosDnsZoneId.value, 'blobZone', reference(resourceId('Microsoft.Resources/deployments', format('{0}-stage6-vnet', parameters('names').deploymentPrefix)), '2025-04-01').outputs.blobDnsZoneId.value), createObject('privateEndpoints', parameters('network').existing.privateEndpointSubnetId, 'functions', parameters('network').existing.functionsSubnetId, 'apim', coalesce(tryGet(parameters('network').existing, 'apimSubnetId'), ''), 'cosmosZone', parameters('network').existing.privateDnsZoneIds.cosmos, 'blobZone', parameters('network').existing.privateDnsZoneIds.blob)).privateEndpoints]"
+      },
+      "variables": {
+        "createNetwork": "[equals(parameters('network').mode, 'create')]"
+      }
+    }
+  },
+  "infra/staged/stage6-network.bicep :: Microsoft.Network/privateEndpoints [format('{0}-blob-pe', parameters('names').apps[variables('appKeys')[copyIndex()]].storageAccount)]": {
+    "type": "Microsoft.Network/privateEndpoints",
+    "name": "[format('{0}-blob-pe', parameters('names').apps[variables('appKeys')[copyIndex()]].storageAccount)]",
+    "apiVersion": "2024-05-01",
+    "createOnly": {
+      "properties.subnet": {
+        "id": "[if(variables('createNetwork'), createObject('privateEndpoints', reference(resourceId('Microsoft.Resources/deployments', format('{0}-stage6-vnet', parameters('names').deploymentPrefix)), '2025-04-01').outputs.privateEndpointSubnetId.value, 'functions', reference(resourceId('Microsoft.Resources/deployments', format('{0}-stage6-vnet', parameters('names').deploymentPrefix)), '2025-04-01').outputs.functionsSubnetId.value, 'apim', reference(resourceId('Microsoft.Resources/deployments', format('{0}-stage6-vnet', parameters('names').deploymentPrefix)), '2025-04-01').outputs.apimSubnetId.value, 'cosmosZone', reference(resourceId('Microsoft.Resources/deployments', format('{0}-stage6-vnet', parameters('names').deploymentPrefix)), '2025-04-01').outputs.cosmosDnsZoneId.value, 'blobZone', reference(resourceId('Microsoft.Resources/deployments', format('{0}-stage6-vnet', parameters('names').deploymentPrefix)), '2025-04-01').outputs.blobDnsZoneId.value), createObject('privateEndpoints', parameters('network').existing.privateEndpointSubnetId, 'functions', parameters('network').existing.functionsSubnetId, 'apim', coalesce(tryGet(parameters('network').existing, 'apimSubnetId'), ''), 'cosmosZone', parameters('network').existing.privateDnsZoneIds.cosmos, 'blobZone', parameters('network').existing.privateDnsZoneIds.blob)).privateEndpoints]"
+      },
+      "variables": {
+        "createNetwork": "[equals(parameters('network').mode, 'create')]"
+      }
+    }
+  },
+  "infra/staged/stage6-network.bicep :: Microsoft.Network/privateEndpoints [format('{0}-sql-pe', parameters('names').cosmosAccount)]": {
+    "type": "Microsoft.Network/privateEndpoints",
+    "name": "[format('{0}-sql-pe', parameters('names').cosmosAccount)]",
+    "apiVersion": "2024-05-01",
+    "createOnly": {
+      "properties.subnet": {
+        "id": "[if(variables('createNetwork'), createObject('privateEndpoints', reference(resourceId('Microsoft.Resources/deployments', format('{0}-stage6-vnet', parameters('names').deploymentPrefix)), '2025-04-01').outputs.privateEndpointSubnetId.value, 'functions', reference(resourceId('Microsoft.Resources/deployments', format('{0}-stage6-vnet', parameters('names').deploymentPrefix)), '2025-04-01').outputs.functionsSubnetId.value, 'apim', reference(resourceId('Microsoft.Resources/deployments', format('{0}-stage6-vnet', parameters('names').deploymentPrefix)), '2025-04-01').outputs.apimSubnetId.value, 'cosmosZone', reference(resourceId('Microsoft.Resources/deployments', format('{0}-stage6-vnet', parameters('names').deploymentPrefix)), '2025-04-01').outputs.cosmosDnsZoneId.value, 'blobZone', reference(resourceId('Microsoft.Resources/deployments', format('{0}-stage6-vnet', parameters('names').deploymentPrefix)), '2025-04-01').outputs.blobDnsZoneId.value), createObject('privateEndpoints', parameters('network').existing.privateEndpointSubnetId, 'functions', parameters('network').existing.functionsSubnetId, 'apim', coalesce(tryGet(parameters('network').existing, 'apimSubnetId'), ''), 'cosmosZone', parameters('network').existing.privateDnsZoneIds.cosmos, 'blobZone', parameters('network').existing.privateDnsZoneIds.blob)).privateEndpoints]"
+      },
+      "variables": {
+        "createNetwork": "[equals(parameters('network').mode, 'create')]"
+      }
+    }
+  },
+  "infra/staged/stage6-network.bicep :: Microsoft.Network/privateEndpoints/privateDnsZoneGroups [format('{0}/{1}', format('{0}-account-pe', parameters('foundryAccounts')[copyIndex()]), 'default')]": {
+    "type": "Microsoft.Network/privateEndpoints/privateDnsZoneGroups",
+    "name": "[format('{0}/{1}', format('{0}-account-pe', parameters('foundryAccounts')[copyIndex()]), 'default')]",
+    "apiVersion": "2024-05-01",
+    "createOnly": {}
+  },
+  "infra/staged/stage6-network.bicep :: Microsoft.Network/privateEndpoints/privateDnsZoneGroups [format('{0}/{1}', format('{0}-blob-pe', parameters('names').apps[variables('appKeys')[copyIndex()]].storageAccount), 'default')]": {
+    "type": "Microsoft.Network/privateEndpoints/privateDnsZoneGroups",
+    "name": "[format('{0}/{1}', format('{0}-blob-pe', parameters('names').apps[variables('appKeys')[copyIndex()]].storageAccount), 'default')]",
+    "apiVersion": "2024-05-01",
+    "createOnly": {}
+  },
+  "infra/staged/stage6-network.bicep :: Microsoft.Network/privateEndpoints/privateDnsZoneGroups [format('{0}/{1}', format('{0}-sql-pe', parameters('names').cosmosAccount), 'default')]": {
+    "type": "Microsoft.Network/privateEndpoints/privateDnsZoneGroups",
+    "name": "[format('{0}/{1}', format('{0}-sql-pe', parameters('names').cosmosAccount), 'default')]",
+    "apiVersion": "2024-05-01",
+    "createOnly": {}
+  },
+  "infra/staged/stage6-network.bicep :: Microsoft.Resources/deployments [format('{0}-stage6-vnet', parameters('names').deploymentPrefix)]": {
+    "type": "Microsoft.Resources/deployments",
+    "name": "[format('{0}-stage6-vnet', parameters('names').deploymentPrefix)]",
+    "apiVersion": "2025-04-01",
+    "createOnly": {}
+  }
+}
