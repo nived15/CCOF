@@ -1,8 +1,21 @@
 # Current work
 
+## Harness P7: mutation sentinels (2026-11-19)
+
+**Active packet:** P7 of `docs/harness/BUILD-PLAN.md` on `harness/p7`. No runtime change.
+
+- 47 mutants, all killed (`node harness/run-mutants.mjs`, about 6 minutes). Five survived the first run. A new
+  scenario now kills each:
+  - `decisionVersion` checks, cached and fresh (DATA-01)
+  - cached refusal collapse (SEC-03)
+  - warning at the exact threshold (MON-05)
+  - failed entitlement read (MON-06)
+- The selector lower-casing mutant is killed at the expression level, so it is not equivalent after all.
+- Next: P8 (CI workflows). It changes `.github/workflows/`, so it needs your approval first.
+
 ## Harness P6: scenario evals (2026-11-19)
 
-**Active packet:** P6 of `docs/harness/BUILD-PLAN.md` on `harness/p6`. No runtime change.
+**Packet:** P6, merged as #9.
 
 - 58 scenarios (57 executed, 1 live-only) pass in about 4 seconds; every SEC, MON and SYNC invariant has at least
   one. Three of four deliberate changes were caught; the fourth (selector lower-casing) is equivalent end to end.

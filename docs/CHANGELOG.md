@@ -1,5 +1,19 @@
 # Change log
 
+## 2026-11-19 — Harness P7: mutation sentinels
+
+- Add `harness/mutants.json`: 47 hand-written mutants on the resolver, gateway policy, contracts, money and sync
+  modules, each naming the invariant it attacks.
+- Add `harness/run-mutants.mjs`. It applies each mutant in a temporary worktree, runs only that area's behavioural
+  suites, and reports what survives. Golden and version-skew suites are excluded.
+- Add `tests/harness-mutants.test.ts` (7 tests): each mutant's original text still occurs exactly once, it targets a
+  T3 module, and every runtime SEC, MON, SYNC and DATA-01 invariant has a mutant.
+- The first run left five survivors. Six new scenarios now kill them: a newer `decisionVersion` in a cached decision
+  and in a resolver reply, an unknown cached refusal code, the exact warning threshold, and a failed entitlement read
+  in a reconciler run. The final run killed all 47. See `docs/harness/MUTANTS.md`.
+- Test helpers only: the scenario engine gained `given.replyPatch`, `when.cachedPatch` and `when.cachedRefusalCodes`,
+  and `FakeAzure` gained `failEntitlements`. No runtime change.
+
 ## 2026-11-19 — Harness P6: scenario evals
 
 - Add 58 scenarios in `tests/scenarios/`, run by `tests/harness-scenarios.test.ts` through

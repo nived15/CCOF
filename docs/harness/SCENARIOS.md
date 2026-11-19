@@ -15,7 +15,7 @@ fails if an SEC, MON or SYNC invariant has no executed scenario.
 | `reconciler-run` | A full reconciler run with one read failing | `writes`, `outcome` |
 | `live-only` | Not run: evidence that needs Azure or the network | `evidence` |
 
-## Catalogue (58 scenarios)
+## Catalogue (64 scenarios)
 
 - The 23 bypass attempts of `docs/status/BUDGET-ACCEPTANCE-2026-10-23.md` (`bypass-01` to `bypass-23`). One is
   live-only: a direct call to Foundry (see `docs/UNKNOWNS.md` LIVE-01). `bypass-21` records today's answer
@@ -40,6 +40,11 @@ fails if an SEC, MON or SYNC invariant has no executed scenario.
 | Exhausted at `spent > budget` instead of `>=` | `mon05-equal`, `mon04-ccu-budget` |
 | Model admission ignores case | `bypass-09-model-case` |
 | A failed group read no longer freezes its project | `sync01-failed-read-freezes`, `sync01-missing-read-is-failed` |
-| The gateway stops lower-casing a GUID selector | none: the resolver also compares group IDs in lower case, so the behaviour does not change (an equivalent mutant at this level) |
+| The gateway stops lower-casing a GUID selector | none: the resolver also compares group IDs in lower case, so the behaviour does not change (an equivalent mutant at this level; `tests/gateway-request-checks.test.ts` catches it at the expression level, P7) |
+
+P7 (`docs/harness/MUTANTS.md`) added six scenarios, five for mutants that survived and one control: `guard-warning-at-threshold`,
+`mon06-entitlement-read-fails`, `data01-newer-reply-refused`, `data01-cached-v3-valid`, `data01-newer-cached-invalid`
+and `sec03-cached-refusal-collapsed`. The engine gained `given.replyPatch`, `when.cachedPatch` and
+`when.cachedRefusalCodes` for them.
 
 Add a scenario for every new live finding (BUILD-PLAN L4) and every fixed bug.
