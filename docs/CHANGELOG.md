@@ -1,5 +1,14 @@
 # Change log
 
+## 2026-11-19 — Harness P5: version skew
+
+- Add `harness/capture-version.mjs` and `harness/version/capture-artifacts.mts`. In a temporary worktree at the
+  deployed commit (`9faa1fc`), they record that version's documents, resolver replies and policy from its own code,
+  and vendor its compiled readers into `tests/fixtures/version-n-1/`.
+- Add `tests/harness-version-skew.test.ts` (4 tests). Current and N-1 readers each accept the other version's
+  documents with identical readings, and both gateway policies read both versions' replies the same way. Three
+  deliberate skew changes were each caught. See `docs/harness/VERSION-SKEW.md`. No runtime change.
+
 ## 2026-11-19 — Harness P4: golden contracts
 
 - Golden tests under `tests/golden/` (update only with `CCOF_UPDATE_GOLDEN=1`; see `docs/harness/GOLDEN.md`):

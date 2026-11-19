@@ -1,0 +1,31 @@
+{
+  "ref": "9faa1fc",
+  "commit": "9faa1fc7a0b739abaca00de9b538510b656e55da",
+  "commitDate": "2026-10-26T16:59:59+05:30",
+  "readerEntries": [
+    "resolver/http-handler.js",
+    "contracts/group-registration.js",
+    "sync/projects.js",
+    "reconciler/registry.js"
+  ],
+  "readers": [
+    "contracts/group-registration.js",
+    "contracts/model-families.js",
+    "cost/budget-units.js",
+    "cost/config-fields.js",
+    "cost/errors.js",
+    "cost/money.js",
+    "reconciler/registry.js",
+    "reconciler/settings.js",
+    "resolver/backend.js",
+    "resolver/decide.js",
+    "resolver/freshness.js",
+    "resolver/http-handler.js",
+    "resolver/my-usage.js",
+    "resolver/refusals.js",
+    "resolver/select-membership.js",
+    "sync/projects.js",
+    "sync/types.js"
+  ],
+  "note": "Produced by harness/capture-version.mjs from the deployed version's own code; do not edit. Re-run after each customer upgrade."
+}

@@ -1,0 +1,2382 @@
+[
+  {
+    "name": "allow-explicit-group",
+    "request": {
+      "personId": "00000000-0000-4000-8000-000001100001",
+      "projectId": "11111111-1111-4111-8111-111111111111"
+    },
+    "documents": {
+      "projects": [
+        {
+          "id": "11111111-1111-4111-8111-111111111111",
+          "kind": "group",
+          "groupId": "11111111-1111-4111-8111-111111111111",
+          "projectId": "11111111-1111-4111-8111-111111111111",
+          "displayName": "Payments engineering",
+          "status": "active",
+          "backendId": "foundry-sample-hub",
+          "priority": 1,
+          "chargebackId": "WBS-1234.01",
+          "budget": {
+            "mode": "cap",
+            "perUser": {
+              "amount": "10",
+              "currency": "USD",
+              "period": "monthly"
+            },
+            "groupCap": {
+              "amount": "20",
+              "currency": "USD",
+              "period": "monthly"
+            }
+          },
+          "restrictedFamiliesApproved": false,
+          "familyPolicy": {
+            "aggregateLimits": {
+              "person": {
+                "tokensPerMinute": 1000000,
+                "tokenQuota": 500000,
+                "tokenQuotaPeriod": "Daily"
+              },
+              "group": {
+                "tokensPerMinute": null,
+                "tokenQuota": 2000000,
+                "tokenQuotaPeriod": "Daily"
+              }
+            },
+            "families": {
+              "haiku": {
+                "models": [
+                  "claude-haiku-4-5"
+                ],
+                "person": {
+                  "tokensPerMinute": null,
+                  "tokenQuota": null,
+                  "tokenQuotaPeriod": null
+                },
+                "group": {
+                  "tokensPerMinute": null,
+                  "tokenQuota": null,
+                  "tokenQuotaPeriod": null
+                }
+              }
+            }
+          },
+          "surfaces": [
+            "code",
+            "chat"
+          ],
+          "cacheProfile": {
+            "expectedCacheReadPercent": 80,
+            "basis": "suggested"
+          }
+        },
+        {
+          "id": "55555555-5555-4555-8555-555555555555",
+          "kind": "group",
+          "groupId": "55555555-5555-4555-8555-555555555555",
+          "projectId": "55555555-5555-4555-8555-555555555555",
+          "displayName": "Payments engineering",
+          "status": "active",
+          "backendId": "foundry-sample-hub",
+          "priority": 2,
+          "chargebackId": "WBS-1234.01",
+          "budget": {
+            "mode": "cap",
+            "perUser": {
+              "amount": "10",
+              "currency": "USD",
+              "period": "monthly"
+            },
+            "groupCap": {
+              "amount": "20",
+              "currency": "USD",
+              "period": "monthly"
+            }
+          },
+          "restrictedFamiliesApproved": false,
+          "familyPolicy": {
+            "aggregateLimits": {
+              "person": {
+                "tokensPerMinute": 1000000,
+                "tokenQuota": 500000,
+                "tokenQuotaPeriod": "Daily"
+              },
+              "group": {
+                "tokensPerMinute": null,
+                "tokenQuota": 2000000,
+                "tokenQuotaPeriod": "Daily"
+              }
+            },
+            "families": {
+              "haiku": {
+                "models": [
+                  "claude-haiku-4-5"
+                ],
+                "person": {
+                  "tokensPerMinute": null,
+                  "tokenQuota": null,
+                  "tokenQuotaPeriod": null
+                },
+                "group": {
+                  "tokensPerMinute": null,
+                  "tokenQuota": null,
+                  "tokenQuotaPeriod": null
+                }
+              }
+            }
+          },
+          "surfaces": [
+            "code",
+            "chat"
+          ],
+          "cacheProfile": {
+            "expectedCacheReadPercent": 80,
+            "basis": "suggested"
+          }
+        }
+      ],
+      "entitlements": [
+        {
+          "id": "00000000-0000-4000-8000-000001100001",
+          "personId": "00000000-0000-4000-8000-000001100001",
+          "projectMemberships": [
+            {
+              "projectId": "11111111-1111-4111-8111-111111111111",
+              "classification": "group",
+              "classificationGroupId": "11111111-1111-4111-8111-111111111111",
+              "familyPolicy": {
+                "aggregateLimits": {
+                  "person": {
+                    "tokensPerMinute": 1000000,
+                    "tokenQuota": 500000,
+                    "tokenQuotaPeriod": "Daily"
+                  },
+                  "group": {
+                    "tokensPerMinute": null,
+                    "tokenQuota": 2000000,
+                    "tokenQuotaPeriod": "Daily"
+                  }
+                },
+                "families": {
+                  "haiku": {
+                    "models": [
+                      "claude-haiku-4-5"
+                    ],
+                    "person": {
+                      "tokensPerMinute": null,
+                      "tokenQuota": null,
+                      "tokenQuotaPeriod": null
+                    },
+                    "group": {
+                      "tokensPerMinute": null,
+                      "tokenQuota": null,
+                      "tokenQuotaPeriod": null
+                    }
+                  }
+                }
+              },
+              "classificationGroupDisplayName": "Payments engineering",
+              "backendId": "foundry-sample-hub",
+              "aggregateMode": "strict",
+              "priority": 1,
+              "surfaces": [
+                "chat",
+                "code"
+              ],
+              "chargebackId": "WBS-1234.01",
+              "restrictedFamiliesApproved": false,
+              "denormalizedAt": "2026-10-23T12:00:00.000Z",
+              "joinedAt": "2026-10-23T12:00:00.000Z",
+              "status": "active"
+            },
+            {
+              "projectId": "55555555-5555-4555-8555-555555555555",
+              "classification": "group",
+              "classificationGroupId": "55555555-5555-4555-8555-555555555555",
+              "familyPolicy": {
+                "aggregateLimits": {
+                  "person": {
+                    "tokensPerMinute": 1000000,
+                    "tokenQuota": 500000,
+                    "tokenQuotaPeriod": "Daily"
+                  },
+                  "group": {
+                    "tokensPerMinute": null,
+                    "tokenQuota": 2000000,
+                    "tokenQuotaPeriod": "Daily"
+                  }
+                },
+                "families": {
+                  "haiku": {
+                    "models": [
+                      "claude-haiku-4-5"
+                    ],
+                    "person": {
+                      "tokensPerMinute": null,
+                      "tokenQuota": null,
+                      "tokenQuotaPeriod": null
+                    },
+                    "group": {
+                      "tokensPerMinute": null,
+                      "tokenQuota": null,
+                      "tokenQuotaPeriod": null
+                    }
+                  }
+                }
+              },
+              "classificationGroupDisplayName": "Payments engineering",
+              "backendId": "foundry-sample-hub",
+              "aggregateMode": "strict",
+              "priority": 2,
+              "surfaces": [
+                "chat",
+                "code"
+              ],
+              "chargebackId": "WBS-1234.01",
+              "restrictedFamiliesApproved": false,
+              "denormalizedAt": "2026-10-23T12:00:00.000Z",
+              "joinedAt": "2026-10-23T12:00:00.000Z",
+              "status": "active"
+            }
+          ],
+          "generation": 1,
+          "lastVerifiedAt": "2026-10-23T12:00:00.000Z"
+        },
+        {
+          "id": "00000000-0000-4000-8000-000001100010",
+          "personId": "00000000-0000-4000-8000-000001100010",
+          "projectMemberships": [
+            {
+              "projectId": "11111111-1111-4111-8111-111111111111",
+              "classification": "group",
+              "classificationGroupId": "11111111-1111-4111-8111-111111111111",
+              "familyPolicy": {
+                "aggregateLimits": {
+                  "person": {
+                    "tokensPerMinute": 1000000,
+                    "tokenQuota": 500000,
+                    "tokenQuotaPeriod": "Daily"
+                  },
+                  "group": {
+                    "tokensPerMinute": null,
+                    "tokenQuota": 2000000,
+                    "tokenQuotaPeriod": "Daily"
+                  }
+                },
+                "families": {
+                  "haiku": {
+                    "models": [
+                      "claude-haiku-4-5"
+                    ],
+                    "person": {
+                      "tokensPerMinute": null,
+                      "tokenQuota": null,
+                      "tokenQuotaPeriod": null
+                    },
+                    "group": {
+                      "tokensPerMinute": null,
+                      "tokenQuota": null,
+                      "tokenQuotaPeriod": null
+                    }
+                  }
+                }
+              },
+              "classificationGroupDisplayName": "Payments engineering",
+              "backendId": "foundry-sample-hub",
+              "aggregateMode": "strict",
+              "priority": 1,
+              "surfaces": [
+                "chat",
+                "code"
+              ],
+              "chargebackId": "WBS-1234.01",
+              "restrictedFamiliesApproved": false,
+              "denormalizedAt": "2026-10-23T12:00:00.000Z",
+              "joinedAt": "2026-10-23T12:00:00.000Z",
+              "status": "active"
+            },
+            {
+              "projectId": "55555555-5555-4555-8555-555555555555",
+              "classification": "group",
+              "classificationGroupId": "55555555-5555-4555-8555-555555555555",
+              "familyPolicy": {
+                "aggregateLimits": {
+                  "person": {
+                    "tokensPerMinute": 1000000,
+                    "tokenQuota": 500000,
+                    "tokenQuotaPeriod": "Daily"
+                  },
+                  "group": {
+                    "tokensPerMinute": null,
+                    "tokenQuota": 2000000,
+                    "tokenQuotaPeriod": "Daily"
+                  }
+                },
+                "families": {
+                  "haiku": {
+                    "models": [
+                      "claude-haiku-4-5"
+                    ],
+                    "person": {
+                      "tokensPerMinute": null,
+                      "tokenQuota": null,
+                      "tokenQuotaPeriod": null
+                    },
+                    "group": {
+                      "tokensPerMinute": null,
+                      "tokenQuota": null,
+                      "tokenQuotaPeriod": null
+                    }
+                  }
+                }
+              },
+              "classificationGroupDisplayName": "Payments engineering",
+              "backendId": "foundry-sample-hub",
+              "aggregateMode": "strict",
+              "priority": 2,
+              "surfaces": [
+                "chat",
+                "code"
+              ],
+              "chargebackId": "WBS-1234.01",
+              "restrictedFamiliesApproved": false,
+              "denormalizedAt": "2026-10-23T12:00:00.000Z",
+              "joinedAt": "2026-10-23T12:00:00.000Z",
+              "status": "active"
+            }
+          ],
+          "generation": 1,
+          "lastVerifiedAt": "2026-10-23T12:00:00.000Z"
+        }
+      ],
+      "budgetStates": [
+        {
+          "id": "00000000-0000-4000-8000-000001100001:11111111-1111-4111-8111-111111111111",
+          "personId": "00000000-0000-4000-8000-000001100001",
+          "projectId": "11111111-1111-4111-8111-111111111111",
+          "classification": "group",
+          "spentCcu": "10",
+          "budgetCcu": "1000",
+          "exhausted": false,
+          "period": "2026-10",
+          "rateCardVersion": "2026-10-11",
+          "contractScheduleVersion": "2026-10-11",
+          "computedAt": "2026-10-23T12:00:00.000Z",
+          "validUntil": "2026-10-23T12:10:00.000Z",
+          "completeness": "complete",
+          "realtimeCeilingTokensPerMinute": 1980000
+        },
+        {
+          "id": "00000000-0000-4000-8000-000001100001:55555555-5555-4555-8555-555555555555",
+          "personId": "00000000-0000-4000-8000-000001100001",
+          "projectId": "55555555-5555-4555-8555-555555555555",
+          "classification": "group",
+          "spentCcu": "0",
+          "budgetCcu": "1000",
+          "exhausted": false,
+          "period": "2026-10",
+          "rateCardVersion": "2026-10-11",
+          "contractScheduleVersion": "2026-10-11",
+          "computedAt": "2026-10-23T12:00:00.000Z",
+          "validUntil": "2026-10-23T12:10:00.000Z",
+          "completeness": "complete",
+          "realtimeCeilingTokensPerMinute": 2000000
+        },
+        {
+          "id": "00000000-0000-4000-8000-000001100010:11111111-1111-4111-8111-111111111111",
+          "personId": "00000000-0000-4000-8000-000001100010",
+          "projectId": "11111111-1111-4111-8111-111111111111",
+          "classification": "group",
+          "spentCcu": "0",
+          "budgetCcu": "1000",
+          "exhausted": false,
+          "period": "2026-10",
+          "rateCardVersion": "2026-10-11",
+          "contractScheduleVersion": "2026-10-11",
+          "computedAt": "2026-10-23T12:00:00.000Z",
+          "validUntil": "2026-10-23T12:10:00.000Z",
+          "completeness": "complete",
+          "realtimeCeilingTokensPerMinute": 2000000
+        },
+        {
+          "id": "00000000-0000-4000-8000-000001100010:55555555-5555-4555-8555-555555555555",
+          "personId": "00000000-0000-4000-8000-000001100010",
+          "projectId": "55555555-5555-4555-8555-555555555555",
+          "classification": "group",
+          "spentCcu": "0",
+          "budgetCcu": "1000",
+          "exhausted": false,
+          "period": "2026-10",
+          "rateCardVersion": "2026-10-11",
+          "contractScheduleVersion": "2026-10-11",
+          "computedAt": "2026-10-23T12:00:00.000Z",
+          "validUntil": "2026-10-23T12:10:00.000Z",
+          "completeness": "complete",
+          "realtimeCeilingTokensPerMinute": 2000000
+        }
+      ],
+      "aggregateStates": [
+        {
+          "id": "11111111-1111-4111-8111-111111111111:group",
+          "scopeId": "11111111-1111-4111-8111-111111111111:group",
+          "spentCcu": "10",
+          "budgetCcu": "2000",
+          "exhausted": false,
+          "completeness": "complete",
+          "mode": "strict",
+          "activeMemberCount": 2,
+          "computedAt": "2026-10-23T12:00:00.000Z",
+          "validUntil": "2026-10-23T12:10:00.000Z"
+        },
+        {
+          "id": "55555555-5555-4555-8555-555555555555:group",
+          "scopeId": "55555555-5555-4555-8555-555555555555:group",
+          "spentCcu": "0",
+          "budgetCcu": "2000",
+          "exhausted": false,
+          "completeness": "complete",
+          "mode": "strict",
+          "activeMemberCount": 2,
+          "computedAt": "2026-10-23T12:00:00.000Z",
+          "validUntil": "2026-10-23T12:10:00.000Z"
+        }
+      ]
+    },
+    "status": 200,
+    "body": {
+      "refused": false,
+      "decisionVersion": 3,
+      "personId": "00000000-0000-4000-8000-000001100001",
+      "projectId": "11111111-1111-4111-8111-111111111111",
+      "classification": "group",
+      "classificationGroupId": "11111111-1111-4111-8111-111111111111",
+      "classificationGroupDisplayName": "Payments engineering",
+      "backendId": "foundry-sample-hub",
+      "familyPolicy": {
+        "aggregateLimits": {
+          "person": {
+            "tokensPerMinute": 1000000,
+            "tokenQuota": 500000,
+            "tokenQuotaPeriod": "Daily"
+          },
+          "group": {
+            "tokensPerMinute": null,
+            "tokenQuota": 2000000,
+            "tokenQuotaPeriod": "Daily"
+          }
+        },
+        "families": {
+          "haiku": {
+            "models": [
+              "claude-haiku-4-5"
+            ],
+            "person": {
+              "tokensPerMinute": null,
+              "tokenQuota": null,
+              "tokenQuotaPeriod": null
+            },
+            "group": {
+              "tokensPerMinute": null,
+              "tokenQuota": null,
+              "tokenQuotaPeriod": null
+            }
+          }
+        }
+      },
+      "surfaces": [
+        "chat",
+        "code"
+      ],
+      "chargebackId": "WBS-1234.01",
+      "restrictedFamiliesApproved": false,
+      "personBudgetScope": "00000000-0000-4000-8000-000001100001:11111111-1111-4111-8111-111111111111",
+      "budgetEnforcement": "budget-state",
+      "aggregateStrict": true,
+      "aggregateState": {
+        "id": "11111111-1111-4111-8111-111111111111:group",
+        "scopeId": "11111111-1111-4111-8111-111111111111:group",
+        "spentCcu": "10",
+        "budgetCcu": "2000",
+        "exhausted": false,
+        "completeness": "complete",
+        "mode": "strict",
+        "activeMemberCount": 2,
+        "computedAt": "2026-10-23T12:00:00.000Z",
+        "validUntil": "2026-10-23T12:10:00.000Z"
+      },
+      "personCeilingTokensPerMinute": 1980000,
+      "personCeilingKey": "2026-10_1000",
+      "degraded": false,
+      "degradedReasons": [],
+      "budgetState": "fresh",
+      "resolverOutcome": "success"
+    }
+  },
+  {
+    "name": "allow-automatic-selection",
+    "request": {
+      "personId": "00000000-0000-4000-8000-000001100001"
+    },
+    "documents": {
+      "projects": [
+        {
+          "id": "11111111-1111-4111-8111-111111111111",
+          "kind": "group",
+          "groupId": "11111111-1111-4111-8111-111111111111",
+          "projectId": "11111111-1111-4111-8111-111111111111",
+          "displayName": "Payments engineering",
+          "status": "active",
+          "backendId": "foundry-sample-hub",
+          "priority": 1,
+          "chargebackId": "WBS-1234.01",
+          "budget": {
+            "mode": "cap",
+            "perUser": {
+              "amount": "10",
+              "currency": "USD",
+              "period": "monthly"
+            },
+            "groupCap": {
+              "amount": "20",
+              "currency": "USD",
+              "period": "monthly"
+            }
+          },
+          "restrictedFamiliesApproved": false,
+          "familyPolicy": {
+            "aggregateLimits": {
+              "person": {
+                "tokensPerMinute": 1000000,
+                "tokenQuota": 500000,
+                "tokenQuotaPeriod": "Daily"
+              },
+              "group": {
+                "tokensPerMinute": null,
+                "tokenQuota": 2000000,
+                "tokenQuotaPeriod": "Daily"
+              }
+            },
+            "families": {
+              "haiku": {
+                "models": [
+                  "claude-haiku-4-5"
+                ],
+                "person": {
+                  "tokensPerMinute": null,
+                  "tokenQuota": null,
+                  "tokenQuotaPeriod": null
+                },
+                "group": {
+                  "tokensPerMinute": null,
+                  "tokenQuota": null,
+                  "tokenQuotaPeriod": null
+                }
+              }
+            }
+          },
+          "surfaces": [
+            "code",
+            "chat"
+          ],
+          "cacheProfile": {
+            "expectedCacheReadPercent": 80,
+            "basis": "suggested"
+          }
+        },
+        {
+          "id": "55555555-5555-4555-8555-555555555555",
+          "kind": "group",
+          "groupId": "55555555-5555-4555-8555-555555555555",
+          "projectId": "55555555-5555-4555-8555-555555555555",
+          "displayName": "Payments engineering",
+          "status": "active",
+          "backendId": "foundry-sample-hub",
+          "priority": 2,
+          "chargebackId": "WBS-1234.01",
+          "budget": {
+            "mode": "cap",
+            "perUser": {
+              "amount": "10",
+              "currency": "USD",
+              "period": "monthly"
+            },
+            "groupCap": {
+              "amount": "20",
+              "currency": "USD",
+              "period": "monthly"
+            }
+          },
+          "restrictedFamiliesApproved": false,
+          "familyPolicy": {
+            "aggregateLimits": {
+              "person": {
+                "tokensPerMinute": 1000000,
+                "tokenQuota": 500000,
+                "tokenQuotaPeriod": "Daily"
+              },
+              "group": {
+                "tokensPerMinute": null,
+                "tokenQuota": 2000000,
+                "tokenQuotaPeriod": "Daily"
+              }
+            },
+            "families": {
+              "haiku": {
+                "models": [
+                  "claude-haiku-4-5"
+                ],
+                "person": {
+                  "tokensPerMinute": null,
+                  "tokenQuota": null,
+                  "tokenQuotaPeriod": null
+                },
+                "group": {
+                  "tokensPerMinute": null,
+                  "tokenQuota": null,
+                  "tokenQuotaPeriod": null
+                }
+              }
+            }
+          },
+          "surfaces": [
+            "code",
+            "chat"
+          ],
+          "cacheProfile": {
+            "expectedCacheReadPercent": 80,
+            "basis": "suggested"
+          }
+        }
+      ],
+      "entitlements": [
+        {
+          "id": "00000000-0000-4000-8000-000001100001",
+          "personId": "00000000-0000-4000-8000-000001100001",
+          "projectMemberships": [
+            {
+              "projectId": "11111111-1111-4111-8111-111111111111",
+              "classification": "group",
+              "classificationGroupId": "11111111-1111-4111-8111-111111111111",
+              "familyPolicy": {
+                "aggregateLimits": {
+                  "person": {
+                    "tokensPerMinute": 1000000,
+                    "tokenQuota": 500000,
+                    "tokenQuotaPeriod": "Daily"
+                  },
+                  "group": {
+                    "tokensPerMinute": null,
+                    "tokenQuota": 2000000,
+                    "tokenQuotaPeriod": "Daily"
+                  }
+                },
+                "families": {
+                  "haiku": {
+                    "models": [
+                      "claude-haiku-4-5"
+                    ],
+                    "person": {
+                      "tokensPerMinute": null,
+                      "tokenQuota": null,
+                      "tokenQuotaPeriod": null
+                    },
+                    "group": {
+                      "tokensPerMinute": null,
+                      "tokenQuota": null,
+                      "tokenQuotaPeriod": null
+                    }
+                  }
+                }
+              },
+              "classificationGroupDisplayName": "Payments engineering",
+              "backendId": "foundry-sample-hub",
+              "aggregateMode": "strict",
+              "priority": 1,
+              "surfaces": [
+                "chat",
+                "code"
+              ],
+              "chargebackId": "WBS-1234.01",
+              "restrictedFamiliesApproved": false,
+              "denormalizedAt": "2026-10-23T12:00:00.000Z",
+              "joinedAt": "2026-10-23T12:00:00.000Z",
+              "status": "active"
+            },
+            {
+              "projectId": "55555555-5555-4555-8555-555555555555",
+              "classification": "group",
+              "classificationGroupId": "55555555-5555-4555-8555-555555555555",
+              "familyPolicy": {
+                "aggregateLimits": {
+                  "person": {
+                    "tokensPerMinute": 1000000,
+                    "tokenQuota": 500000,
+                    "tokenQuotaPeriod": "Daily"
+                  },
+                  "group": {
+                    "tokensPerMinute": null,
+                    "tokenQuota": 2000000,
+                    "tokenQuotaPeriod": "Daily"
+                  }
+                },
+                "families": {
+                  "haiku": {
+                    "models": [
+                      "claude-haiku-4-5"
+                    ],
+                    "person": {
+                      "tokensPerMinute": null,
+                      "tokenQuota": null,
+                      "tokenQuotaPeriod": null
+                    },
+                    "group": {
+                      "tokensPerMinute": null,
+                      "tokenQuota": null,
+                      "tokenQuotaPeriod": null
+                    }
+                  }
+                }
+              },
+              "classificationGroupDisplayName": "Payments engineering",
+              "backendId": "foundry-sample-hub",
+              "aggregateMode": "strict",
+              "priority": 2,
+              "surfaces": [
+                "chat",
+                "code"
+              ],
+              "chargebackId": "WBS-1234.01",
+              "restrictedFamiliesApproved": false,
+              "denormalizedAt": "2026-10-23T12:00:00.000Z",
+              "joinedAt": "2026-10-23T12:00:00.000Z",
+              "status": "active"
+            }
+          ],
+          "generation": 1,
+          "lastVerifiedAt": "2026-10-23T12:00:00.000Z"
+        },
+        {
+          "id": "00000000-0000-4000-8000-000001100010",
+          "personId": "00000000-0000-4000-8000-000001100010",
+          "projectMemberships": [
+            {
+              "projectId": "11111111-1111-4111-8111-111111111111",
+              "classification": "group",
+              "classificationGroupId": "11111111-1111-4111-8111-111111111111",
+              "familyPolicy": {
+                "aggregateLimits": {
+                  "person": {
+                    "tokensPerMinute": 1000000,
+                    "tokenQuota": 500000,
+                    "tokenQuotaPeriod": "Daily"
+                  },
+                  "group": {
+                    "tokensPerMinute": null,
+                    "tokenQuota": 2000000,
+                    "tokenQuotaPeriod": "Daily"
+                  }
+                },
+                "families": {
+                  "haiku": {
+                    "models": [
+                      "claude-haiku-4-5"
+                    ],
+                    "person": {
+                      "tokensPerMinute": null,
+                      "tokenQuota": null,
+                      "tokenQuotaPeriod": null
+                    },
+                    "group": {
+                      "tokensPerMinute": null,
+                      "tokenQuota": null,
+                      "tokenQuotaPeriod": null
+                    }
+                  }
+                }
+              },
+              "classificationGroupDisplayName": "Payments engineering",
+              "backendId": "foundry-sample-hub",
+              "aggregateMode": "strict",
+              "priority": 1,
+              "surfaces": [
+                "chat",
+                "code"
+              ],
+              "chargebackId": "WBS-1234.01",
+              "restrictedFamiliesApproved": false,
+              "denormalizedAt": "2026-10-23T12:00:00.000Z",
+              "joinedAt": "2026-10-23T12:00:00.000Z",
+              "status": "active"
+            },
+            {
+              "projectId": "55555555-5555-4555-8555-555555555555",
+              "classification": "group",
+              "classificationGroupId": "55555555-5555-4555-8555-555555555555",
+              "familyPolicy": {
+                "aggregateLimits": {
+                  "person": {
+                    "tokensPerMinute": 1000000,
+                    "tokenQuota": 500000,
+                    "tokenQuotaPeriod": "Daily"
+                  },
+                  "group": {
+                    "tokensPerMinute": null,
+                    "tokenQuota": 2000000,
+                    "tokenQuotaPeriod": "Daily"
+                  }
+                },
+                "families": {
+                  "haiku": {
+                    "models": [
+                      "claude-haiku-4-5"
+                    ],
+                    "person": {
+                      "tokensPerMinute": null,
+                      "tokenQuota": null,
+                      "tokenQuotaPeriod": null
+                    },
+                    "group": {
+                      "tokensPerMinute": null,
+                      "tokenQuota": null,
+                      "tokenQuotaPeriod": null
+                    }
+                  }
+                }
+              },
+              "classificationGroupDisplayName": "Payments engineering",
+              "backendId": "foundry-sample-hub",
+              "aggregateMode": "strict",
+              "priority": 2,
+              "surfaces": [
+                "chat",
+                "code"
+              ],
+              "chargebackId": "WBS-1234.01",
+              "restrictedFamiliesApproved": false,
+              "denormalizedAt": "2026-10-23T12:00:00.000Z",
+              "joinedAt": "2026-10-23T12:00:00.000Z",
+              "status": "active"
+            }
+          ],
+          "generation": 1,
+          "lastVerifiedAt": "2026-10-23T12:00:00.000Z"
+        }
+      ],
+      "budgetStates": [
+        {
+          "id": "00000000-0000-4000-8000-000001100001:11111111-1111-4111-8111-111111111111",
+          "personId": "00000000-0000-4000-8000-000001100001",
+          "projectId": "11111111-1111-4111-8111-111111111111",
+          "classification": "group",
+          "spentCcu": "800",
+          "budgetCcu": "1000",
+          "exhausted": false,
+          "period": "2026-10",
+          "rateCardVersion": "2026-10-11",
+          "contractScheduleVersion": "2026-10-11",
+          "computedAt": "2026-10-23T12:00:00.000Z",
+          "validUntil": "2026-10-23T12:10:00.000Z",
+          "completeness": "complete",
+          "realtimeCeilingTokensPerMinute": 400000
+        },
+        {
+          "id": "00000000-0000-4000-8000-000001100001:55555555-5555-4555-8555-555555555555",
+          "personId": "00000000-0000-4000-8000-000001100001",
+          "projectId": "55555555-5555-4555-8555-555555555555",
+          "classification": "group",
+          "spentCcu": "200",
+          "budgetCcu": "1000",
+          "exhausted": false,
+          "period": "2026-10",
+          "rateCardVersion": "2026-10-11",
+          "contractScheduleVersion": "2026-10-11",
+          "computedAt": "2026-10-23T12:00:00.000Z",
+          "validUntil": "2026-10-23T12:10:00.000Z",
+          "completeness": "complete",
+          "realtimeCeilingTokensPerMinute": 1600000
+        },
+        {
+          "id": "00000000-0000-4000-8000-000001100010:11111111-1111-4111-8111-111111111111",
+          "personId": "00000000-0000-4000-8000-000001100010",
+          "projectId": "11111111-1111-4111-8111-111111111111",
+          "classification": "group",
+          "spentCcu": "0",
+          "budgetCcu": "1000",
+          "exhausted": false,
+          "period": "2026-10",
+          "rateCardVersion": "2026-10-11",
+          "contractScheduleVersion": "2026-10-11",
+          "computedAt": "2026-10-23T12:00:00.000Z",
+          "validUntil": "2026-10-23T12:10:00.000Z",
+          "completeness": "complete",
+          "realtimeCeilingTokensPerMinute": 2000000
+        },
+        {
+          "id": "00000000-0000-4000-8000-000001100010:55555555-5555-4555-8555-555555555555",
+          "personId": "00000000-0000-4000-8000-000001100010",
+          "projectId": "55555555-5555-4555-8555-555555555555",
+          "classification": "group",
+          "spentCcu": "0",
+          "budgetCcu": "1000",
+          "exhausted": false,
+          "period": "2026-10",
+          "rateCardVersion": "2026-10-11",
+          "contractScheduleVersion": "2026-10-11",
+          "computedAt": "2026-10-23T12:00:00.000Z",
+          "validUntil": "2026-10-23T12:10:00.000Z",
+          "completeness": "complete",
+          "realtimeCeilingTokensPerMinute": 2000000
+        }
+      ],
+      "aggregateStates": [
+        {
+          "id": "11111111-1111-4111-8111-111111111111:group",
+          "scopeId": "11111111-1111-4111-8111-111111111111:group",
+          "spentCcu": "800",
+          "budgetCcu": "2000",
+          "exhausted": false,
+          "completeness": "complete",
+          "mode": "strict",
+          "activeMemberCount": 2,
+          "computedAt": "2026-10-23T12:00:00.000Z",
+          "validUntil": "2026-10-23T12:10:00.000Z"
+        },
+        {
+          "id": "55555555-5555-4555-8555-555555555555:group",
+          "scopeId": "55555555-5555-4555-8555-555555555555:group",
+          "spentCcu": "200",
+          "budgetCcu": "2000",
+          "exhausted": false,
+          "completeness": "complete",
+          "mode": "strict",
+          "activeMemberCount": 2,
+          "computedAt": "2026-10-23T12:00:00.000Z",
+          "validUntil": "2026-10-23T12:10:00.000Z"
+        }
+      ]
+    },
+    "status": 200,
+    "body": {
+      "refused": false,
+      "decisionVersion": 3,
+      "personId": "00000000-0000-4000-8000-000001100001",
+      "projectId": "11111111-1111-4111-8111-111111111111",
+      "classification": "group",
+      "classificationGroupId": "11111111-1111-4111-8111-111111111111",
+      "classificationGroupDisplayName": "Payments engineering",
+      "backendId": "foundry-sample-hub",
+      "familyPolicy": {
+        "aggregateLimits": {
+          "person": {
+            "tokensPerMinute": 1000000,
+            "tokenQuota": 500000,
+            "tokenQuotaPeriod": "Daily"
+          },
+          "group": {
+            "tokensPerMinute": null,
+            "tokenQuota": 2000000,
+            "tokenQuotaPeriod": "Daily"
+          }
+        },
+        "families": {
+          "haiku": {
+            "models": [
+              "claude-haiku-4-5"
+            ],
+            "person": {
+              "tokensPerMinute": null,
+              "tokenQuota": null,
+              "tokenQuotaPeriod": null
+            },
+            "group": {
+              "tokensPerMinute": null,
+              "tokenQuota": null,
+              "tokenQuotaPeriod": null
+            }
+          }
+        }
+      },
+      "surfaces": [
+        "chat",
+        "code"
+      ],
+      "chargebackId": "WBS-1234.01",
+      "restrictedFamiliesApproved": false,
+      "personBudgetScope": "00000000-0000-4000-8000-000001100001:11111111-1111-4111-8111-111111111111",
+      "budgetEnforcement": "budget-state",
+      "aggregateStrict": true,
+      "aggregateState": {
+        "id": "11111111-1111-4111-8111-111111111111:group",
+        "scopeId": "11111111-1111-4111-8111-111111111111:group",
+        "spentCcu": "800",
+        "budgetCcu": "2000",
+        "exhausted": false,
+        "completeness": "complete",
+        "mode": "strict",
+        "activeMemberCount": 2,
+        "computedAt": "2026-10-23T12:00:00.000Z",
+        "validUntil": "2026-10-23T12:10:00.000Z"
+      },
+      "personCeilingTokensPerMinute": 400000,
+      "personCeilingKey": "2026-10_1000",
+      "degraded": false,
+      "degradedReasons": [],
+      "budgetState": "fresh",
+      "resolverOutcome": "success"
+    }
+  },
+  {
+    "name": "refuse-budget-exhausted",
+    "request": {
+      "personId": "00000000-0000-4000-8000-000001100001",
+      "projectId": "11111111-1111-4111-8111-111111111111"
+    },
+    "documents": {
+      "projects": [
+        {
+          "id": "11111111-1111-4111-8111-111111111111",
+          "kind": "group",
+          "groupId": "11111111-1111-4111-8111-111111111111",
+          "projectId": "11111111-1111-4111-8111-111111111111",
+          "displayName": "Payments engineering",
+          "status": "active",
+          "backendId": "foundry-sample-hub",
+          "priority": 1,
+          "chargebackId": "WBS-1234.01",
+          "budget": {
+            "mode": "cap",
+            "perUser": {
+              "amount": "10",
+              "currency": "USD",
+              "period": "monthly"
+            },
+            "groupCap": {
+              "amount": "20",
+              "currency": "USD",
+              "period": "monthly"
+            }
+          },
+          "restrictedFamiliesApproved": false,
+          "familyPolicy": {
+            "aggregateLimits": {
+              "person": {
+                "tokensPerMinute": 1000000,
+                "tokenQuota": 500000,
+                "tokenQuotaPeriod": "Daily"
+              },
+              "group": {
+                "tokensPerMinute": null,
+                "tokenQuota": 2000000,
+                "tokenQuotaPeriod": "Daily"
+              }
+            },
+            "families": {
+              "haiku": {
+                "models": [
+                  "claude-haiku-4-5"
+                ],
+                "person": {
+                  "tokensPerMinute": null,
+                  "tokenQuota": null,
+                  "tokenQuotaPeriod": null
+                },
+                "group": {
+                  "tokensPerMinute": null,
+                  "tokenQuota": null,
+                  "tokenQuotaPeriod": null
+                }
+              }
+            }
+          },
+          "surfaces": [
+            "code",
+            "chat"
+          ],
+          "cacheProfile": {
+            "expectedCacheReadPercent": 80,
+            "basis": "suggested"
+          }
+        },
+        {
+          "id": "55555555-5555-4555-8555-555555555555",
+          "kind": "group",
+          "groupId": "55555555-5555-4555-8555-555555555555",
+          "projectId": "55555555-5555-4555-8555-555555555555",
+          "displayName": "Payments engineering",
+          "status": "active",
+          "backendId": "foundry-sample-hub",
+          "priority": 2,
+          "chargebackId": "WBS-1234.01",
+          "budget": {
+            "mode": "cap",
+            "perUser": {
+              "amount": "10",
+              "currency": "USD",
+              "period": "monthly"
+            },
+            "groupCap": {
+              "amount": "20",
+              "currency": "USD",
+              "period": "monthly"
+            }
+          },
+          "restrictedFamiliesApproved": false,
+          "familyPolicy": {
+            "aggregateLimits": {
+              "person": {
+                "tokensPerMinute": 1000000,
+                "tokenQuota": 500000,
+                "tokenQuotaPeriod": "Daily"
+              },
+              "group": {
+                "tokensPerMinute": null,
+                "tokenQuota": 2000000,
+                "tokenQuotaPeriod": "Daily"
+              }
+            },
+            "families": {
+              "haiku": {
+                "models": [
+                  "claude-haiku-4-5"
+                ],
+                "person": {
+                  "tokensPerMinute": null,
+                  "tokenQuota": null,
+                  "tokenQuotaPeriod": null
+                },
+                "group": {
+                  "tokensPerMinute": null,
+                  "tokenQuota": null,
+                  "tokenQuotaPeriod": null
+                }
+              }
+            }
+          },
+          "surfaces": [
+            "code",
+            "chat"
+          ],
+          "cacheProfile": {
+            "expectedCacheReadPercent": 80,
+            "basis": "suggested"
+          }
+        }
+      ],
+      "entitlements": [
+        {
+          "id": "00000000-0000-4000-8000-000001100001",
+          "personId": "00000000-0000-4000-8000-000001100001",
+          "projectMemberships": [
+            {
+              "projectId": "11111111-1111-4111-8111-111111111111",
+              "classification": "group",
+              "classificationGroupId": "11111111-1111-4111-8111-111111111111",
+              "familyPolicy": {
+                "aggregateLimits": {
+                  "person": {
+                    "tokensPerMinute": 1000000,
+                    "tokenQuota": 500000,
+                    "tokenQuotaPeriod": "Daily"
+                  },
+                  "group": {
+                    "tokensPerMinute": null,
+                    "tokenQuota": 2000000,
+                    "tokenQuotaPeriod": "Daily"
+                  }
+                },
+                "families": {
+                  "haiku": {
+                    "models": [
+                      "claude-haiku-4-5"
+                    ],
+                    "person": {
+                      "tokensPerMinute": null,
+                      "tokenQuota": null,
+                      "tokenQuotaPeriod": null
+                    },
+                    "group": {
+                      "tokensPerMinute": null,
+                      "tokenQuota": null,
+                      "tokenQuotaPeriod": null
+                    }
+                  }
+                }
+              },
+              "classificationGroupDisplayName": "Payments engineering",
+              "backendId": "foundry-sample-hub",
+              "aggregateMode": "strict",
+              "priority": 1,
+              "surfaces": [
+                "chat",
+                "code"
+              ],
+              "chargebackId": "WBS-1234.01",
+              "restrictedFamiliesApproved": false,
+              "denormalizedAt": "2026-10-23T12:00:00.000Z",
+              "joinedAt": "2026-10-23T12:00:00.000Z",
+              "status": "active"
+            },
+            {
+              "projectId": "55555555-5555-4555-8555-555555555555",
+              "classification": "group",
+              "classificationGroupId": "55555555-5555-4555-8555-555555555555",
+              "familyPolicy": {
+                "aggregateLimits": {
+                  "person": {
+                    "tokensPerMinute": 1000000,
+                    "tokenQuota": 500000,
+                    "tokenQuotaPeriod": "Daily"
+                  },
+                  "group": {
+                    "tokensPerMinute": null,
+                    "tokenQuota": 2000000,
+                    "tokenQuotaPeriod": "Daily"
+                  }
+                },
+                "families": {
+                  "haiku": {
+                    "models": [
+                      "claude-haiku-4-5"
+                    ],
+                    "person": {
+                      "tokensPerMinute": null,
+                      "tokenQuota": null,
+                      "tokenQuotaPeriod": null
+                    },
+                    "group": {
+                      "tokensPerMinute": null,
+                      "tokenQuota": null,
+                      "tokenQuotaPeriod": null
+                    }
+                  }
+                }
+              },
+              "classificationGroupDisplayName": "Payments engineering",
+              "backendId": "foundry-sample-hub",
+              "aggregateMode": "strict",
+              "priority": 2,
+              "surfaces": [
+                "chat",
+                "code"
+              ],
+              "chargebackId": "WBS-1234.01",
+              "restrictedFamiliesApproved": false,
+              "denormalizedAt": "2026-10-23T12:00:00.000Z",
+              "joinedAt": "2026-10-23T12:00:00.000Z",
+              "status": "active"
+            }
+          ],
+          "generation": 1,
+          "lastVerifiedAt": "2026-10-23T12:00:00.000Z"
+        },
+        {
+          "id": "00000000-0000-4000-8000-000001100010",
+          "personId": "00000000-0000-4000-8000-000001100010",
+          "projectMemberships": [
+            {
+              "projectId": "11111111-1111-4111-8111-111111111111",
+              "classification": "group",
+              "classificationGroupId": "11111111-1111-4111-8111-111111111111",
+              "familyPolicy": {
+                "aggregateLimits": {
+                  "person": {
+                    "tokensPerMinute": 1000000,
+                    "tokenQuota": 500000,
+                    "tokenQuotaPeriod": "Daily"
+                  },
+                  "group": {
+                    "tokensPerMinute": null,
+                    "tokenQuota": 2000000,
+                    "tokenQuotaPeriod": "Daily"
+                  }
+                },
+                "families": {
+                  "haiku": {
+                    "models": [
+                      "claude-haiku-4-5"
+                    ],
+                    "person": {
+                      "tokensPerMinute": null,
+                      "tokenQuota": null,
+                      "tokenQuotaPeriod": null
+                    },
+                    "group": {
+                      "tokensPerMinute": null,
+                      "tokenQuota": null,
+                      "tokenQuotaPeriod": null
+                    }
+                  }
+                }
+              },
+              "classificationGroupDisplayName": "Payments engineering",
+              "backendId": "foundry-sample-hub",
+              "aggregateMode": "strict",
+              "priority": 1,
+              "surfaces": [
+                "chat",
+                "code"
+              ],
+              "chargebackId": "WBS-1234.01",
+              "restrictedFamiliesApproved": false,
+              "denormalizedAt": "2026-10-23T12:00:00.000Z",
+              "joinedAt": "2026-10-23T12:00:00.000Z",
+              "status": "active"
+            },
+            {
+              "projectId": "55555555-5555-4555-8555-555555555555",
+              "classification": "group",
+              "classificationGroupId": "55555555-5555-4555-8555-555555555555",
+              "familyPolicy": {
+                "aggregateLimits": {
+                  "person": {
+                    "tokensPerMinute": 1000000,
+                    "tokenQuota": 500000,
+                    "tokenQuotaPeriod": "Daily"
+                  },
+                  "group": {
+                    "tokensPerMinute": null,
+                    "tokenQuota": 2000000,
+                    "tokenQuotaPeriod": "Daily"
+                  }
+                },
+                "families": {
+                  "haiku": {
+                    "models": [
+                      "claude-haiku-4-5"
+                    ],
+                    "person": {
+                      "tokensPerMinute": null,
+                      "tokenQuota": null,
+                      "tokenQuotaPeriod": null
+                    },
+                    "group": {
+                      "tokensPerMinute": null,
+                      "tokenQuota": null,
+                      "tokenQuotaPeriod": null
+                    }
+                  }
+                }
+              },
+              "classificationGroupDisplayName": "Payments engineering",
+              "backendId": "foundry-sample-hub",
+              "aggregateMode": "strict",
+              "priority": 2,
+              "surfaces": [
+                "chat",
+                "code"
+              ],
+              "chargebackId": "WBS-1234.01",
+              "restrictedFamiliesApproved": false,
+              "denormalizedAt": "2026-10-23T12:00:00.000Z",
+              "joinedAt": "2026-10-23T12:00:00.000Z",
+              "status": "active"
+            }
+          ],
+          "generation": 1,
+          "lastVerifiedAt": "2026-10-23T12:00:00.000Z"
+        }
+      ],
+      "budgetStates": [
+        {
+          "id": "00000000-0000-4000-8000-000001100001:11111111-1111-4111-8111-111111111111",
+          "personId": "00000000-0000-4000-8000-000001100001",
+          "projectId": "11111111-1111-4111-8111-111111111111",
+          "classification": "group",
+          "spentCcu": "1000",
+          "budgetCcu": "1000",
+          "exhausted": true,
+          "period": "2026-10",
+          "rateCardVersion": "2026-10-11",
+          "contractScheduleVersion": "2026-10-11",
+          "computedAt": "2026-10-23T12:00:00.000Z",
+          "validUntil": "2026-10-23T12:10:00.000Z",
+          "completeness": "complete",
+          "realtimeCeilingTokensPerMinute": 0
+        },
+        {
+          "id": "00000000-0000-4000-8000-000001100001:55555555-5555-4555-8555-555555555555",
+          "personId": "00000000-0000-4000-8000-000001100001",
+          "projectId": "55555555-5555-4555-8555-555555555555",
+          "classification": "group",
+          "spentCcu": "0",
+          "budgetCcu": "1000",
+          "exhausted": false,
+          "period": "2026-10",
+          "rateCardVersion": "2026-10-11",
+          "contractScheduleVersion": "2026-10-11",
+          "computedAt": "2026-10-23T12:00:00.000Z",
+          "validUntil": "2026-10-23T12:10:00.000Z",
+          "completeness": "complete",
+          "realtimeCeilingTokensPerMinute": 2000000
+        },
+        {
+          "id": "00000000-0000-4000-8000-000001100010:11111111-1111-4111-8111-111111111111",
+          "personId": "00000000-0000-4000-8000-000001100010",
+          "projectId": "11111111-1111-4111-8111-111111111111",
+          "classification": "group",
+          "spentCcu": "0",
+          "budgetCcu": "1000",
+          "exhausted": false,
+          "period": "2026-10",
+          "rateCardVersion": "2026-10-11",
+          "contractScheduleVersion": "2026-10-11",
+          "computedAt": "2026-10-23T12:00:00.000Z",
+          "validUntil": "2026-10-23T12:10:00.000Z",
+          "completeness": "complete",
+          "realtimeCeilingTokensPerMinute": 2000000
+        },
+        {
+          "id": "00000000-0000-4000-8000-000001100010:55555555-5555-4555-8555-555555555555",
+          "personId": "00000000-0000-4000-8000-000001100010",
+          "projectId": "55555555-5555-4555-8555-555555555555",
+          "classification": "group",
+          "spentCcu": "0",
+          "budgetCcu": "1000",
+          "exhausted": false,
+          "period": "2026-10",
+          "rateCardVersion": "2026-10-11",
+          "contractScheduleVersion": "2026-10-11",
+          "computedAt": "2026-10-23T12:00:00.000Z",
+          "validUntil": "2026-10-23T12:10:00.000Z",
+          "completeness": "complete",
+          "realtimeCeilingTokensPerMinute": 2000000
+        }
+      ],
+      "aggregateStates": [
+        {
+          "id": "11111111-1111-4111-8111-111111111111:group",
+          "scopeId": "11111111-1111-4111-8111-111111111111:group",
+          "spentCcu": "1000",
+          "budgetCcu": "2000",
+          "exhausted": false,
+          "completeness": "complete",
+          "mode": "strict",
+          "activeMemberCount": 2,
+          "computedAt": "2026-10-23T12:00:00.000Z",
+          "validUntil": "2026-10-23T12:10:00.000Z"
+        },
+        {
+          "id": "55555555-5555-4555-8555-555555555555:group",
+          "scopeId": "55555555-5555-4555-8555-555555555555:group",
+          "spentCcu": "0",
+          "budgetCcu": "2000",
+          "exhausted": false,
+          "completeness": "complete",
+          "mode": "strict",
+          "activeMemberCount": 2,
+          "computedAt": "2026-10-23T12:00:00.000Z",
+          "validUntil": "2026-10-23T12:10:00.000Z"
+        }
+      ]
+    },
+    "status": 403,
+    "body": {
+      "error": "budget_exhausted",
+      "resolverOutcome": "refused",
+      "projectId": "11111111-1111-4111-8111-111111111111",
+      "classification": "group",
+      "budgetState": "fresh"
+    }
+  },
+  {
+    "name": "refuse-no-entitlement",
+    "request": {
+      "personId": "99999999-9999-4999-8999-999999999999"
+    },
+    "documents": {
+      "projects": [
+        {
+          "id": "11111111-1111-4111-8111-111111111111",
+          "kind": "group",
+          "groupId": "11111111-1111-4111-8111-111111111111",
+          "projectId": "11111111-1111-4111-8111-111111111111",
+          "displayName": "Payments engineering",
+          "status": "active",
+          "backendId": "foundry-sample-hub",
+          "priority": 1,
+          "chargebackId": "WBS-1234.01",
+          "budget": {
+            "mode": "cap",
+            "perUser": {
+              "amount": "10",
+              "currency": "USD",
+              "period": "monthly"
+            },
+            "groupCap": {
+              "amount": "20",
+              "currency": "USD",
+              "period": "monthly"
+            }
+          },
+          "restrictedFamiliesApproved": false,
+          "familyPolicy": {
+            "aggregateLimits": {
+              "person": {
+                "tokensPerMinute": 1000000,
+                "tokenQuota": 500000,
+                "tokenQuotaPeriod": "Daily"
+              },
+              "group": {
+                "tokensPerMinute": null,
+                "tokenQuota": 2000000,
+                "tokenQuotaPeriod": "Daily"
+              }
+            },
+            "families": {
+              "haiku": {
+                "models": [
+                  "claude-haiku-4-5"
+                ],
+                "person": {
+                  "tokensPerMinute": null,
+                  "tokenQuota": null,
+                  "tokenQuotaPeriod": null
+                },
+                "group": {
+                  "tokensPerMinute": null,
+                  "tokenQuota": null,
+                  "tokenQuotaPeriod": null
+                }
+              }
+            }
+          },
+          "surfaces": [
+            "code",
+            "chat"
+          ],
+          "cacheProfile": {
+            "expectedCacheReadPercent": 80,
+            "basis": "suggested"
+          }
+        },
+        {
+          "id": "55555555-5555-4555-8555-555555555555",
+          "kind": "group",
+          "groupId": "55555555-5555-4555-8555-555555555555",
+          "projectId": "55555555-5555-4555-8555-555555555555",
+          "displayName": "Payments engineering",
+          "status": "active",
+          "backendId": "foundry-sample-hub",
+          "priority": 2,
+          "chargebackId": "WBS-1234.01",
+          "budget": {
+            "mode": "cap",
+            "perUser": {
+              "amount": "10",
+              "currency": "USD",
+              "period": "monthly"
+            },
+            "groupCap": {
+              "amount": "20",
+              "currency": "USD",
+              "period": "monthly"
+            }
+          },
+          "restrictedFamiliesApproved": false,
+          "familyPolicy": {
+            "aggregateLimits": {
+              "person": {
+                "tokensPerMinute": 1000000,
+                "tokenQuota": 500000,
+                "tokenQuotaPeriod": "Daily"
+              },
+              "group": {
+                "tokensPerMinute": null,
+                "tokenQuota": 2000000,
+                "tokenQuotaPeriod": "Daily"
+              }
+            },
+            "families": {
+              "haiku": {
+                "models": [
+                  "claude-haiku-4-5"
+                ],
+                "person": {
+                  "tokensPerMinute": null,
+                  "tokenQuota": null,
+                  "tokenQuotaPeriod": null
+                },
+                "group": {
+                  "tokensPerMinute": null,
+                  "tokenQuota": null,
+                  "tokenQuotaPeriod": null
+                }
+              }
+            }
+          },
+          "surfaces": [
+            "code",
+            "chat"
+          ],
+          "cacheProfile": {
+            "expectedCacheReadPercent": 80,
+            "basis": "suggested"
+          }
+        }
+      ],
+      "entitlements": [
+        {
+          "id": "00000000-0000-4000-8000-000001100001",
+          "personId": "00000000-0000-4000-8000-000001100001",
+          "projectMemberships": [
+            {
+              "projectId": "11111111-1111-4111-8111-111111111111",
+              "classification": "group",
+              "classificationGroupId": "11111111-1111-4111-8111-111111111111",
+              "familyPolicy": {
+                "aggregateLimits": {
+                  "person": {
+                    "tokensPerMinute": 1000000,
+                    "tokenQuota": 500000,
+                    "tokenQuotaPeriod": "Daily"
+                  },
+                  "group": {
+                    "tokensPerMinute": null,
+                    "tokenQuota": 2000000,
+                    "tokenQuotaPeriod": "Daily"
+                  }
+                },
+                "families": {
+                  "haiku": {
+                    "models": [
+                      "claude-haiku-4-5"
+                    ],
+                    "person": {
+                      "tokensPerMinute": null,
+                      "tokenQuota": null,
+                      "tokenQuotaPeriod": null
+                    },
+                    "group": {
+                      "tokensPerMinute": null,
+                      "tokenQuota": null,
+                      "tokenQuotaPeriod": null
+                    }
+                  }
+                }
+              },
+              "classificationGroupDisplayName": "Payments engineering",
+              "backendId": "foundry-sample-hub",
+              "aggregateMode": "strict",
+              "priority": 1,
+              "surfaces": [
+                "chat",
+                "code"
+              ],
+              "chargebackId": "WBS-1234.01",
+              "restrictedFamiliesApproved": false,
+              "denormalizedAt": "2026-10-23T12:00:00.000Z",
+              "joinedAt": "2026-10-23T12:00:00.000Z",
+              "status": "active"
+            },
+            {
+              "projectId": "55555555-5555-4555-8555-555555555555",
+              "classification": "group",
+              "classificationGroupId": "55555555-5555-4555-8555-555555555555",
+              "familyPolicy": {
+                "aggregateLimits": {
+                  "person": {
+                    "tokensPerMinute": 1000000,
+                    "tokenQuota": 500000,
+                    "tokenQuotaPeriod": "Daily"
+                  },
+                  "group": {
+                    "tokensPerMinute": null,
+                    "tokenQuota": 2000000,
+                    "tokenQuotaPeriod": "Daily"
+                  }
+                },
+                "families": {
+                  "haiku": {
+                    "models": [
+                      "claude-haiku-4-5"
+                    ],
+                    "person": {
+                      "tokensPerMinute": null,
+                      "tokenQuota": null,
+                      "tokenQuotaPeriod": null
+                    },
+                    "group": {
+                      "tokensPerMinute": null,
+                      "tokenQuota": null,
+                      "tokenQuotaPeriod": null
+                    }
+                  }
+                }
+              },
+              "classificationGroupDisplayName": "Payments engineering",
+              "backendId": "foundry-sample-hub",
+              "aggregateMode": "strict",
+              "priority": 2,
+              "surfaces": [
+                "chat",
+                "code"
+              ],
+              "chargebackId": "WBS-1234.01",
+              "restrictedFamiliesApproved": false,
+              "denormalizedAt": "2026-10-23T12:00:00.000Z",
+              "joinedAt": "2026-10-23T12:00:00.000Z",
+              "status": "active"
+            }
+          ],
+          "generation": 1,
+          "lastVerifiedAt": "2026-10-23T12:00:00.000Z"
+        },
+        {
+          "id": "00000000-0000-4000-8000-000001100010",
+          "personId": "00000000-0000-4000-8000-000001100010",
+          "projectMemberships": [
+            {
+              "projectId": "11111111-1111-4111-8111-111111111111",
+              "classification": "group",
+              "classificationGroupId": "11111111-1111-4111-8111-111111111111",
+              "familyPolicy": {
+                "aggregateLimits": {
+                  "person": {
+                    "tokensPerMinute": 1000000,
+                    "tokenQuota": 500000,
+                    "tokenQuotaPeriod": "Daily"
+                  },
+                  "group": {
+                    "tokensPerMinute": null,
+                    "tokenQuota": 2000000,
+                    "tokenQuotaPeriod": "Daily"
+                  }
+                },
+                "families": {
+                  "haiku": {
+                    "models": [
+                      "claude-haiku-4-5"
+                    ],
+                    "person": {
+                      "tokensPerMinute": null,
+                      "tokenQuota": null,
+                      "tokenQuotaPeriod": null
+                    },
+                    "group": {
+                      "tokensPerMinute": null,
+                      "tokenQuota": null,
+                      "tokenQuotaPeriod": null
+                    }
+                  }
+                }
+              },
+              "classificationGroupDisplayName": "Payments engineering",
+              "backendId": "foundry-sample-hub",
+              "aggregateMode": "strict",
+              "priority": 1,
+              "surfaces": [
+                "chat",
+                "code"
+              ],
+              "chargebackId": "WBS-1234.01",
+              "restrictedFamiliesApproved": false,
+              "denormalizedAt": "2026-10-23T12:00:00.000Z",
+              "joinedAt": "2026-10-23T12:00:00.000Z",
+              "status": "active"
+            },
+            {
+              "projectId": "55555555-5555-4555-8555-555555555555",
+              "classification": "group",
+              "classificationGroupId": "55555555-5555-4555-8555-555555555555",
+              "familyPolicy": {
+                "aggregateLimits": {
+                  "person": {
+                    "tokensPerMinute": 1000000,
+                    "tokenQuota": 500000,
+                    "tokenQuotaPeriod": "Daily"
+                  },
+                  "group": {
+                    "tokensPerMinute": null,
+                    "tokenQuota": 2000000,
+                    "tokenQuotaPeriod": "Daily"
+                  }
+                },
+                "families": {
+                  "haiku": {
+                    "models": [
+                      "claude-haiku-4-5"
+                    ],
+                    "person": {
+                      "tokensPerMinute": null,
+                      "tokenQuota": null,
+                      "tokenQuotaPeriod": null
+                    },
+                    "group": {
+                      "tokensPerMinute": null,
+                      "tokenQuota": null,
+                      "tokenQuotaPeriod": null
+                    }
+                  }
+                }
+              },
+              "classificationGroupDisplayName": "Payments engineering",
+              "backendId": "foundry-sample-hub",
+              "aggregateMode": "strict",
+              "priority": 2,
+              "surfaces": [
+                "chat",
+                "code"
+              ],
+              "chargebackId": "WBS-1234.01",
+              "restrictedFamiliesApproved": false,
+              "denormalizedAt": "2026-10-23T12:00:00.000Z",
+              "joinedAt": "2026-10-23T12:00:00.000Z",
+              "status": "active"
+            }
+          ],
+          "generation": 1,
+          "lastVerifiedAt": "2026-10-23T12:00:00.000Z"
+        }
+      ],
+      "budgetStates": [
+        {
+          "id": "00000000-0000-4000-8000-000001100001:11111111-1111-4111-8111-111111111111",
+          "personId": "00000000-0000-4000-8000-000001100001",
+          "projectId": "11111111-1111-4111-8111-111111111111",
+          "classification": "group",
+          "spentCcu": "10",
+          "budgetCcu": "1000",
+          "exhausted": false,
+          "period": "2026-10",
+          "rateCardVersion": "2026-10-11",
+          "contractScheduleVersion": "2026-10-11",
+          "computedAt": "2026-10-23T12:00:00.000Z",
+          "validUntil": "2026-10-23T12:10:00.000Z",
+          "completeness": "complete",
+          "realtimeCeilingTokensPerMinute": 1980000
+        },
+        {
+          "id": "00000000-0000-4000-8000-000001100001:55555555-5555-4555-8555-555555555555",
+          "personId": "00000000-0000-4000-8000-000001100001",
+          "projectId": "55555555-5555-4555-8555-555555555555",
+          "classification": "group",
+          "spentCcu": "0",
+          "budgetCcu": "1000",
+          "exhausted": false,
+          "period": "2026-10",
+          "rateCardVersion": "2026-10-11",
+          "contractScheduleVersion": "2026-10-11",
+          "computedAt": "2026-10-23T12:00:00.000Z",
+          "validUntil": "2026-10-23T12:10:00.000Z",
+          "completeness": "complete",
+          "realtimeCeilingTokensPerMinute": 2000000
+        },
+        {
+          "id": "00000000-0000-4000-8000-000001100010:11111111-1111-4111-8111-111111111111",
+          "personId": "00000000-0000-4000-8000-000001100010",
+          "projectId": "11111111-1111-4111-8111-111111111111",
+          "classification": "group",
+          "spentCcu": "0",
+          "budgetCcu": "1000",
+          "exhausted": false,
+          "period": "2026-10",
+          "rateCardVersion": "2026-10-11",
+          "contractScheduleVersion": "2026-10-11",
+          "computedAt": "2026-10-23T12:00:00.000Z",
+          "validUntil": "2026-10-23T12:10:00.000Z",
+          "completeness": "complete",
+          "realtimeCeilingTokensPerMinute": 2000000
+        },
+        {
+          "id": "00000000-0000-4000-8000-000001100010:55555555-5555-4555-8555-555555555555",
+          "personId": "00000000-0000-4000-8000-000001100010",
+          "projectId": "55555555-5555-4555-8555-555555555555",
+          "classification": "group",
+          "spentCcu": "0",
+          "budgetCcu": "1000",
+          "exhausted": false,
+          "period": "2026-10",
+          "rateCardVersion": "2026-10-11",
+          "contractScheduleVersion": "2026-10-11",
+          "computedAt": "2026-10-23T12:00:00.000Z",
+          "validUntil": "2026-10-23T12:10:00.000Z",
+          "completeness": "complete",
+          "realtimeCeilingTokensPerMinute": 2000000
+        }
+      ],
+      "aggregateStates": [
+        {
+          "id": "11111111-1111-4111-8111-111111111111:group",
+          "scopeId": "11111111-1111-4111-8111-111111111111:group",
+          "spentCcu": "10",
+          "budgetCcu": "2000",
+          "exhausted": false,
+          "completeness": "complete",
+          "mode": "strict",
+          "activeMemberCount": 2,
+          "computedAt": "2026-10-23T12:00:00.000Z",
+          "validUntil": "2026-10-23T12:10:00.000Z"
+        },
+        {
+          "id": "55555555-5555-4555-8555-555555555555:group",
+          "scopeId": "55555555-5555-4555-8555-555555555555:group",
+          "spentCcu": "0",
+          "budgetCcu": "2000",
+          "exhausted": false,
+          "completeness": "complete",
+          "mode": "strict",
+          "activeMemberCount": 2,
+          "computedAt": "2026-10-23T12:00:00.000Z",
+          "validUntil": "2026-10-23T12:10:00.000Z"
+        }
+      ]
+    },
+    "status": 403,
+    "body": {
+      "error": "not_authorized",
+      "resolverOutcome": "refused"
+    }
+  },
+  {
+    "name": "unavailable-incomplete-usage",
+    "request": {
+      "personId": "00000000-0000-4000-8000-000001100001",
+      "projectId": "11111111-1111-4111-8111-111111111111"
+    },
+    "documents": {
+      "projects": [
+        {
+          "id": "11111111-1111-4111-8111-111111111111",
+          "kind": "group",
+          "groupId": "11111111-1111-4111-8111-111111111111",
+          "projectId": "11111111-1111-4111-8111-111111111111",
+          "displayName": "Payments engineering",
+          "status": "active",
+          "backendId": "foundry-sample-hub",
+          "priority": 1,
+          "chargebackId": "WBS-1234.01",
+          "budget": {
+            "mode": "cap",
+            "perUser": {
+              "amount": "10",
+              "currency": "USD",
+              "period": "monthly"
+            },
+            "groupCap": {
+              "amount": "20",
+              "currency": "USD",
+              "period": "monthly"
+            }
+          },
+          "restrictedFamiliesApproved": false,
+          "familyPolicy": {
+            "aggregateLimits": {
+              "person": {
+                "tokensPerMinute": 1000000,
+                "tokenQuota": 500000,
+                "tokenQuotaPeriod": "Daily"
+              },
+              "group": {
+                "tokensPerMinute": null,
+                "tokenQuota": 2000000,
+                "tokenQuotaPeriod": "Daily"
+              }
+            },
+            "families": {
+              "haiku": {
+                "models": [
+                  "claude-haiku-4-5"
+                ],
+                "person": {
+                  "tokensPerMinute": null,
+                  "tokenQuota": null,
+                  "tokenQuotaPeriod": null
+                },
+                "group": {
+                  "tokensPerMinute": null,
+                  "tokenQuota": null,
+                  "tokenQuotaPeriod": null
+                }
+              }
+            }
+          },
+          "surfaces": [
+            "code",
+            "chat"
+          ],
+          "cacheProfile": {
+            "expectedCacheReadPercent": 80,
+            "basis": "suggested"
+          }
+        },
+        {
+          "id": "55555555-5555-4555-8555-555555555555",
+          "kind": "group",
+          "groupId": "55555555-5555-4555-8555-555555555555",
+          "projectId": "55555555-5555-4555-8555-555555555555",
+          "displayName": "Payments engineering",
+          "status": "active",
+          "backendId": "foundry-sample-hub",
+          "priority": 2,
+          "chargebackId": "WBS-1234.01",
+          "budget": {
+            "mode": "cap",
+            "perUser": {
+              "amount": "10",
+              "currency": "USD",
+              "period": "monthly"
+            },
+            "groupCap": {
+              "amount": "20",
+              "currency": "USD",
+              "period": "monthly"
+            }
+          },
+          "restrictedFamiliesApproved": false,
+          "familyPolicy": {
+            "aggregateLimits": {
+              "person": {
+                "tokensPerMinute": 1000000,
+                "tokenQuota": 500000,
+                "tokenQuotaPeriod": "Daily"
+              },
+              "group": {
+                "tokensPerMinute": null,
+                "tokenQuota": 2000000,
+                "tokenQuotaPeriod": "Daily"
+              }
+            },
+            "families": {
+              "haiku": {
+                "models": [
+                  "claude-haiku-4-5"
+                ],
+                "person": {
+                  "tokensPerMinute": null,
+                  "tokenQuota": null,
+                  "tokenQuotaPeriod": null
+                },
+                "group": {
+                  "tokensPerMinute": null,
+                  "tokenQuota": null,
+                  "tokenQuotaPeriod": null
+                }
+              }
+            }
+          },
+          "surfaces": [
+            "code",
+            "chat"
+          ],
+          "cacheProfile": {
+            "expectedCacheReadPercent": 80,
+            "basis": "suggested"
+          }
+        }
+      ],
+      "entitlements": [
+        {
+          "id": "00000000-0000-4000-8000-000001100001",
+          "personId": "00000000-0000-4000-8000-000001100001",
+          "projectMemberships": [
+            {
+              "projectId": "11111111-1111-4111-8111-111111111111",
+              "classification": "group",
+              "classificationGroupId": "11111111-1111-4111-8111-111111111111",
+              "familyPolicy": {
+                "aggregateLimits": {
+                  "person": {
+                    "tokensPerMinute": 1000000,
+                    "tokenQuota": 500000,
+                    "tokenQuotaPeriod": "Daily"
+                  },
+                  "group": {
+                    "tokensPerMinute": null,
+                    "tokenQuota": 2000000,
+                    "tokenQuotaPeriod": "Daily"
+                  }
+                },
+                "families": {
+                  "haiku": {
+                    "models": [
+                      "claude-haiku-4-5"
+                    ],
+                    "person": {
+                      "tokensPerMinute": null,
+                      "tokenQuota": null,
+                      "tokenQuotaPeriod": null
+                    },
+                    "group": {
+                      "tokensPerMinute": null,
+                      "tokenQuota": null,
+                      "tokenQuotaPeriod": null
+                    }
+                  }
+                }
+              },
+              "classificationGroupDisplayName": "Payments engineering",
+              "backendId": "foundry-sample-hub",
+              "aggregateMode": "strict",
+              "priority": 1,
+              "surfaces": [
+                "chat",
+                "code"
+              ],
+              "chargebackId": "WBS-1234.01",
+              "restrictedFamiliesApproved": false,
+              "denormalizedAt": "2026-10-23T12:00:00.000Z",
+              "joinedAt": "2026-10-23T12:00:00.000Z",
+              "status": "active"
+            },
+            {
+              "projectId": "55555555-5555-4555-8555-555555555555",
+              "classification": "group",
+              "classificationGroupId": "55555555-5555-4555-8555-555555555555",
+              "familyPolicy": {
+                "aggregateLimits": {
+                  "person": {
+                    "tokensPerMinute": 1000000,
+                    "tokenQuota": 500000,
+                    "tokenQuotaPeriod": "Daily"
+                  },
+                  "group": {
+                    "tokensPerMinute": null,
+                    "tokenQuota": 2000000,
+                    "tokenQuotaPeriod": "Daily"
+                  }
+                },
+                "families": {
+                  "haiku": {
+                    "models": [
+                      "claude-haiku-4-5"
+                    ],
+                    "person": {
+                      "tokensPerMinute": null,
+                      "tokenQuota": null,
+                      "tokenQuotaPeriod": null
+                    },
+                    "group": {
+                      "tokensPerMinute": null,
+                      "tokenQuota": null,
+                      "tokenQuotaPeriod": null
+                    }
+                  }
+                }
+              },
+              "classificationGroupDisplayName": "Payments engineering",
+              "backendId": "foundry-sample-hub",
+              "aggregateMode": "strict",
+              "priority": 2,
+              "surfaces": [
+                "chat",
+                "code"
+              ],
+              "chargebackId": "WBS-1234.01",
+              "restrictedFamiliesApproved": false,
+              "denormalizedAt": "2026-10-23T12:00:00.000Z",
+              "joinedAt": "2026-10-23T12:00:00.000Z",
+              "status": "active"
+            }
+          ],
+          "generation": 1,
+          "lastVerifiedAt": "2026-10-23T12:00:00.000Z"
+        },
+        {
+          "id": "00000000-0000-4000-8000-000001100010",
+          "personId": "00000000-0000-4000-8000-000001100010",
+          "projectMemberships": [
+            {
+              "projectId": "11111111-1111-4111-8111-111111111111",
+              "classification": "group",
+              "classificationGroupId": "11111111-1111-4111-8111-111111111111",
+              "familyPolicy": {
+                "aggregateLimits": {
+                  "person": {
+                    "tokensPerMinute": 1000000,
+                    "tokenQuota": 500000,
+                    "tokenQuotaPeriod": "Daily"
+                  },
+                  "group": {
+                    "tokensPerMinute": null,
+                    "tokenQuota": 2000000,
+                    "tokenQuotaPeriod": "Daily"
+                  }
+                },
+                "families": {
+                  "haiku": {
+                    "models": [
+                      "claude-haiku-4-5"
+                    ],
+                    "person": {
+                      "tokensPerMinute": null,
+                      "tokenQuota": null,
+                      "tokenQuotaPeriod": null
+                    },
+                    "group": {
+                      "tokensPerMinute": null,
+                      "tokenQuota": null,
+                      "tokenQuotaPeriod": null
+                    }
+                  }
+                }
+              },
+              "classificationGroupDisplayName": "Payments engineering",
+              "backendId": "foundry-sample-hub",
+              "aggregateMode": "strict",
+              "priority": 1,
+              "surfaces": [
+                "chat",
+                "code"
+              ],
+              "chargebackId": "WBS-1234.01",
+              "restrictedFamiliesApproved": false,
+              "denormalizedAt": "2026-10-23T12:00:00.000Z",
+              "joinedAt": "2026-10-23T12:00:00.000Z",
+              "status": "active"
+            },
+            {
+              "projectId": "55555555-5555-4555-8555-555555555555",
+              "classification": "group",
+              "classificationGroupId": "55555555-5555-4555-8555-555555555555",
+              "familyPolicy": {
+                "aggregateLimits": {
+                  "person": {
+                    "tokensPerMinute": 1000000,
+                    "tokenQuota": 500000,
+                    "tokenQuotaPeriod": "Daily"
+                  },
+                  "group": {
+                    "tokensPerMinute": null,
+                    "tokenQuota": 2000000,
+                    "tokenQuotaPeriod": "Daily"
+                  }
+                },
+                "families": {
+                  "haiku": {
+                    "models": [
+                      "claude-haiku-4-5"
+                    ],
+                    "person": {
+                      "tokensPerMinute": null,
+                      "tokenQuota": null,
+                      "tokenQuotaPeriod": null
+                    },
+                    "group": {
+                      "tokensPerMinute": null,
+                      "tokenQuota": null,
+                      "tokenQuotaPeriod": null
+                    }
+                  }
+                }
+              },
+              "classificationGroupDisplayName": "Payments engineering",
+              "backendId": "foundry-sample-hub",
+              "aggregateMode": "strict",
+              "priority": 2,
+              "surfaces": [
+                "chat",
+                "code"
+              ],
+              "chargebackId": "WBS-1234.01",
+              "restrictedFamiliesApproved": false,
+              "denormalizedAt": "2026-10-23T12:00:00.000Z",
+              "joinedAt": "2026-10-23T12:00:00.000Z",
+              "status": "active"
+            }
+          ],
+          "generation": 1,
+          "lastVerifiedAt": "2026-10-23T12:00:00.000Z"
+        }
+      ],
+      "budgetStates": [
+        {
+          "id": "00000000-0000-4000-8000-000001100001:11111111-1111-4111-8111-111111111111",
+          "personId": "00000000-0000-4000-8000-000001100001",
+          "projectId": "11111111-1111-4111-8111-111111111111",
+          "classification": "group",
+          "spentCcu": "10",
+          "budgetCcu": "1000",
+          "exhausted": false,
+          "period": "2026-10",
+          "rateCardVersion": "2026-10-11",
+          "contractScheduleVersion": "2026-10-11",
+          "computedAt": "2026-10-23T12:00:00.000Z",
+          "validUntil": "2026-10-23T12:10:00.000Z",
+          "completeness": "partial",
+          "realtimeCeilingTokensPerMinute": 1980000
+        },
+        {
+          "id": "00000000-0000-4000-8000-000001100001:55555555-5555-4555-8555-555555555555",
+          "personId": "00000000-0000-4000-8000-000001100001",
+          "projectId": "55555555-5555-4555-8555-555555555555",
+          "classification": "group",
+          "spentCcu": "0",
+          "budgetCcu": "1000",
+          "exhausted": false,
+          "period": "2026-10",
+          "rateCardVersion": "2026-10-11",
+          "contractScheduleVersion": "2026-10-11",
+          "computedAt": "2026-10-23T12:00:00.000Z",
+          "validUntil": "2026-10-23T12:10:00.000Z",
+          "completeness": "complete",
+          "realtimeCeilingTokensPerMinute": 2000000
+        },
+        {
+          "id": "00000000-0000-4000-8000-000001100010:11111111-1111-4111-8111-111111111111",
+          "personId": "00000000-0000-4000-8000-000001100010",
+          "projectId": "11111111-1111-4111-8111-111111111111",
+          "classification": "group",
+          "spentCcu": "0",
+          "budgetCcu": "1000",
+          "exhausted": false,
+          "period": "2026-10",
+          "rateCardVersion": "2026-10-11",
+          "contractScheduleVersion": "2026-10-11",
+          "computedAt": "2026-10-23T12:00:00.000Z",
+          "validUntil": "2026-10-23T12:10:00.000Z",
+          "completeness": "complete",
+          "realtimeCeilingTokensPerMinute": 2000000
+        },
+        {
+          "id": "00000000-0000-4000-8000-000001100010:55555555-5555-4555-8555-555555555555",
+          "personId": "00000000-0000-4000-8000-000001100010",
+          "projectId": "55555555-5555-4555-8555-555555555555",
+          "classification": "group",
+          "spentCcu": "0",
+          "budgetCcu": "1000",
+          "exhausted": false,
+          "period": "2026-10",
+          "rateCardVersion": "2026-10-11",
+          "contractScheduleVersion": "2026-10-11",
+          "computedAt": "2026-10-23T12:00:00.000Z",
+          "validUntil": "2026-10-23T12:10:00.000Z",
+          "completeness": "complete",
+          "realtimeCeilingTokensPerMinute": 2000000
+        }
+      ],
+      "aggregateStates": [
+        {
+          "id": "11111111-1111-4111-8111-111111111111:group",
+          "scopeId": "11111111-1111-4111-8111-111111111111:group",
+          "spentCcu": "10",
+          "budgetCcu": "2000",
+          "exhausted": false,
+          "completeness": "partial",
+          "mode": "strict",
+          "activeMemberCount": 2,
+          "computedAt": "2026-10-23T12:00:00.000Z",
+          "validUntil": "2026-10-23T12:10:00.000Z"
+        },
+        {
+          "id": "55555555-5555-4555-8555-555555555555:group",
+          "scopeId": "55555555-5555-4555-8555-555555555555:group",
+          "spentCcu": "0",
+          "budgetCcu": "2000",
+          "exhausted": false,
+          "completeness": "complete",
+          "mode": "strict",
+          "activeMemberCount": 2,
+          "computedAt": "2026-10-23T12:00:00.000Z",
+          "validUntil": "2026-10-23T12:10:00.000Z"
+        }
+      ]
+    },
+    "status": 503,
+    "body": {
+      "error": "temporarily_unavailable",
+      "resolverOutcome": "unavailable",
+      "budgetState": "stale"
+    }
+  }
+]

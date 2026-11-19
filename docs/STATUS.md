@@ -1,8 +1,17 @@
 # Current work
 
+## Harness P5: version skew (2026-11-19)
+
+**Active packet:** P5 of `docs/harness/BUILD-PLAN.md` on `harness/p5`. No runtime change.
+
+- N-1 = deployed `9faa1fc`, captured into `tests/fixtures/version-n-1/` (5 scenarios, 17 compiled reader modules).
+  `tests/harness-version-skew.test.ts` passes 4/4 against it. A policy expecting a new `decisionVersion`, a reader
+  requiring a new field, and a reader silently dropping old documents were each caught.
+- Re-run `node harness/capture-version.mjs` after every customer upgrade. Next: P6 (scenario evals).
+
 ## Harness P4: golden contracts (2026-11-19)
 
-**Active packet:** P4 of `docs/harness/BUILD-PLAN.md` on `harness/p4`. No runtime change.
+**Done:** merged in #7.
 
 - Six golden tests (policy, Bicep inventory, runtime names, admin API, rate card, customer replay); each failed on a
   deliberate change of its kind (`docs/harness/GOLDEN.md`). The customer replay passes against the deployed commit
