@@ -1,0 +1,316 @@
+{
+  "_readme": "Invariant register (BUILD-PLAN P1, ADR-0056). One entry per invariant in .github/copilot-instructions.md. sources: files and ADRs where the rule lives, verified by reading the code. protectedBy: existing test files with an assertion that fails if the rule breaks. coverage: full | partial | none. Every partial or none entry is listed in knownGaps, and knownGaps may only shrink (tests/harness-invariants.test.ts).",
+  "version": 1,
+  "invariants": [
+    {
+      "id": "SEC-01",
+      "category": "SEC",
+      "statement": "The resolver fails closed: any invalid input, read failure or missing record is a refusal, never an allow.",
+      "status": "verified",
+      "sources": ["src/resolver/decide.ts", "src/resolver/select-membership.ts", "src/resolver/freshness.ts", "src/resolver/registry-reads.ts"],
+      "protectedBy": ["tests/resolver-decide.test.ts", "tests/resolver-freshness.test.ts", "tests/resolver-cosmos-reads.test.ts"],
+      "coverage": "full",
+      "evidence": "resolveRequest refuses on invalid or missing state. Tests: 'refuses with 403 no_entitlement when the person has no entitlement record at all', 'fails closed with 503 budget_state_missing rather than granting unmetered access'."
+    },
+    {
+      "id": "SEC-02",
+      "category": "SEC",
+      "statement": "Only APIM's managed identity may call the resolver; the handler refuses when platform auth is off or no principal is present.",
+      "status": "verified",
+      "sources": ["src/resolver/http-handler.ts", "src/resolver/function-app.ts", "infra/staged/Staged.Application.ps1", "docs/adr/0009-resolver-entra-auth-for-apim-managed-identity.md"],
+      "protectedBy": ["tests/resolver-http-handler.test.ts", "tests/resolver-assignments.test.ts"],
+      "coverage": "full",
+      "evidence": "openGate refuses without platform auth or principal; Staged.Application.ps1 sets the Easy Auth allow-list. Tests: 'with App Service Authentication off, every request is refused 503', 'a request that reached the code without the platform principal is refused 401'."
+    },
+    {
+      "id": "SEC-03",
+      "category": "SEC",
+      "statement": "External refusal reasons are collapsed to a small set (externalCategory).",
+      "status": "verified",
+      "sources": ["src/resolver/http-handler.ts", "src/resolver/refusals.ts"],
+      "protectedBy": ["tests/resolver-http-handler.test.ts"],
+      "coverage": "full",
+      "evidence": "externalCategory maps reasons to temporarily_unavailable or not_authorized. Tests: 'externalCategory collapses budget-missing reasons to temporarily_unavailable', 'externalCategory collapses every other refusal reason to not_authorized'."
+    },
+    {
+      "id": "SEC-04",
+      "category": "SEC",
+      "statement": "Model admission is an exact, case-sensitive match; no prefixes, wildcards or date stripping.",
+      "status": "verified",
+      "sources": ["config/model-families.json", "src/contracts/model-families.ts", "infra/gateway/policy/claude-messages.template.xml"],
+      "protectedBy": ["tests/model-families-contract.test.ts", "tests/gateway-family-quotas.test.ts"],
+      "coverage": "full",
+      "evidence": "The config disables prefix, date-stripping and wildcard admission. Tests: 'pure API preserves the complete policy and admits only exact registered IDs', 'actual C# rejects invalid v3 policies, admits only exact IDs'."
+    },
+    {
+      "id": "SEC-05",
+      "category": "SEC",
+      "statement": "fable and mythos require the CYB classification or restrictedFamiliesApproved: true.",
+      "status": "verified",
+      "sources": ["src/contracts/group-registration.ts", "src/contracts/model-families.ts", "src/resolver/freshness.ts", "config/model-families.json", "docs/adr/0034-group-centric-onboarding.md"],
+      "protectedBy": ["tests/group-registration.test.ts", "tests/model-families-contract.test.ts", "tests/resolver-family-quotas.test.ts"],
+      "coverage": "full",
+      "evidence": "Tests: 'Fable and Mythos in a group require restrictedFamiliesApproved', 'restricted families: CYB as before; the group code only with approval', 'Fable and Mythos require authoritative exact CYB even for empty or malformed entries'."
+    },
+    {
+      "id": "SEC-06",
+      "category": "SEC",
+      "statement": "No prompts, responses, tokens or credentials in logs or telemetry; sync reads IDs and account state only.",
+      "status": "verified",
+      "sources": ["src/resolver/http-handler.ts", "src/resolver/my-usage.ts", "src/sync/telemetry.ts", "src/sync/graph.ts", "infra/gateway/policy/claude-messages.template.xml"],
+      "protectedBy": ["tests/resolver-http-handler.test.ts", "tests/resolver-budget-exhaustion.test.ts", "tests/gateway-render.test.ts", "tests/sync-run.test.ts"],
+      "coverage": "full",
+      "evidence": "Tests: 'log events carry only reason codes and ids', 'outbound emits exactly one counts-only usage trace', 'telemetry lines carry ids, codes and counts only: no free text, names or UPNs'."
+    },
+    {
+      "id": "SEC-07",
+      "category": "SEC",
+      "statement": "Group object IDs authorize; display names are informational only.",
+      "status": "verified",
+      "sources": ["src/resolver/select-membership.ts", "src/resolver/decide.ts", "src/sync/plan.ts", "docs/adr/0034-group-centric-onboarding.md"],
+      "protectedBy": ["tests/gateway-request-checks.test.ts", "tests/sync-family-policy.test.ts", "tests/resolver-family-quotas.test.ts"],
+      "coverage": "full",
+      "evidence": "Tests: 'a group Object ID in the project header is compared in lower case', 'classification display name is an exact optional informational snapshot, not classification authority'."
+    },
+    {
+      "id": "MON-01",
+      "category": "MON",
+      "statement": "All spend arithmetic uses decimal.js; no floating point.",
+      "status": "verified",
+      "sources": ["src/reconciler/compute-ceiling.ts", "src/cost/money.ts", "src/cost/budget-units.ts", "src/cost/rate-card.ts"],
+      "protectedBy": ["tests/reconciler-compute-ceiling.test.ts", "tests/cost-rate-card.test.ts"],
+      "coverage": "full",
+      "evidence": "computeSpend and the ceiling use Decimal; tests assert exact spend accumulation and Decimal rates."
+    },
+    {
+      "id": "MON-02",
+      "category": "MON",
+      "statement": "Exactly five token categories; an unknown category throws.",
+      "status": "verified",
+      "sources": ["src/cost/token-categories.ts", "src/reconciler/compute-ceiling.ts", "src/cost/rate-card.ts"],
+      "protectedBy": ["tests/reconciler-compute-ceiling.test.ts", "tests/cost-rate-card.test.ts"],
+      "coverage": "full",
+      "evidence": "Tests: 'computeSpend refuses the undivided legacy cacheWrite category', 'the undivided legacy cacheWrite category is an unknown field, not a sixth rate'."
+    },
+    {
+      "id": "MON-03",
+      "category": "MON",
+      "statement": "The rate card is append-only: close an entry with effectiveTo and add a new one; never edit an entry in place.",
+      "status": "unverified",
+      "sources": ["config/rate-card.json", "src/cost/rate-card.ts"],
+      "protectedBy": [],
+      "coverage": "none",
+      "evidence": "A working rule, not enforced in code: the parser rejects overlapping intervals but cannot see an edit to a past entry. No test compares the rate card with its history."
+    },
+    {
+      "id": "MON-04",
+      "category": "MON",
+      "statement": "100 CCU = USD 1; a stored budget keeps its own currency.",
+      "status": "verified",
+      "sources": ["src/cost/budget-units.ts"],
+      "protectedBy": ["tests/cost-budget-units.test.ts"],
+      "coverage": "full",
+      "evidence": "CCU_PER_USD = 100; parseBudget keeps the currency. Test: '100 CCU is USD 1.00, and conversion is exact in both directions'."
+    },
+    {
+      "id": "MON-05",
+      "category": "MON",
+      "statement": "spent >= budget means exhausted, ceiling 0, refusal.",
+      "status": "verified",
+      "sources": ["src/reconciler/reconcile.ts", "src/reconciler/reconcile-person.ts", "docs/adr/0038-budget-admission-acceptance.md"],
+      "protectedBy": ["tests/reconciler-reconcile.test.ts", "tests/reconciler-budget-guard.test.ts", "tests/reconciler-reconcile-person.test.ts"],
+      "coverage": "full",
+      "evidence": "Tests: 'exhausted is spent >= budget: true at equality, false one smallest unit below', 'reconcilePerson clamps the ceiling to zero once spend has already reached the budget'."
+    },
+    {
+      "id": "MON-06",
+      "category": "MON",
+      "statement": "The reconciler writes nothing unless every read succeeded.",
+      "status": "verified",
+      "sources": ["src/reconciler/run.ts", "docs/adr/0028-core-module-reconciliation.md"],
+      "protectedBy": ["tests/reconciler-run.test.ts"],
+      "coverage": "full",
+      "evidence": "Tests: 'a failed ledger read writes nothing, whatever the failure', 'a failed registry read writes nothing and never queries the ledger'."
+    },
+    {
+      "id": "SYNC-01",
+      "category": "SYNC",
+      "statement": "A failed group read freezes that project; it is never an empty group.",
+      "status": "verified",
+      "sources": ["src/sync/plan.ts"],
+      "protectedBy": ["tests/sync-plan-safety.test.ts"],
+      "coverage": "full",
+      "evidence": "Tests: 'a failed group read leaves the whole project unchanged', 'a group missing from the read results is treated as failed, never as empty'."
+    },
+    {
+      "id": "SYNC-02",
+      "category": "SYNC",
+      "statement": "Removals are withheld when they exceed both removal limits.",
+      "status": "verified",
+      "sources": ["src/sync/plan.ts", "src/sync/removal-limits.ts"],
+      "protectedBy": ["tests/sync-plan-safety.test.ts", "tests/sync-plan.test.ts"],
+      "coverage": "full",
+      "evidence": "Tests: 'removalLimitExceeded: refuse only when removals exceed both the count and the fraction', 'removals over the limits are withheld, while additions and changes still apply'."
+    },
+    {
+      "id": "SYNC-03",
+      "category": "SYNC",
+      "statement": "A person in two classification groups keeps the incumbent, or gets neither.",
+      "status": "verified",
+      "sources": ["src/sync/plan.ts", "docs/adr/0033-baseline-project-classification-model.md"],
+      "protectedBy": ["tests/sync-plan-safety.test.ts"],
+      "coverage": "full",
+      "evidence": "Tests: 'conflict: a person in STD and PRM who already holds STD keeps STD', 'conflict: a new person in two classification groups of one project is admitted to neither'."
+    },
+    {
+      "id": "SYNC-04",
+      "category": "SYNC",
+      "statement": "Disabled accounts are not admitted; an unknown account state is not 'disabled'.",
+      "status": "verified",
+      "sources": ["src/sync/plan.ts", "src/sync/graph.ts"],
+      "protectedBy": ["tests/sync-account-state.test.ts"],
+      "coverage": "full",
+      "evidence": "Tests: 'a disabled member is not admitted', 'an account state Graph did not return admits the member as before, never as disabled'."
+    },
+    {
+      "id": "DATA-01",
+      "category": "DATA",
+      "statement": "decisionVersion: 3, cache namespace ccof-ent:d3; urgent revocation = bump keyVersion.",
+      "status": "verified",
+      "sources": ["src/resolver/decide.ts", "config/model-families.json", "infra/gateway/policy/claude-messages.template.xml", "docs/adr/0034-group-centric-onboarding.md"],
+      "protectedBy": ["tests/gateway-family-quotas.test.ts", "tests/gateway-render.test.ts"],
+      "coverage": "full",
+      "evidence": "Tests: 'v3/d3 isolates legacy decisions and validates cached allows before fresh or LKG use', 'the entitlement cache key is versioned per tenant, person and selector'."
+    },
+    {
+      "id": "DATA-02",
+      "category": "DATA",
+      "statement": "Trace sources ccof.usage.v1 / ccof.resolver.v1 and the columns of analytics/ledger.kql are contracts.",
+      "status": "verified",
+      "sources": ["infra/gateway/policy/claude-messages.template.xml", "src/resolver/my-usage.ts", "analytics/ledger.kql", "analytics/alerts/resolver-base.kql"],
+      "protectedBy": ["tests/gateway-render.test.ts", "tests/gateway-usage-policy.test.ts", "tests/reconciler-ledger.test.ts"],
+      "coverage": "partial",
+      "evidence": "gateway-render.test.ts asserts ccof.resolver.v1 and ccof.usage.v1 traces. No test pins the full output column list of ledger.kql (planned: P4 golden)."
+    },
+    {
+      "id": "DATA-03",
+      "category": "DATA",
+      "statement": "Cosmos container names, partition keys and document IDs are contracts.",
+      "status": "verified",
+      "sources": ["src/resolver/registry-reads.ts", "src/resolver/config.ts", "src/sync/config.ts", "src/reconciler/settings.ts", "infra/staged/Staged.Resources.ps1"],
+      "protectedBy": ["tests/resolver-cosmos-reads.test.ts", "tests/group-registration.test.ts", "tests/reconciler-history.test.ts", "tests/reconciler-settings.test.ts"],
+      "coverage": "partial",
+      "evidence": "Tests: 'each read names its container, id and partition key', 'id and the partition key must equal the lower-case group id exactly'. No test pins every container name and partition key together (planned: P4 runtime-names golden)."
+    },
+    {
+      "id": "OPS-01",
+      "category": "OPS",
+      "statement": "Function names resolve, health, myUsage, syncEntitlement, registrySeed, snapshotApply, reconcileBudgets and their AzureWebJobs.<name>.Disabled settings never change; no hyphens.",
+      "status": "verified",
+      "sources": ["src/resolver/function-app.ts", "src/sync/function-app.ts", "src/sync/registry-seed.ts", "src/sync/snapshot-function.ts", "src/reconciler/function-app.ts"],
+      "protectedBy": ["tests/sync-registry-seed.test.ts", "tests/sync-snapshot-function.test.ts"],
+      "coverage": "partial",
+      "evidence": "Only registrySeed and snapshotApply names are asserted. resolve, health, myUsage, syncEntitlement and reconcileBudgets are not (planned: P4 runtime-names golden)."
+    },
+    {
+      "id": "OPS-02",
+      "category": "OPS",
+      "statement": "Timers register only in the app whose CCOF_APP_ROLE matches.",
+      "status": "verified",
+      "sources": ["src/sync/function-app.ts", "src/reconciler/function-app.ts"],
+      "protectedBy": ["tests/sync-registry-seed.test.ts", "tests/sync-snapshot-function.test.ts"],
+      "coverage": "partial",
+      "evidence": "The sync guard (CCOF_APP_ROLE === 'sync') is asserted; the reconciler guard (src/reconciler/function-app.ts line 48) is not."
+    },
+    {
+      "id": "DEP-01",
+      "category": "DEP",
+      "statement": "Stages run 0-8 in order; a stage refuses to run before the stages it reads.",
+      "status": "verified",
+      "sources": ["infra/staged/Invoke-StagedDeployment.ps1", "infra/staged/Staged.Common.ps1", "infra/staged/Staged.Application.ps1", "docs/adr/0031-staged-resource-proof.md", "docs/adr/0042-stage0-refusals-and-stage6-recovery.md"],
+      "protectedBy": ["tests/Test-StagedStages.ps1"],
+      "coverage": "full",
+      "evidence": "Asserts: 'Grants (Stage 3) must depend on Stage 1 and the schema (Stage 2).', 'Publishing (Stage 7) must require Entra, configuration and the verified network.'"
+    },
+    {
+      "id": "DEP-02",
+      "category": "DEP",
+      "statement": "Stage 1 is create-only; its values never change for an existing resource group.",
+      "status": "verified",
+      "sources": ["infra/staged/Staged.Resources.ps1", "infra/staged/Staged.Common.ps1"],
+      "protectedBy": ["tests/Test-StagedStages.ps1"],
+      "coverage": "full",
+      "evidence": "Asserts on the Stage 1 'create-only' changed-config refusal, and 'Stage outputs must not be reused after that stage config changes.'"
+    },
+    {
+      "id": "DEP-03",
+      "category": "DEP",
+      "statement": "A preview changes nothing; -Apply verifies by read-back; a failed read-back records nothing.",
+      "status": "verified",
+      "sources": ["infra/staged/Invoke-StagedDeployment.ps1", "infra/staged/Staged.Common.ps1", "infra/staged/Staged.Resources.ps1"],
+      "protectedBy": ["tests/Test-StagedStages.ps1"],
+      "coverage": "full",
+      "evidence": "Asserts: 'Driver must preview by default.', 'The read-back must catch a deployed account that differs', 'A create-mode rerun after a failed read-back must redeploy its own network.'"
+    },
+    {
+      "id": "DEP-04",
+      "category": "DEP",
+      "statement": "An existing .staged-state/state.json keeps working; no stage turns stale without an input change.",
+      "status": "verified",
+      "sources": ["infra/staged/Staged.Common.ps1", "docs/adr/0031-staged-resource-proof.md"],
+      "protectedBy": ["tests/Test-StagedStages.ps1"],
+      "coverage": "full",
+      "evidence": "Asserts: 'A duration-only change must not invalidate dependent stages.', 'A changed read-back snapshot (verify) must not invalidate dependent stages.', 'State of another subscription must be refused.'"
+    },
+    {
+      "id": "DEP-05",
+      "category": "DEP",
+      "statement": "Ownership is by exact resource ID, never by name prefix; stages never delete.",
+      "status": "verified",
+      "sources": ["infra/staged/Staged.Common.ps1", "infra/staged/Staged.Resources.ps1", "docs/adr/0031-staged-resource-proof.md"],
+      "protectedBy": ["tests/Test-StagedStages.ps1"],
+      "coverage": "full",
+      "evidence": "Asserts: 'Shared Stage 1 must use exact prior operation IDs', 'Shared Stage 1 must always refuse Delete, even for a prior target.'"
+    },
+    {
+      "id": "DEP-06",
+      "category": "DEP",
+      "statement": "The gateway policy is deployed only as a new non-current revision, never edited in the Portal.",
+      "status": "verified",
+      "sources": ["infra/gateway/Deploy-GatewayRevision.ps1", "docs/adr/0039-gateway-policy-fragments.md"],
+      "protectedBy": [],
+      "coverage": "none",
+      "evidence": "Deploy-GatewayRevision.ps1 creates a new revision and makes it current only with -MakeCurrent. tests/Test-GatewayRevisionFragments.ps1 covers fragment order but not that the revision is created non-current."
+    },
+    {
+      "id": "CLI-01",
+      "category": "CLI",
+      "statement": "The client config schema and signInMethod (msal | azure-cli) stay compatible; every setup script has a restore script.",
+      "status": "verified",
+      "sources": ["client/src/config.mjs", "client/config.example.json", "scripts/client/ClientGateway.Common.ps1", "scripts/client/ClaudeCodeGateway.ps1", "scripts/client/ClaudeDesktopGateway.ps1", "docs/adr/0041-azure-cli-developer-sign-in.md", "docs/adr/0050-import-client-configuration.md"],
+      "protectedBy": ["client/test/config.test.mjs", "client/test/desktop-schema.test.mjs", "tests/Test-ConfigImport.ps1", "tests/Test-ConfigTransaction.ps1"],
+      "coverage": "partial",
+      "evidence": "Config schema, sign-in method and setup transactions are tested. No test checks that every setup script has a restore script."
+    },
+    {
+      "id": "DOC-01",
+      "category": "DOC",
+      "statement": "Commands and parameters shown in docs exist in the scripts they name.",
+      "status": "unverified",
+      "sources": ["docs/INDEX.md"],
+      "protectedBy": ["tests/docs-reader-pages.test.ts", "tests/manual-guide.test.ts", "tests/Test-ManualDeployment.ps1"],
+      "coverage": "partial",
+      "evidence": "Reader-page tests check quoted outputs and named commands on specific pages; Test-ManualDeployment.ps1 checks manual-path parameters against templates. No general check that every documented parameter exists in its script."
+    }
+  ],
+  "knownGaps": [
+    { "id": "DATA-02", "reason": "ledger.kql output columns not pinned" },
+    { "id": "DATA-03", "reason": "container names and partition keys not pinned together" },
+    { "id": "MON-03", "reason": "append-only rate card not checked against history" },
+    { "id": "OPS-01", "reason": "five of seven function names not asserted" },
+    { "id": "OPS-02", "reason": "reconciler role guard not asserted" },
+    { "id": "DEP-06", "reason": "non-current revision creation not asserted" },
+    { "id": "CLI-01", "reason": "setup/restore script pairing not asserted" },
+    { "id": "DOC-01", "reason": "no general docs-parameter check" }
+  ]
+}

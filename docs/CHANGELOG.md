@@ -1,5 +1,14 @@
 # Change log
 
+## 2026-11-19 — Harness P1: invariant register
+
+- Add `harness/invariants.json`: the 30 invariants from `.github/copilot-instructions.md`, each with verified
+  sources and protecting tests. Eight have partial or no coverage and are listed in `knownGaps`: DATA-02, DATA-03,
+  MON-03, OPS-01, OPS-02, DEP-06, CLI-01 and DOC-01.
+- Add `tests/harness-invariants.test.ts` (8 tests): the register matches the instructions file, every cited file
+  exists, every protecting test is run by a suite, and `knownGaps` can only shrink.
+- ADR-0056 "Regression harness and eval suite". No runtime change.
+
 ## 2026-11-19 — Harness P0: baseline
 
 - Add `docs/harness/BASELINE.md`: `npm test`, typecheck, build, admin and client tests and the `--no-run` gate, each
