@@ -1,8 +1,19 @@
 # Current work
 
+## Harness P10: agent eval bank (2026-11-19)
+
+**Active packet:** P10 of `docs/harness/BUILD-PLAN.md` on `harness/p10`. No runtime change.
+
+- 41 tasks (21 replay, 9 seeded, 8 trap, 3 docs-drift), all valid under `run-eval.mjs validate`. The grader passed
+  five self-checks. `tests/harness-evals.test.ts`: 5/5.
+- **Owner action:** run the first scored eval against Copilot (`docs/harness/EVALS.md`). Targets: zero trap failures
+  and zero regressions.
+- Part B (P0–P10) is complete. Next: Part C, L0 (fix `scripts/Test-LiveSmoke.ps1`'s missing files). Live phases
+  need the owner.
+
 ## Harness P9: Copilot guidance per area (2026-11-19)
 
-**Active packet:** P9 of `docs/harness/BUILD-PLAN.md` on `harness/p9`. No runtime change.
+**Packet:** P9, merged as #12.
 
 - Four area instruction files (gateway, money, staged, docs) and four prompts (bugfix, feature, docs-change, review).
   `tests/harness-guidance.test.ts`: 5/5.

@@ -1,0 +1,24 @@
+{
+  "id": "replay-6efe4c9",
+  "kind": "replay",
+  "source": "6efe4c9 release 13: Azure CLI developer sign-in; first-time reader deployment fixes",
+  "baseRef": "9a9b4ca4463b23030b65bf80c18b2047eb8e5186",
+  "releaseRef": "6efe4c9cff38f500972ecc7f7bc1b06ed4e56fd8",
+  "prompt": "Implement the following change in this repository, with tests, following .github/copilot-instructions.md.\n\nrelease 13: Azure CLI developer sign-in; first-time reader deployment fixes\n\nDevelopers can sign in with an interactive az login through a generated helper used\nby Claude Code, Claude Desktop and /usage. A first-time deployment from the README\nalone is recorded with screenshots; Stage 0 now refuses the configurations that failed\nit, Stage 6 recovers its own network, errors name the cause, and developer setup has\none sign-in step.\n\nCo-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>\nCopilot-Session: 5bb3e04f-333e-428c-9afa-3adedd66884c",
+  "hiddenTests": [
+    "tests/Test-AdminHandWorkbook.ps1",
+    "tests/Test-QuickstartAzRetry.ps1",
+    "tests/Test-StagedStages.ps1",
+    "tests/docs-reader-pages.test.ts"
+  ],
+  "hiddenFrom": "release",
+  "allowedPaths": [
+    "client/**",
+    "docs/**",
+    "infra/**",
+    "scripts/**",
+    "tests/**"
+  ],
+  "expected": "pass",
+  "filesChanged": 64
+}

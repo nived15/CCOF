@@ -1,0 +1,18 @@
+{
+  "id": "replay-8870358",
+  "kind": "replay",
+  "source": "8870358 release 19: failover page states write-region outage timing and recovery",
+  "baseRef": "b01e3272311ac5d9882418c48b1051c32a8498af",
+  "releaseRef": "887035848bdf609a310794ce725d74584463cc6d",
+  "prompt": "Implement the following change in this repository, with tests, following .github/copilot-instructions.md.\n\nrelease 19: failover page states write-region outage timing and recovery\n\nService-managed Cosmos DB failover might take one hour or more; the region offline operation is the faster recovery; non-zone-redundant regions can hold replicas in one availability zone; Global Standard processing does not replace a second Foundry account.\n\nCo-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>\n\nCopilot-Session: 5bb3e04f-333e-428c-9afa-3adedd66884c",
+  "hiddenTests": [
+    "tests/docs-reader-pages.test.ts"
+  ],
+  "hiddenFrom": "release",
+  "allowedPaths": [
+    "docs/**",
+    "tests/**"
+  ],
+  "expected": "pass",
+  "filesChanged": 2
+}

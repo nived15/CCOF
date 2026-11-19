@@ -1,0 +1,25 @@
+{
+  "id": "seeded-sec03-reasons-passed-through",
+  "kind": "seeded",
+  "source": "harness/mutants.json sec03-reasons-passed-through",
+  "invariants": [
+    "SEC-03"
+  ],
+  "baseRef": "e9cd233f9fbed561e19386d2c48e790d5b8d5a9e",
+  "seed": {
+    "mutant": "sec03-reasons-passed-through"
+  },
+  "prompt": "Bug report: A caller using someone else's key got the error `subscription_person_mismatch` back from the resolver. Callers should only ever see the collapsed refusal categories.\n\nFind and fix the cause, with a test, following .github/copilot-instructions.md.",
+  "hiddenTests": [
+    "tests/resolver-backend-descriptor.test.ts",
+    "tests/resolver-budget-exhaustion.test.ts",
+    "tests/resolver-family-quotas.test.ts"
+  ],
+  "hiddenFrom": "base",
+  "allowedPaths": [
+    "src/resolver/**",
+    "tests/**",
+    "docs/**"
+  ],
+  "expected": "pass"
+}

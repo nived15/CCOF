@@ -1,0 +1,19 @@
+{
+  "id": "replay-b72e527",
+  "kind": "replay",
+  "source": "b72e527 feat(staged): user names setting; Graph grant steps",
+  "baseRef": "eeff3070ea140aba0968c8b920cb5b2f78288bd9",
+  "releaseRef": "b72e5273fb1b9446deb7a4347859d2819e0a0f3d",
+  "prompt": "Implement the following change in this repository, with tests, following .github/copilot-instructions.md.\n\nfeat(staged): user names setting; Graph grant steps\n\nCo-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>\nCopilot-Session: 5bb3e04f-333e-428c-9afa-3adedd66884c",
+  "hiddenTests": [
+    "tests/Test-StagedStages.ps1"
+  ],
+  "hiddenFrom": "release",
+  "allowedPaths": [
+    "docs/**",
+    "infra/**",
+    "tests/**"
+  ],
+  "expected": "pass",
+  "filesChanged": 8
+}

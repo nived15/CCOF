@@ -1,0 +1,24 @@
+{
+  "id": "seeded-sec04-gateway-case-insensitive",
+  "kind": "seeded",
+  "source": "harness/mutants.json sec04-gateway-case-insensitive",
+  "invariants": [
+    "SEC-04"
+  ],
+  "baseRef": "e9cd233f9fbed561e19386d2c48e790d5b8d5a9e",
+  "seed": {
+    "mutant": "sec04-gateway-case-insensitive"
+  },
+  "prompt": "Bug report: A user called the gateway with model `claude-HAIKU-4-5` (wrong case) and was admitted. Model IDs should be matched exactly.\n\nFind and fix the cause, with a test, following .github/copilot-instructions.md.",
+  "hiddenTests": [
+    "tests/gateway-family-quotas.test.ts",
+    "tests/harness-scenarios.test.ts"
+  ],
+  "hiddenFrom": "base",
+  "allowedPaths": [
+    "infra/gateway/**",
+    "tests/**",
+    "docs/**"
+  ],
+  "expected": "pass"
+}

@@ -1,0 +1,23 @@
+{
+  "id": "seeded-sec02-auth-setting-loose",
+  "kind": "seeded",
+  "source": "harness/mutants.json sec02-auth-setting-loose",
+  "invariants": [
+    "SEC-02"
+  ],
+  "baseRef": "e9cd233f9fbed561e19386d2c48e790d5b8d5a9e",
+  "seed": {
+    "mutant": "sec02-auth-setting-loose"
+  },
+  "prompt": "Bug report: With WEBSITE_AUTH_ENABLED set to `false`, the resolver still answers requests. It should refuse whenever platform authentication is not on.\n\nFind and fix the cause, with a test, following .github/copilot-instructions.md.",
+  "hiddenTests": [
+    "tests/resolver-http-handler.test.ts"
+  ],
+  "hiddenFrom": "base",
+  "allowedPaths": [
+    "src/resolver/**",
+    "tests/**",
+    "docs/**"
+  ],
+  "expected": "pass"
+}

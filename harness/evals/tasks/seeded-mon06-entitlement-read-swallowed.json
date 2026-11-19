@@ -1,0 +1,23 @@
+{
+  "id": "seeded-mon06-entitlement-read-swallowed",
+  "kind": "seeded",
+  "source": "harness/mutants.json mon06-entitlement-read-swallowed",
+  "invariants": [
+    "MON-06"
+  ],
+  "baseRef": "e9cd233f9fbed561e19386d2c48e790d5b8d5a9e",
+  "seed": {
+    "mutant": "mon06-entitlement-read-swallowed"
+  },
+  "prompt": "Bug report: During a Cosmos outage the reconciler logged a successful run and wrote budget states, although it could not read the entitlement documents. A run must write nothing when a read fails.\n\nFind and fix the cause, with a test, following .github/copilot-instructions.md.",
+  "hiddenTests": [
+    "tests/harness-scenarios.test.ts"
+  ],
+  "hiddenFrom": "base",
+  "allowedPaths": [
+    "src/reconciler/**",
+    "tests/**",
+    "docs/**"
+  ],
+  "expected": "pass"
+}

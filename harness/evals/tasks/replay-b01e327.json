@@ -1,0 +1,39 @@
+{
+  "id": "replay-b01e327",
+  "kind": "replay",
+  "source": "b01e327 release 18: Central India with Foundry in another region, failover guidance, bug-bash 5 fixes",
+  "baseRef": "9faa1fc7a0b739abaca00de9b538510b656e55da",
+  "releaseRef": "b01e3272311ac5d9882418c48b1051c32a8498af",
+  "prompt": "Implement the following change in this repository, with tests, following .github/copilot-instructions.md.\n\nrelease 18: Central India with Foundry in another region, failover guidance, bug-bash 5 fixes\n\nstage1.foundry.location puts the Foundry account in a region that offers Claude while the rest stays in the deployment region; region-and-failover page (paired region, Cosmos DB second region, outage and drill steps). Fixes: Stage 1 rerun after Stage 5, recovery from an empty state folder, previews name changed parameters and say that apply redeploys, Stage 7 drift warning, Foundry region shown; developer setup keeps its configuration in per-user storage with rollback, explicit chunked bodies refused, backend errors in Anthropic shape, pacing shown in /usage, quieter sign-in probes; admin refuses invisible and bidi-spoofed names.\n\nCo-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>\n\nCopilot-Session: 5bb3e04f-333e-428c-9afa-3adedd66884c",
+  "hiddenTests": [
+    "tests/Test-ConfigImport.ps1",
+    "tests/Test-ConfigTransaction.ps1",
+    "tests/Test-Stage7GroupDrift.ps1",
+    "tests/Test-StagedPreviews.ps1",
+    "tests/Test-StagedRecovery.ps1",
+    "tests/Test-StagedRedeployment.ps1",
+    "tests/Test-StagedStages.ps1",
+    "tests/docs-reader-pages.test.ts",
+    "tests/gateway-backend-errors.test.ts",
+    "tests/gateway-dollar-ceiling.test.ts",
+    "tests/gateway-family-quotas.test.ts",
+    "tests/gateway-render.test.ts",
+    "tests/gateway-request-checks.test.ts",
+    "tests/resolver-my-usage-handler.test.ts",
+    "tests/resolver-my-usage.test.ts"
+  ],
+  "hiddenFrom": "release",
+  "allowedPaths": [
+    "README.md",
+    "admin/**",
+    "client/**",
+    "docs/**",
+    "infra/**",
+    "scripts/**",
+    "src/**",
+    "tests/**"
+  ],
+  "expected": "pass",
+  "filesChanged": 80,
+  "note": "tests/Test-QuickstartSeed.ps1 is left out of the hidden tests: it fails on Windows machines where python3 is the Store alias (BASELINE K-5), so it cannot validate the task."
+}

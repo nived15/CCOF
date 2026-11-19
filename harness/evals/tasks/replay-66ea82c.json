@@ -1,0 +1,27 @@
+{
+  "id": "replay-66ea82c",
+  "kind": "replay",
+  "source": "66ea82c release 8: live gateway acceptance, policy fragments, ledger group attribution",
+  "baseRef": "c987d02d4b7f4fe7f6e7bc0cdff25cfc8971a6d3",
+  "releaseRef": "66ea82c1b71f1bbce9ff938153a6c550be398bff",
+  "prompt": "Implement the following change in this repository, with tests, following .github/copilot-instructions.md.\n\nrelease 8: live gateway acceptance, policy fragments, ledger group attribution\n\nCo-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>\nCopilot-Session: 5bb3e04f-333e-428c-9afa-3adedd66884c",
+  "hiddenTests": [
+    "tests/Test-GatewayRevisionFragments.ps1",
+    "tests/Test-StagedStages.ps1",
+    "tests/chargeback-id.test.ts",
+    "tests/chargeback-shared-queries.test.ts",
+    "tests/gateway-policy-fragments.test.ts",
+    "tests/gateway-render.test.ts",
+    "tests/ledger-guid-fields.test.ts"
+  ],
+  "hiddenFrom": "release",
+  "allowedPaths": [
+    "analytics/**",
+    "docs/**",
+    "infra/**",
+    "scripts/**",
+    "tests/**"
+  ],
+  "expected": "pass",
+  "filesChanged": 35
+}

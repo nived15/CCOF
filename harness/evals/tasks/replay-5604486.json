@@ -1,0 +1,18 @@
+{
+  "id": "replay-5604486",
+  "kind": "replay",
+  "source": "5604486 release 14: configuration reference page",
+  "baseRef": "6efe4c9cff38f500972ecc7f7bc1b06ed4e56fd8",
+  "releaseRef": "560448622a3604fbbc568e30dd0eba56d875b353",
+  "prompt": "Implement the following change in this repository, with tests, following .github/copilot-instructions.md.\n\nrelease 14: configuration reference page\n\ndocs/get-started/configuration.md explains every key of the staged configuration\nfile (what it is, where to get the value, a lab example), including reusing existing\nEntra apps, groups, Foundry accounts and a pre-built network. A reader-page test fails\nwhen a template placeholder is left undocumented.\n\nCo-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>\nCopilot-Session: 5bb3e04f-333e-428c-9afa-3adedd66884c",
+  "hiddenTests": [
+    "tests/docs-reader-pages.test.ts"
+  ],
+  "hiddenFrom": "release",
+  "allowedPaths": [
+    "docs/**",
+    "tests/**"
+  ],
+  "expected": "pass",
+  "filesChanged": 7
+}

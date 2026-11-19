@@ -1,0 +1,23 @@
+{
+  "id": "seeded-data01-gateway-reply-version",
+  "kind": "seeded",
+  "source": "harness/mutants.json data01-gateway-reply-version",
+  "invariants": [
+    "DATA-01"
+  ],
+  "baseRef": "e9cd233f9fbed561e19386d2c48e790d5b8d5a9e",
+  "seed": {
+    "mutant": "data01-gateway-reply-version"
+  },
+  "prompt": "Bug report: In an upgrade rehearsal the gateway accepted a resolver reply with decisionVersion 4. It should use only version 3 decisions.\n\nFind and fix the cause, with a test, following .github/copilot-instructions.md.",
+  "hiddenTests": [
+    "tests/harness-scenarios.test.ts"
+  ],
+  "hiddenFrom": "base",
+  "allowedPaths": [
+    "infra/gateway/**",
+    "tests/**",
+    "docs/**"
+  ],
+  "expected": "pass"
+}

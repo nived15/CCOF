@@ -1,0 +1,23 @@
+{
+  "id": "replay-eae438e",
+  "kind": "replay",
+  "source": "eae438e release 22: group-only admin console and novice deployment-day guide",
+  "baseRef": "7f9bd57196849d79ea674bb10fdd357e58d61659",
+  "releaseRef": "eae438ef9b3a80c1daf06f04eeb48f94aa50fe44",
+  "prompt": "Implement the following change in this repository, with tests, following .github/copilot-instructions.md.\n\nrelease 22: group-only admin console and novice deployment-day guide\n\nThe admin console manages Entra groups only; legacy project pages and classification controls are removed (ADR-0054), with server support for older deployments unchanged. Adds a timed deployment-day guide, a decision-led configuration page with a complete HA example, developer and fleet onboarding, and pseudonymised captures of real runs. Staged deployment accepts JSON integer circuit-breaker ranges and Stage 8 checks the charged group exactly.",
+  "hiddenTests": [
+    "tests/Test-StagedFoundryFailover.ps1",
+    "tests/Test-StagedStages.ps1",
+    "tests/docs-reader-pages.test.ts"
+  ],
+  "hiddenFrom": "release",
+  "allowedPaths": [
+    "README.md",
+    "admin/**",
+    "docs/**",
+    "infra/**",
+    "tests/**"
+  ],
+  "expected": "pass",
+  "filesChanged": 93
+}

@@ -1,0 +1,26 @@
+{
+  "id": "seeded-mon03-closed-entry-in-force",
+  "kind": "seeded",
+  "source": "harness/mutants.json mon03-closed-entry-in-force",
+  "invariants": [
+    "MON-03"
+  ],
+  "baseRef": "e9cd233f9fbed561e19386d2c48e790d5b8d5a9e",
+  "seed": {
+    "mutant": "mon03-closed-entry-in-force"
+  },
+  "prompt": "Bug report: After a rate-card price change, requests made after the change are still priced at the old rate.\n\nFind and fix the cause, with a test, following .github/copilot-instructions.md.",
+  "hiddenTests": [
+    "tests/cost-contract-schedule.test.ts",
+    "tests/cost-price-usage.test.ts",
+    "tests/cost-rate-card.test.ts"
+  ],
+  "hiddenFrom": "base",
+  "allowedPaths": [
+    "src/cost/**",
+    "src/reconciler/**",
+    "tests/**",
+    "docs/**"
+  ],
+  "expected": "pass"
+}

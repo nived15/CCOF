@@ -1,0 +1,22 @@
+{
+  "id": "replay-2f84715",
+  "kind": "replay",
+  "source": "2f84715 release 10: reader guides with pseudonymised live captures",
+  "baseRef": "5b82caa597f64de1d00174d4faeb484a2c8bfa80",
+  "releaseRef": "2f84715fcbe28551b3f83d3793e6f0da18d4a647",
+  "prompt": "Implement the following change in this repository, with tests, following .github/copilot-instructions.md.\n\nrelease 10: reader guides with pseudonymised live captures\n\nRole-based guides, 44 demo screenshots, expected stage outcomes and usage/chargeback evidence. Includes the exhausted-budget status-line fix and fail-closed capture checks with DOM restoration. Council all PASS; packet gate, exported suites, strict typecheck, build and privacy scans pass.\n\nCo-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>\n\nCopilot-Session: 5bb3e04f-333e-428c-9afa-3adedd66884c",
+  "hiddenTests": [
+    "tests/docs-pseudonymise.test.ts",
+    "tests/docs-reader-pages.test.ts",
+    "tests/ledger-guid-fields.test.ts"
+  ],
+  "hiddenFrom": "release",
+  "allowedPaths": [
+    "README.md",
+    "client/**",
+    "docs/**",
+    "tests/**"
+  ],
+  "expected": "pass",
+  "filesChanged": 81
+}

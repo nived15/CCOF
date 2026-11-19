@@ -1,0 +1,25 @@
+{
+  "id": "seeded-sync01-failed-read-readable",
+  "kind": "seeded",
+  "source": "harness/mutants.json sync01-failed-read-readable",
+  "invariants": [
+    "SYNC-01"
+  ],
+  "baseRef": "e9cd233f9fbed561e19386d2c48e790d5b8d5a9e",
+  "seed": {
+    "mutant": "sync01-failed-read-readable"
+  },
+  "prompt": "Bug report: When Microsoft Graph answers 403 for one classification group, the next sync run changes that project's memberships as if the group were empty. A failed read should leave the project as it was.\n\nFind and fix the cause, with a test, following .github/copilot-instructions.md.",
+  "hiddenTests": [
+    "tests/harness-scenarios.test.ts",
+    "tests/sync-account-state.test.ts",
+    "tests/sync-plan-safety.test.ts"
+  ],
+  "hiddenFrom": "base",
+  "allowedPaths": [
+    "src/sync/**",
+    "tests/**",
+    "docs/**"
+  ],
+  "expected": "pass"
+}
