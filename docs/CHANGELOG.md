@@ -1,5 +1,19 @@
 # Change log
 
+## 2026-11-19 — Harness P8: CI and the Copilot environment
+
+- Add `.github/workflows/harness.yml`:
+  - **Pull requests:** `harness/run-checks.mjs` classifies the change and runs every check its tier requires.
+  - **Nightly and on demand:** the mutation sentinels (report kept as an artifact) and `npm audit --audit-level=high`
+    on the root, admin and client lockfiles.
+- Add `.github/workflows/copilot-setup-steps.yml`. It installs Node 22, .NET 10, Bicep v0.46.1 and all three packages'
+  dependencies on Ubuntu, because the agent's firewall does not support Windows.
+- Add `.github/pull_request_template.md`, with fields for tier, invariants, golden changes, test evidence, ADR and
+  live check.
+- Add `tests/harness-workflows.test.ts` (5 tests). It requires both workflows to stay read-only with no credentials or
+  secrets, keeps each job doing its task, and keeps the setup job within the agent's allowed settings.
+- `harness/tiers.json` classifies the PR template as T1. See `docs/harness/CI.md`. No runtime change.
+
 ## 2026-11-19 — Harness P7: mutation sentinels
 
 - Add `harness/mutants.json`: 47 hand-written mutants on the resolver, gateway policy, contracts, money and sync

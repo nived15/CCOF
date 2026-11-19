@@ -1,0 +1,49 @@
+name: Copilot Setup Steps
+
+# Prepares the Copilot cloud agent's environment (BUILD-PLAN P8, docs/harness/CI.md). Ubuntu, because the agent's
+# firewall does not support Windows runners. The Node suites, typecheck and Bicep builds run here; Windows-only
+# PowerShell suites run in the harness and public-source-ci workflows on every pull request.
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - .github/workflows/copilot-setup-steps.yml
+  pull_request:
+    paths:
+      - .github/workflows/copilot-setup-steps.yml
+
+jobs:
+  # The job must be called copilot-setup-steps or the agent does not pick it up.
+  copilot-setup-steps:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            admin/package-lock.json
+            client/package-lock.json
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      - name: Check PowerShell 7
+        shell: pwsh
+        run: $PSVersionTable.PSVersion.ToString()
+      - name: Install reviewed Bicep compiler
+        run: az bicep install --version v0.46.1
+      - name: Install locked dependencies (root, admin, client)
+        run: |
+          npm ci --ignore-scripts --no-audit --no-fund
+          npm --prefix admin ci --ignore-scripts --no-audit --no-fund
+          npm --prefix client ci --ignore-scripts --no-audit --no-fund
+      - name: Keep live tests off
+        run: echo "CCOF_LIVE_TESTS=0" >> "$GITHUB_ENV"
