@@ -1,5 +1,14 @@
 # Change log
 
+## 2026-11-19 — Harness P2: risk tiers and change classifier
+
+- Add `harness/tiers.json`: ten disjoint rules put every tracked file in tier T0 (docs), T1 (internal), T2 (contract)
+  or T3 (deployed behaviour), with each tier's cumulative checks. Checks for packets not yet built (golden,
+  version skew, customer replay, scenarios) are listed as pending.
+- Add `harness/classify-change.mjs` (Node built-ins only): `--base main` lists the changed files, the tier, the
+  touched invariants and the required checks, as text or `--json`. Exit 2 if a file matches no rule or several.
+- Add `tests/harness-tiers.test.ts` (8 tests). No runtime change.
+
 ## 2026-11-19 — Harness P1: invariant register
 
 - Add `harness/invariants.json`: the 30 invariants from `.github/copilot-instructions.md`, each with verified
