@@ -1,6 +1,6 @@
 {
-  "deployedCommit": "92a9e54",
-  "collectedAt": "2026-11-19T07:59:18.2909666Z",
+  "deployedCommit": "9faa1fc",
+  "collectedAt": "2026-11-19T08:14:55.9219104Z",
   "azureCli": "2.93.0",
   "stagedConfig": false,
   "stagedConfigNote": "discovery mode: no staged config or state on the collecting machine; no freshness",

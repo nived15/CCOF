@@ -5,7 +5,7 @@
 - Collected the deployment read-only in a new discovery mode (`-ResourceGroup`, `-SubscriptionId`), because its
   staged config and state are not on the collecting machine. Committed the pseudonymized gateway policies,
   fragments, operations, revisions, backend and the four Function Apps' function lists and app-setting names to
-  `tests/fixtures/customer/`. The deployed commit is recorded as `92a9e54` (release 23), not yet confirmed.
+  `tests/fixtures/customer/`. The deployed commit is `9faa1fc` (release 17): the only gateway template whose digest matches the live policy.
 - Fixed the pseudonymizer after the first real run left three Function App names in file names and content, and the
   backend ID in a fragment. It now rewrites file names, treats `app` and `backendId` as identifying, and refuses if a
   generated part of a known name (the unique suffix) survives anywhere. Two new tests (9 in total).
