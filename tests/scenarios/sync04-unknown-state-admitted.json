@@ -1,0 +1,31 @@
+{
+  "id": "sync04-unknown-state-admitted",
+  "title": "An account state Graph did not return is not 'disabled': the member is admitted",
+  "source": "src/sync/plan.ts",
+  "invariants": [
+    "SYNC-04"
+  ],
+  "layer": "sync",
+  "given": {
+    "reads": {
+      "STD": {
+        "members": [
+          {
+            "id": "A"
+          }
+        ]
+      },
+      "PRM": {
+        "members": []
+      }
+    }
+  },
+  "when": {},
+  "then": {
+    "holdings": {
+      "A": [
+        "STD"
+      ]
+    }
+  }
+}

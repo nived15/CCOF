@@ -1,0 +1,43 @@
+{
+  "id": "sec06-no-prompt-in-logs",
+  "title": "Text a caller puts in the resolver request never reaches a log line",
+  "source": "src/resolver/http-handler.ts",
+  "invariants": [
+    "SEC-06"
+  ],
+  "layer": "gateway",
+  "given": {
+    "groups": {
+      "alpha": {
+        "priority": 1,
+        "models": [
+          "claude-haiku-4-5"
+        ],
+        "budget": "10"
+      }
+    },
+    "callerIn": [
+      "alpha"
+    ],
+    "spend": {}
+  },
+  "when": {
+    "caller": "member",
+    "model": "claude-haiku-4-5",
+    "extraBody": {
+      "prompt": "SECRET-PROMPT-7f3a",
+      "messages": [
+        {
+          "role": "user",
+          "content": "SECRET-PROMPT-7f3a"
+        }
+      ]
+    }
+  },
+  "then": {
+    "status": 200,
+    "logsExclude": [
+      "SECRET-PROMPT-7f3a"
+    ]
+  }
+}

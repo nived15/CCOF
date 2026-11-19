@@ -1,0 +1,25 @@
+{
+  "id": "mon01-decimal-sum",
+  "title": "USD 0.10 + 0.20 is exactly USD 0.30 (decimal arithmetic, no floating point)",
+  "source": "src/reconciler/compute-ceiling.ts",
+  "invariants": [
+    "MON-01"
+  ],
+  "layer": "reconciler",
+  "given": {
+    "budget": "10",
+    "rows": [
+      {
+        "usd": "0.1"
+      },
+      {
+        "usd": "0.2"
+      }
+    ]
+  },
+  "when": {},
+  "then": {
+    "spentUsd": "0.3",
+    "exhausted": false
+  }
+}

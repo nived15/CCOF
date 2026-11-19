@@ -1,0 +1,49 @@
+{
+  "id": "sync02-removals-within-limits",
+  "title": "Removals within the limits apply",
+  "source": "src/sync/plan.ts",
+  "invariants": [
+    "SYNC-02"
+  ],
+  "layer": "sync",
+  "given": {
+    "reads": {
+      "STD": {
+        "members": [
+          "B",
+          "C"
+        ]
+      },
+      "PRM": {
+        "members": []
+      }
+    },
+    "existing": {
+      "A": [
+        "STD"
+      ],
+      "B": [
+        "STD"
+      ],
+      "C": [
+        "STD"
+      ]
+    },
+    "removalLimits": {
+      "maxRemovalsPerRun": 10,
+      "maxRemovalFraction": 0.5
+    }
+  },
+  "when": {},
+  "then": {
+    "holdings": {
+      "A": [],
+      "B": [
+        "STD"
+      ],
+      "C": [
+        "STD"
+      ]
+    }
+  }
+}

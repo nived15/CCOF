@@ -1,0 +1,34 @@
+{
+  "id": "sec05-mythos-not-approved",
+  "title": "A group admitting Mythos without restrictedFamiliesApproved cannot be registered, so its members are refused",
+  "source": "docs/adr/0034-group-centric-onboarding.md",
+  "invariants": [
+    "SEC-05"
+  ],
+  "layer": "gateway",
+  "given": {
+    "groups": {
+      "alpha": {
+        "priority": 1,
+        "models": [
+          "claude-mythos-5-1"
+        ],
+        "budget": "10",
+        "restrictedFamiliesApproved": false
+      }
+    },
+    "callerIn": [
+      "alpha"
+    ],
+    "spend": {}
+  },
+  "when": {
+    "caller": "member",
+    "model": "claude-mythos-5-1"
+  },
+  "then": {
+    "status": 403,
+    "errorType": "permission_error",
+    "refusal": "not_authorized"
+  }
+}

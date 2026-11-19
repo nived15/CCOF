@@ -1,0 +1,17 @@
+{
+  "id": "mon06-registry-read-fails",
+  "title": "A failed registry read writes nothing",
+  "source": "src/reconciler/run.ts",
+  "invariants": [
+    "MON-06"
+  ],
+  "layer": "reconciler-run",
+  "given": {},
+  "when": {
+    "failingRead": "registry"
+  },
+  "then": {
+    "writes": 0,
+    "outcome": "failed"
+  }
+}

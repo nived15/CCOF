@@ -1,0 +1,28 @@
+{
+  "id": "mon04-ccu-budget",
+  "title": "A budget stored in CCU keeps its currency: 1,000 CCU is USD 10 and is exhausted at USD 10",
+  "source": "src/cost/budget-units.ts",
+  "invariants": [
+    "MON-04",
+    "MON-05"
+  ],
+  "layer": "reconciler",
+  "given": {
+    "budget": {
+      "amount": 1000,
+      "currency": "CCU"
+    },
+    "rows": [
+      {
+        "usd": "10.00"
+      }
+    ]
+  },
+  "when": {},
+  "then": {
+    "spentUsd": "10",
+    "budgetUsd": "10",
+    "exhausted": true,
+    "ceiling": "zero"
+  }
+}

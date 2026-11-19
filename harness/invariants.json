@@ -16,7 +16,8 @@
       "protectedBy": [
         "tests/resolver-decide.test.ts",
         "tests/resolver-freshness.test.ts",
-        "tests/resolver-cosmos-reads.test.ts"
+        "tests/resolver-cosmos-reads.test.ts",
+        "tests/harness-scenarios.test.ts"
       ],
       "coverage": "full",
       "evidence": "resolveRequest refuses on invalid or missing state. Tests: 'refuses with 403 no_entitlement when the person has no entitlement record at all', 'fails closed with 503 budget_state_missing rather than granting unmetered access'."
@@ -34,7 +35,8 @@
       ],
       "protectedBy": [
         "tests/resolver-http-handler.test.ts",
-        "tests/resolver-assignments.test.ts"
+        "tests/resolver-assignments.test.ts",
+        "tests/harness-scenarios.test.ts"
       ],
       "coverage": "full",
       "evidence": "openGate refuses without platform auth or principal; Staged.Application.ps1 sets the Easy Auth allow-list. Tests: 'with App Service Authentication off, every request is refused 503', 'a request that reached the code without the platform principal is refused 401'."
@@ -49,7 +51,8 @@
         "src/resolver/refusals.ts"
       ],
       "protectedBy": [
-        "tests/resolver-http-handler.test.ts"
+        "tests/resolver-http-handler.test.ts",
+        "tests/harness-scenarios.test.ts"
       ],
       "coverage": "full",
       "evidence": "externalCategory maps reasons to temporarily_unavailable or not_authorized. Tests: 'externalCategory collapses budget-missing reasons to temporarily_unavailable', 'externalCategory collapses every other refusal reason to not_authorized'."
@@ -66,7 +69,8 @@
       ],
       "protectedBy": [
         "tests/model-families-contract.test.ts",
-        "tests/gateway-family-quotas.test.ts"
+        "tests/gateway-family-quotas.test.ts",
+        "tests/harness-scenarios.test.ts"
       ],
       "coverage": "full",
       "evidence": "The config disables prefix, date-stripping and wildcard admission. Tests: 'pure API preserves the complete policy and admits only exact registered IDs', 'actual C# rejects invalid v3 policies, admits only exact IDs'."
@@ -86,7 +90,8 @@
       "protectedBy": [
         "tests/group-registration.test.ts",
         "tests/model-families-contract.test.ts",
-        "tests/resolver-family-quotas.test.ts"
+        "tests/resolver-family-quotas.test.ts",
+        "tests/harness-scenarios.test.ts"
       ],
       "coverage": "full",
       "evidence": "Tests: 'Fable and Mythos in a group require restrictedFamiliesApproved', 'restricted families: CYB as before; the group code only with approval', 'Fable and Mythos require authoritative exact CYB even for empty or malformed entries'."
@@ -107,7 +112,8 @@
         "tests/resolver-http-handler.test.ts",
         "tests/resolver-budget-exhaustion.test.ts",
         "tests/gateway-render.test.ts",
-        "tests/sync-run.test.ts"
+        "tests/sync-run.test.ts",
+        "tests/harness-scenarios.test.ts"
       ],
       "coverage": "full",
       "evidence": "Tests: 'log events carry only reason codes and ids', 'outbound emits exactly one counts-only usage trace', 'telemetry lines carry ids, codes and counts only: no free text, names or UPNs'."
@@ -126,7 +132,8 @@
       "protectedBy": [
         "tests/gateway-request-checks.test.ts",
         "tests/sync-family-policy.test.ts",
-        "tests/resolver-family-quotas.test.ts"
+        "tests/resolver-family-quotas.test.ts",
+        "tests/harness-scenarios.test.ts"
       ],
       "coverage": "full",
       "evidence": "Tests: 'a group Object ID in the project header is compared in lower case', 'classification display name is an exact optional informational snapshot, not classification authority'."
@@ -144,7 +151,8 @@
       ],
       "protectedBy": [
         "tests/reconciler-compute-ceiling.test.ts",
-        "tests/cost-rate-card.test.ts"
+        "tests/cost-rate-card.test.ts",
+        "tests/harness-scenarios.test.ts"
       ],
       "coverage": "full",
       "evidence": "computeSpend and the ceiling use Decimal; tests assert exact spend accumulation and Decimal rates."
@@ -161,7 +169,8 @@
       ],
       "protectedBy": [
         "tests/reconciler-compute-ceiling.test.ts",
-        "tests/cost-rate-card.test.ts"
+        "tests/cost-rate-card.test.ts",
+        "tests/harness-scenarios.test.ts"
       ],
       "coverage": "full",
       "evidence": "Tests: 'computeSpend refuses the undivided legacy cacheWrite category', 'the undivided legacy cacheWrite category is an unknown field, not a sixth rate'."
@@ -176,7 +185,8 @@
         "src/cost/rate-card.ts"
       ],
       "protectedBy": [
-        "tests/harness-golden-ratecard.test.ts"
+        "tests/harness-golden-ratecard.test.ts",
+        "tests/harness-scenarios.test.ts"
       ],
       "coverage": "full",
       "evidence": "harness-golden-ratecard compares config/rate-card.json with tests/golden/rate-card-entries.json: an entry may only be closed (effectiveTo set once, not before effectiveFrom); an edited or removed entry fails."
@@ -190,7 +200,8 @@
         "src/cost/budget-units.ts"
       ],
       "protectedBy": [
-        "tests/cost-budget-units.test.ts"
+        "tests/cost-budget-units.test.ts",
+        "tests/harness-scenarios.test.ts"
       ],
       "coverage": "full",
       "evidence": "CCU_PER_USD = 100; parseBudget keeps the currency. Test: '100 CCU is USD 1.00, and conversion is exact in both directions'."
@@ -208,7 +219,8 @@
       "protectedBy": [
         "tests/reconciler-reconcile.test.ts",
         "tests/reconciler-budget-guard.test.ts",
-        "tests/reconciler-reconcile-person.test.ts"
+        "tests/reconciler-reconcile-person.test.ts",
+        "tests/harness-scenarios.test.ts"
       ],
       "coverage": "full",
       "evidence": "Tests: 'exhausted is spent >= budget: true at equality, false one smallest unit below', 'reconcilePerson clamps the ceiling to zero once spend has already reached the budget'."
@@ -223,7 +235,8 @@
         "docs/adr/0028-core-module-reconciliation.md"
       ],
       "protectedBy": [
-        "tests/reconciler-run.test.ts"
+        "tests/reconciler-run.test.ts",
+        "tests/harness-scenarios.test.ts"
       ],
       "coverage": "full",
       "evidence": "Tests: 'a failed ledger read writes nothing, whatever the failure', 'a failed registry read writes nothing and never queries the ledger'."
@@ -237,7 +250,8 @@
         "src/sync/plan.ts"
       ],
       "protectedBy": [
-        "tests/sync-plan-safety.test.ts"
+        "tests/sync-plan-safety.test.ts",
+        "tests/harness-scenarios.test.ts"
       ],
       "coverage": "full",
       "evidence": "Tests: 'a failed group read leaves the whole project unchanged', 'a group missing from the read results is treated as failed, never as empty'."
@@ -253,7 +267,8 @@
       ],
       "protectedBy": [
         "tests/sync-plan-safety.test.ts",
-        "tests/sync-plan.test.ts"
+        "tests/sync-plan.test.ts",
+        "tests/harness-scenarios.test.ts"
       ],
       "coverage": "full",
       "evidence": "Tests: 'removalLimitExceeded: refuse only when removals exceed both the count and the fraction', 'removals over the limits are withheld, while additions and changes still apply'."
@@ -268,7 +283,8 @@
         "docs/adr/0033-baseline-project-classification-model.md"
       ],
       "protectedBy": [
-        "tests/sync-plan-safety.test.ts"
+        "tests/sync-plan-safety.test.ts",
+        "tests/harness-scenarios.test.ts"
       ],
       "coverage": "full",
       "evidence": "Tests: 'conflict: a person in STD and PRM who already holds STD keeps STD', 'conflict: a new person in two classification groups of one project is admitted to neither'."
@@ -283,7 +299,8 @@
         "src/sync/graph.ts"
       ],
       "protectedBy": [
-        "tests/sync-account-state.test.ts"
+        "tests/sync-account-state.test.ts",
+        "tests/harness-scenarios.test.ts"
       ],
       "coverage": "full",
       "evidence": "Tests: 'a disabled member is not admitted', 'an account state Graph did not return admits the member as before, never as disabled'."

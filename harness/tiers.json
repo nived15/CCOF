@@ -33,7 +33,7 @@
       "checks": [
         { "id": "build", "run": "npx tsc -p tsconfig.json" },
         { "id": "customer-replay", "run": "pwsh -NoProfile -File tests/Test-HarnessCustomerReplay.ps1" },
-        { "id": "scenarios", "pendingPacket": "P6" },
+        { "id": "scenarios", "run": "node --test tests/harness-scenarios.test.ts" },
         { "id": "human-review", "manual": "A human reviews the diff against the touched invariants." },
         { "id": "live-lab", "manual": "Run the L1 lab upgrade test (BUILD-PLAN Part C) before the customer change window." }
       ]

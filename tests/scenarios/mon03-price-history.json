@@ -1,0 +1,32 @@
+{
+  "id": "mon03-price-history",
+  "title": "A price change applies from its effectiveFrom: earlier requests keep the old price",
+  "source": "config/rate-card.json",
+  "invariants": [
+    "MON-03",
+    "MON-01"
+  ],
+  "layer": "reconciler",
+  "given": {
+    "budget": "10",
+    "rateCardChange": {
+      "model": "claude-haiku-4-5",
+      "effectiveFrom": "2026-10-23T00:00:00Z",
+      "input": "2"
+    },
+    "rows": [
+      {
+        "usd": "1.00",
+        "at": "2026-10-22T10:00:00.0000000Z"
+      },
+      {
+        "usd": "1.00",
+        "at": "2026-10-23T10:00:00.0000000Z"
+      }
+    ]
+  },
+  "when": {},
+  "then": {
+    "spentUsd": "3"
+  }
+}

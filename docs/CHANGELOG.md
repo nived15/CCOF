@@ -1,5 +1,15 @@
 # Change log
 
+## 2026-11-19 — Harness P6: scenario evals
+
+- Add 58 scenarios in `tests/scenarios/`, run by `tests/harness-scenarios.test.ts` through
+  `tests/helpers/scenario-engine.ts`. The engine chains the real resolver, the gateway policy's compiled C#, the sync
+  planner, the reconciler, pricing and a recorded ledger response. The catalogue covers the 23 acceptance bypass
+  attempts, every SEC, MON and SYNC invariant, the budget guard, REH-3 as it behaves today, and recorded money. See
+  `docs/harness/SCENARIOS.md`.
+- `docs/UNKNOWNS.md`: LIVE-01 (Foundry public network access is enabled at the customer) and LIVE-02 (no alert
+  rules deployed), from the 2026-11-18 read-only analysis. No runtime change.
+
 ## 2026-11-19 — Harness P5: version skew
 
 - Add `harness/capture-version.mjs` and `harness/version/capture-artifacts.mts`. In a temporary worktree at the

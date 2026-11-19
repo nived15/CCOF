@@ -1,0 +1,34 @@
+{
+  "id": "sec01-missing-budget-state",
+  "title": "A missing budget-state document is a refusal or unavailability, never an allow",
+  "source": "src/resolver/decide.ts",
+  "invariants": [
+    "SEC-01"
+  ],
+  "layer": "gateway",
+  "given": {
+    "groups": {
+      "alpha": {
+        "priority": 1,
+        "models": [
+          "claude-haiku-4-5"
+        ],
+        "budget": "10"
+      }
+    },
+    "callerIn": [
+      "alpha"
+    ],
+    "spend": {},
+    "dropBudgetState": true
+  },
+  "when": {
+    "caller": "member",
+    "model": "claude-haiku-4-5"
+  },
+  "then": {
+    "status": 503,
+    "errorType": "api_error",
+    "refusal": "budget_state_unavailable"
+  }
+}

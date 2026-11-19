@@ -1,0 +1,46 @@
+{
+  "id": "sec07-display-name-selector",
+  "title": "A group's display name is not a selector: only its Object ID selects",
+  "source": "src/resolver/select-membership.ts",
+  "invariants": [
+    "SEC-07"
+  ],
+  "layer": "gateway",
+  "given": {
+    "groups": {
+      "alpha": {
+        "priority": 1,
+        "models": [
+          "claude-haiku-4-5",
+          "claude-sonnet-5"
+        ],
+        "budget": "10"
+      },
+      "beta": {
+        "priority": 2,
+        "models": [
+          "claude-haiku-4-5"
+        ],
+        "budget": "1"
+      }
+    },
+    "callerIn": [
+      "alpha",
+      "beta",
+      "gamma"
+    ],
+    "spend": {}
+  },
+  "when": {
+    "caller": "member",
+    "headers": {
+      "selector": "Group alpha"
+    },
+    "model": "claude-haiku-4-5"
+  },
+  "then": {
+    "status": 400,
+    "errorType": "invalid_request_error",
+    "refusal": "project_header_invalid"
+  }
+}

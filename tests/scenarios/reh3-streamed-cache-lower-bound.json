@@ -1,0 +1,27 @@
+{
+  "id": "reh3-streamed-cache-lower-bound",
+  "title": "A streamed request's cache categories are unknown: spend is a lower bound and completeness is partial (REH-3, as today)",
+  "source": "docs/UNKNOWNS.md REH-3",
+  "invariants": [
+    "MON-01"
+  ],
+  "layer": "reconciler",
+  "given": {
+    "budget": "10",
+    "rows": [
+      {
+        "usd": "1.00"
+      },
+      {
+        "usd": "0.50",
+        "cacheUnknown": true
+      }
+    ]
+  },
+  "when": {},
+  "then": {
+    "spentUsd": "1.5",
+    "completeness": "partial",
+    "exhausted": false
+  }
+}

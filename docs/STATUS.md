@@ -1,8 +1,18 @@
 # Current work
 
+## Harness P6: scenario evals (2026-11-19)
+
+**Active packet:** P6 of `docs/harness/BUILD-PLAN.md` on `harness/p6`. No runtime change.
+
+- 58 scenarios (57 executed, 1 live-only) pass in about 4 seconds; every SEC, MON and SYNC invariant has at least
+  one. Three of four deliberate changes were caught; the fourth (selector lower-casing) is equivalent end to end.
+- `knownGaps` is unchanged at 3 (DEP-06, CLI-01, DOC-01). Those are deployment, client and docs rules that scenarios
+  do not exercise.
+- New unknowns from the live read: LIVE-01 (Foundry public access enabled), LIVE-02 (no alert rules). Next: P7.
+
 ## Harness P5: version skew (2026-11-19)
 
-**Active packet:** P5 of `docs/harness/BUILD-PLAN.md` on `harness/p5`. No runtime change.
+**Done:** merged in #8.
 
 - N-1 = deployed `9faa1fc`, captured into `tests/fixtures/version-n-1/` (5 scenarios, 17 compiled reader modules).
   `tests/harness-version-skew.test.ts` passes 4/4 against it. A policy expecting a new `decisionVersion`, a reader

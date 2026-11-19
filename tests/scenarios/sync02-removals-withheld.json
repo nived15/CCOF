@@ -1,0 +1,48 @@
+{
+  "id": "sync02-removals-withheld",
+  "title": "Removals over both limits are withheld",
+  "source": "src/sync/plan.ts",
+  "invariants": [
+    "SYNC-02"
+  ],
+  "layer": "sync",
+  "given": {
+    "reads": {
+      "STD": {
+        "members": []
+      },
+      "PRM": {
+        "members": []
+      }
+    },
+    "existing": {
+      "A": [
+        "STD"
+      ],
+      "B": [
+        "STD"
+      ],
+      "C": [
+        "STD"
+      ]
+    },
+    "removalLimits": {
+      "maxRemovalsPerRun": 1,
+      "maxRemovalFraction": 0.1
+    }
+  },
+  "when": {},
+  "then": {
+    "holdings": {
+      "A": [
+        "STD"
+      ],
+      "B": [
+        "STD"
+      ],
+      "C": [
+        "STD"
+      ]
+    }
+  }
+}

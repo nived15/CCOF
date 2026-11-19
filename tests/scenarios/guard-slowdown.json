@@ -1,0 +1,31 @@
+{
+  "id": "guard-slowdown",
+  "title": "Budget guard below the warning: a positive, rate-bounded ceiling and no warning",
+  "source": "docs/adr/0040-budget-guard.md",
+  "invariants": [
+    "MON-05"
+  ],
+  "layer": "reconciler",
+  "given": {
+    "budget": "10",
+    "guard": {
+      "warnPercent": 80,
+      "overshootPercent": 5,
+      "projectionMinutes": 5
+    },
+    "rows": [
+      {
+        "usd": "1.00",
+        "at": "2026-10-23T11:30:00.0000000Z"
+      }
+    ]
+  },
+  "when": {},
+  "then": {
+    "spentUsd": "1",
+    "exhausted": false,
+    "ceiling": "positive",
+    "warning": false,
+    "projectedUsd": "1"
+  }
+}

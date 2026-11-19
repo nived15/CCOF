@@ -1,0 +1,47 @@
+{
+  "id": "bypass-19-exhausted-no-selector",
+  "title": "After exhaustion, no selector: refused, no switch to Beta",
+  "source": "docs/status/BUDGET-ACCEPTANCE-2026-10-23.md §4",
+  "invariants": [
+    "MON-05",
+    "SEC-01"
+  ],
+  "layer": "gateway",
+  "given": {
+    "groups": {
+      "alpha": {
+        "priority": 1,
+        "models": [
+          "claude-haiku-4-5",
+          "claude-sonnet-5"
+        ],
+        "budget": "10"
+      },
+      "beta": {
+        "priority": 2,
+        "models": [
+          "claude-haiku-4-5"
+        ],
+        "budget": "1"
+      }
+    },
+    "callerIn": [
+      "alpha",
+      "beta",
+      "gamma"
+    ],
+    "spend": {
+      "alpha": "11.25",
+      "beta": "0.01"
+    }
+  },
+  "when": {
+    "caller": "member",
+    "model": "claude-haiku-4-5"
+  },
+  "then": {
+    "status": 403,
+    "errorType": "permission_error",
+    "refusal": "budget_exhausted"
+  }
+}

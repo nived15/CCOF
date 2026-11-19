@@ -1,0 +1,23 @@
+{
+  "id": "mon05-below",
+  "title": "USD 9.99 of 10: not exhausted, a positive ceiling",
+  "source": "docs/status/BUDGET-ACCEPTANCE-2026-10-23.md Offline acceptance",
+  "invariants": [
+    "MON-05"
+  ],
+  "layer": "reconciler",
+  "given": {
+    "budget": "10",
+    "rows": [
+      {
+        "usd": "9.99"
+      }
+    ]
+  },
+  "when": {},
+  "then": {
+    "spentUsd": "9.99",
+    "exhausted": false,
+    "ceiling": "positive"
+  }
+}

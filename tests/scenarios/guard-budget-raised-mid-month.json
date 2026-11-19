@@ -1,0 +1,33 @@
+{
+  "id": "guard-budget-raised-mid-month",
+  "title": "A budget raised mid-month from USD 10 to 14 re-admits with a warning at 80% (acceptance §6)",
+  "source": "docs/status/BUDGET-ACCEPTANCE-2026-10-23.md §6",
+  "invariants": [
+    "MON-05",
+    "MON-04"
+  ],
+  "layer": "reconciler",
+  "given": {
+    "budget": "10",
+    "guard": {
+      "warnPercent": 80,
+      "overshootPercent": 5,
+      "projectionMinutes": 5
+    },
+    "rows": [
+      {
+        "usd": "11.25",
+        "at": "2026-10-23T11:00:00.0000000Z"
+      }
+    ]
+  },
+  "when": {
+    "budget": "14"
+  },
+  "then": {
+    "spentUsd": "11.25",
+    "budgetUsd": "14",
+    "exhausted": false,
+    "warning": true
+  }
+}

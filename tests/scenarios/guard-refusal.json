@@ -1,0 +1,33 @@
+{
+  "id": "guard-refusal",
+  "title": "Budget guard: projected spend at the budget gives a zero ceiling before the budget is recorded as exhausted",
+  "source": "docs/adr/0040-budget-guard.md",
+  "invariants": [
+    "MON-05"
+  ],
+  "layer": "reconciler",
+  "given": {
+    "budget": "10",
+    "guard": {
+      "warnPercent": 80,
+      "overshootPercent": 5,
+      "projectionMinutes": 5
+    },
+    "rows": [
+      {
+        "usd": "9.00",
+        "at": "2026-10-23T11:30:00.0000000Z"
+      },
+      {
+        "usd": "0.60",
+        "at": "2026-10-23T11:58:00.0000000Z"
+      }
+    ]
+  },
+  "when": {},
+  "then": {
+    "spentUsd": "9.6",
+    "exhausted": false,
+    "ceiling": "zero"
+  }
+}

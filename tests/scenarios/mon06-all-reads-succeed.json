@@ -1,0 +1,17 @@
+{
+  "id": "mon06-all-reads-succeed",
+  "title": "When every read succeeds, the run writes the states",
+  "source": "src/reconciler/run.ts",
+  "invariants": [
+    "MON-06"
+  ],
+  "layer": "reconciler-run",
+  "given": {},
+  "when": {
+    "failingRead": "none"
+  },
+  "then": {
+    "writes": 4,
+    "outcome": "written"
+  }
+}

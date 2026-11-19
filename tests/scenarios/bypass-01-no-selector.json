@@ -1,0 +1,43 @@
+{
+  "id": "bypass-01-no-selector",
+  "title": "No selector, allowed model: admitted to the lower-priority-number group at equal spend",
+  "source": "docs/status/BUDGET-ACCEPTANCE-2026-10-23.md §1",
+  "invariants": [
+    "SEC-01",
+    "SEC-07"
+  ],
+  "layer": "gateway",
+  "given": {
+    "groups": {
+      "alpha": {
+        "priority": 1,
+        "models": [
+          "claude-haiku-4-5",
+          "claude-sonnet-5"
+        ],
+        "budget": "10"
+      },
+      "beta": {
+        "priority": 2,
+        "models": [
+          "claude-haiku-4-5"
+        ],
+        "budget": "1"
+      }
+    },
+    "callerIn": [
+      "alpha",
+      "beta",
+      "gamma"
+    ],
+    "spend": {}
+  },
+  "when": {
+    "caller": "member",
+    "model": "claude-haiku-4-5"
+  },
+  "then": {
+    "status": 200,
+    "group": "alpha"
+  }
+}
