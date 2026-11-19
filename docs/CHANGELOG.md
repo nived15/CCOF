@@ -1,5 +1,15 @@
 # Change log
 
+## 2026-11-19 — Harness P3: customer fixture
+
+- Collected the deployment read-only in a new discovery mode (`-ResourceGroup`, `-SubscriptionId`), because its
+  staged config and state are not on the collecting machine. Committed the pseudonymized gateway policies,
+  fragments, operations, revisions, backend and the four Function Apps' function lists and app-setting names to
+  `tests/fixtures/customer/`. The deployed commit is recorded as `92a9e54` (release 23), not yet confirmed.
+- Fixed the pseudonymizer after the first real run left three Function App names in file names and content, and the
+  backend ID in a fragment. It now rewrites file names, treats `app` and `backendId` as identifying, and refuses if a
+  generated part of a known name (the unique suffix) survives anywhere. Two new tests (9 in total).
+
 ## 2026-11-19 — Harness P3: customer fixture tooling
 
 - Add `harness/customer/Collect-CustomerFixture.ps1`: a read-only collector (an allow-list of `show`, `list` and

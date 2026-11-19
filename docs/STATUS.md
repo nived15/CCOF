@@ -7,9 +7,11 @@
 - Tooling, synthetic Cosmos documents and tests are done: `tests/harness-fixture-clean.test.ts` 7/7 and
   `tests/Test-HarnessCollector.ps1` 24/24. Run in memory on the live gateway policy XML, the pseudonymizer took
   32 leak findings to 0.
-- Waiting for the human: run the collector and pseudonymizer (`docs/harness/CUSTOMER-FIXTURE.md`), then read every
-  file in `tests/fixtures/customer/` before it is committed. The live Cosmos account is private, so the synthetic
-  documents stay.
+- Tooling merged in #5. Fixture collected 2026-11-19 in discovery mode (no staged config or state on this machine),
+  pseudonymized and committed on `harness/p3-fixture`: 16 files plus the synthetic Cosmos documents. An independent
+  search for the tenant, subscription, client and principal IDs, resource-group and resource names finds none.
+- Open: confirm the deployed commit (recorded as `92a9e54`). The P4 customer replay needs the real
+  `staged.config.json` and `state.json`; collect again with `-ConfigPath` when they are available.
 
 ## Harness P2: risk tiers and change classifier (2026-11-19)
 

@@ -43,7 +43,7 @@ const SECRET_RE = /AccountKey=|SharedAccessSignature|SharedAccessKey=|Instrument
 // Config and state keys whose string values identify the customer. Keys ending in "Name" are added below.
 const SENSITIVE_KEYS = new Set([
   "resourceGroup", "groupDisplayName", "displayName", "organizationName", "apimPublisherEmail", "apimPublisherName",
-  "members", "adminEditors", "adminReaders", "group", "resourceName", "url", "endpoint", "gatewayUrl",
+  "members", "adminEditors", "adminReaders", "group", "resourceName", "url", "endpoint", "gatewayUrl", "app", "backendId",
 ]);
 const NOT_SENSITIVE_KEYS = new Set(["databaseName", "apiDisplayName", "roleName", "roleNames", "modelName", "deploymentName", "containerName", "configurationId"]);
 const isFakeHost = (h) => /^fake/i.test(h) || /\.example\.test$/i.test(h);
@@ -128,19 +128,26 @@ export function pseudonymize(files, existingMap = {}) {
     map[k] = { kind, n, fake: fakeFor(kind, n, value) };
   }
   const order = Object.keys(map).sort((a, b) => b.length - a.length);
-  const out = files.map(({ name, text }) => {
+  const replaceAll = (text) => {
     let t = text;
     for (const k of order) {
       const re = new RegExp(`(?<![A-Za-z0-9])${escape(k)}(?![A-Za-z0-9])`, "gi");
       t = t.replace(re, (m) => (m === m.toUpperCase() && m !== m.toLowerCase() && map[k].kind === "guid" ? map[k].fake.toUpperCase() : map[k].fake));
     }
-    return { name, text: t };
-  });
+    return t;
+  };
+  // File names carry resource names too (functions/<app>.json).
+  const out = files.map(({ name, text }) => ({ name: replaceAll(name), text: replaceAll(text) }));
+  // A generated, distinctive part of a known name (letters and digits, 8+ characters, such as a deployment's unique
+  // suffix) must not survive inside a name the scan did not recognise.
+  const distinctive = [...new Set(order.filter((k) => ["name", "rg"].includes(map[k].kind))
+    .flatMap((k) => k.split(/[^a-z0-9]+/)).filter((s) => s.length >= 8 && /[a-z]/.test(s) && /\d/.test(s)))];
   const problems = [];
   for (const { name, text } of out) {
-    const lower = text.toLowerCase();
+    const lower = `${name}\n${text}`.toLowerCase();
     for (const k of order) if (lower.includes(k)) problems.push(`${name}: an original ${map[k].kind} remains (${map[k].fake})`);
-    for (const p of scanForLeaks(text)) problems.push(`${name}: ${p}`);
+    for (const s of distinctive) if (lower.includes(s)) problems.push(`${name}: part of an original name remains in an unrecognised name`);
+    for (const p of scanForLeaks(`${name}\n${text}`)) problems.push(`${name}: ${p}`);
   }
   return { files: out, map, problems };
 }

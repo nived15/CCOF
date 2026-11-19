@@ -1,0 +1,14 @@
+<fragment>
+	<!-- Forwarding. A streamed request ("stream": true) is relayed chunk by chunk (buffer-response
+         false, owner approval (d)); any other request is forwarded as the service scope's bare
+         forward-request does, with the platform defaults. This section does not inherit the service
+         scope, so a change there does not reach this API. -->
+	<choose>
+		<when condition="@(context.Variables.GetValueOrDefault&lt;bool&gt;(&quot;ccofStream&quot;, false))">
+			<forward-request buffer-response="false" />
+		</when>
+		<otherwise>
+			<forward-request />
+		</otherwise>
+	</choose>
+</fragment>

@@ -1,0 +1,7 @@
+[
+  {
+    "backendId": "fake-name-06",
+    "protocol": "http",
+    "url": "https://fake-name-01.services.ai.azure.com/anthropic"
+  }
+]

@@ -107,6 +107,26 @@ test("the pseudonymizer refuses when an original value would remain", () => {
   assert.ok(problems.some((p) => p.startsWith("notes.txt: an original rg remains")), problems.join("\n"));
 });
 
+test("file names are pseudonymized, and app and backend IDs are identifying", () => {
+  const files = sample();
+  files.push({ name: "functions/contoso-ccof-admin.json", text: JSON.stringify({ app: "contoso-ccof-admin", functions: [] }) });
+  files.push({ name: "gateway/backends.json", text: JSON.stringify([{ backendId: "contoso-foundry-eus" }]) });
+  files.push({ name: "gateway/fragment-outbound.xml", text: "<when condition='backendId == \"contoso-foundry-eus\"' />" });
+  const { files: out, map, problems } = pseudonymize(files);
+  assert.deepEqual(problems, []);
+  const admin = out.find((f) => f.text.includes(map["contoso-ccof-admin"].fake));
+  assert.equal(admin?.name, `functions/${map["contoso-ccof-admin"].fake}.json`);
+  assert.ok(!out.some((f) => /contoso/i.test(f.name + f.text)), "no original name in any path or content");
+});
+
+test("a generated part of a known name may not survive in a name the scan did not recognise", () => {
+  const files = sample();
+  files[1].text = files[1].text.replace('"contosoapim7x2"', '"ccof-ab12cd34ef-apim"').replace(/contosoapim7x2/g, "ccof-ab12cd34ef-apim");
+  files.push({ name: "notes.txt", text: "the sync app ccof-ab12cd34ef-sync runs every minute" });
+  const { problems } = pseudonymize(files);
+  assert.ok(problems.some((p) => p.startsWith("notes.txt: part of an original name remains")), problems.join("\n"));
+});
+
 test("the leak scan catches unknown GUIDs, customer hosts, emails, JWTs and secrets", () => {
   assert.ok(scanForLeaks(TENANT).length === 1);
   assert.ok(scanForLeaks("https://contoso-api.azure-api.net/x").length >= 1);

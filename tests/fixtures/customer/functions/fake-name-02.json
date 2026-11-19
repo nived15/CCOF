@@ -1,0 +1,37 @@
+{
+  "app": "fake-name-02",
+  "functions": [
+    {
+      "name": "health",
+      "disabled": false,
+      "trigger": "httpTrigger"
+    },
+    {
+      "name": "myUsage",
+      "disabled": false,
+      "trigger": "httpTrigger"
+    },
+    {
+      "name": "resolve",
+      "disabled": false,
+      "trigger": "httpTrigger"
+    }
+  ],
+  "appSettingNames": [
+    "APPLICATIONINSIGHTS_AUTHENTICATION_STRING",
+    "APPLICATIONINSIGHTS_CONNECTION_STRING",
+    "AzureWebJobsStorage__accountName",
+    "AzureWebJobsStorage__credential",
+    "CCOF_APP_ROLE",
+    "COSMOS_DATABASE",
+    "COSMOS_ENDPOINT",
+    "COSMOS_PREFERRED_REGIONS",
+    "RESOLVER_BUDGET_ENFORCEMENT",
+    "RESOLVER_COSMOS_REQUEST_TIMEOUT_MS",
+    "RESOLVER_COSMOS_RETRY_ATTEMPTS",
+    "RESOLVER_COSMOS_RETRY_MAX_WAIT_SECONDS",
+    "RESOLVER_REQUEST_DEADLINE_MS",
+    "RESOLVER_REQUIRE_COMPLETE_USAGE",
+    "RESOLVER_USAGE_GROUP_TOTALS"
+  ]
+}
