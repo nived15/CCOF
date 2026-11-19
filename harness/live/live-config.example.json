@@ -1,0 +1,42 @@
+{
+  "_readme": "Example for scripts/Test-LiveSmoke.ps1 (BUILD-PLAN L0, docs/harness/LIVE.md). Copy it to .env.live-lab/live-config.json or .env.live-customer/live-config.json (gitignored), replace every <...> value and pass -ConfigPath. cloud.* and testClient.* are read only when a token is requested; with -NoToken they may stay as placeholders.",
+  "tenantId": "<tenant GUID>",
+  "subscriptionId": "<subscription GUID>",
+  "resourceGroup": "<resource group of the gateway, apps and Cosmos DB>",
+  "cloud": {
+    "authorityHost": "https://login.microsoftonline.com",
+    "graphBaseUrl": "https://graph.microsoft.com"
+  },
+  "gateway": {
+    "apimName": "<API Management instance name>",
+    "apiId": "<API id, for example claude-messages>",
+    "baseUrl": "https://<apim name>.azure-api.net",
+    "apiPath": "<API path with a leading slash, for example /anthropic>",
+    "operationPath": "/v1/messages",
+    "audience": "<gateway application ID URI, for example api://...>",
+    "probeModel": "<a model the test identity may call>",
+    "probeMaxTokens": 16,
+    "anthropicVersion": "2023-06-01"
+  },
+  "testClient": {
+    "appDisplayName": "<display name of the test client application>",
+    "secretLifetimeHours": 1,
+    "secretDisplayNamePrefix": "ccof-live-smoke"
+  },
+  "resolver": {
+    "functionAppName": "<resolver Function App name>",
+    "functionName": "resolve",
+    "url": "https://<resolver host>/api/resolve"
+  },
+  "cosmos": {
+    "accountName": "<Cosmos DB account name>",
+    "databaseName": "<registry database name>",
+    "containers": ["<container>", "<container>"]
+  },
+  "network": {
+    "vnetName": "<virtual network name>",
+    "foundryPrivateEndpointName": "<Foundry private endpoint name>",
+    "jumpboxNamePrefix": "<prefix no remaining resource may start with>",
+    "dnsCheckVmName": null
+  }
+}

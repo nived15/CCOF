@@ -73,7 +73,7 @@ None. For each run, every failing and skipped test name was collected, and each 
 
 | ID | Issue | Status |
 | --- | --- | --- |
-| K-1 | `scripts/Test-LiveSmoke.ps1` dot-sources `scripts/Get-E2ETestToken.ps1` (line 58) and defaults to `infra/poc/live-test.config.json` (line 46); neither file exists. | Confirmed |
+| K-1 | `scripts/Test-LiveSmoke.ps1` dot-sources `scripts/Get-E2ETestToken.ps1` (line 58) and defaults to `infra/poc/live-test.config.json` (line 46); neither file exists. | Confirmed; **fixed in L0** (2026-11-19): `-NoToken` no longer needs the token script; see `docs/harness/LIVE.md` |
 | K-2 | High-severity dependency findings (`docs/ROADMAP.md`, G-DEPENDENCY-AUDIT). | **Corrected**: `npm audit` reports 2 high in the root (`@azure/identity`, direct; `@azure/msal-node`, transitive), the same 2 in `admin/`, and **1 high in `client/`** (`@azure/msal-node`, direct). A fix is available for each; applying it changes lockfiles, so it needs approval. The first `npm audit` attempt was refused by the registry's rate limit; the second succeeded. |
 | K-3 | Two ADRs share number 0048: `0048-claude-code-setup-on-macos-and-linux.md` and `0048-request-checks-and-backend-refusals.md`. | Confirmed |
 | K-4 | Streamed prompt-cache tokens are not recorded, so live spend is a lower bound (`docs/UNKNOWNS.md` REH-3, ADR-0038). | Confirmed (documented; no test changed) |
