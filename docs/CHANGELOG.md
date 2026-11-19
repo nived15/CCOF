@@ -1,5 +1,17 @@
 # Change log
 
+## 2026-11-19 — Harness P9: Copilot guidance per area
+
+- Add `.github/instructions/` with `gateway`, `money`, `staged` and `docs` area files. Each has an `applyTo` glob, the
+  area's invariants, its test commands and its known traps.
+- Add `.github/prompts/` with `bugfix`, `feature`, `docs-change` and a read-only `review` prompt. Review checks a diff
+  only against the invariants, the tiers and the hard rules.
+- Add `tests/harness-guidance.test.ts` (5 tests). Each area file must name every invariant whose code lives in its
+  paths, and every ID, path and test glob it mentions must exist. Three deliberate breakages were each caught.
+- `harness/tiers.json` classifies both folders as T1. See `docs/harness/GUIDANCE.md`. No runtime change.
+- Found while checking commands: `docs/GATEWAY.md` names `infra/gateway/config/sample-pilot.json`, which is not in
+  the repository (DOC-01 drift, recorded in `docs/STATUS.md`, not fixed here).
+
 ## 2026-11-19 — Harness P8: CI and the Copilot environment
 
 - Add `.github/workflows/harness.yml`:

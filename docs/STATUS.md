@@ -1,9 +1,20 @@
 # Current work
 
+## Harness P9: Copilot guidance per area (2026-11-19)
+
+**Active packet:** P9 of `docs/harness/BUILD-PLAN.md` on `harness/p9`. No runtime change.
+
+- Four area instruction files (gateway, money, staged, docs) and four prompts (bugfix, feature, docs-change, review).
+  `tests/harness-guidance.test.ts`: 5/5.
+- **DOC-01 drift found:** `docs/GATEWAY.md` shows
+  `node infra/gateway/render.ts --config infra/gateway/config/sample-pilot.json`, but that file is not in the
+  repository. Fix it in a docs change: point to a real sample, or add one. The guidance test lists this path as known
+  missing, and fails once the file exists.
+- Next: P10 (agent eval bank).
+
 ## Harness P8: CI and the Copilot environment (2026-11-19)
 
-**Active packet:** P8 of `docs/harness/BUILD-PLAN.md` on `harness/p8`, with workflow changes approved by the owner.
-No runtime change.
+**Packet:** P8, merged as #11.
 
 - `harness.yml`: on every pull request, run the tier's checks. Nightly, run the mutation sentinels and the dependency
   audit. The audit fails until K-2's high advisories are resolved.

@@ -54,7 +54,7 @@
       "id": "internal-tooling",
       "tier": "T1",
       "include": [
-        "harness/**", ".github/copilot-instructions.md", ".github/pull_request_template.md", ".gitignore", "admin/.gitignore", "client/.gitignore",
+        "harness/**", ".github/copilot-instructions.md", ".github/pull_request_template.md", ".github/instructions/**", ".github/prompts/**", ".gitignore", "admin/.gitignore", "client/.gitignore",
         "scripts/load/**", "scripts/diagnostics/**", "scripts/run-tests.ps1", "scripts/Test-LiveSmoke.ps1",
         "scripts/Test-OwnerSmoke.ps1"
       ]
