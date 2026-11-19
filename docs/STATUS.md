@@ -1,8 +1,20 @@
 # Current work
 
+## Harness L1 at the customer deployment, read-only part (2026-11-19)
+
+**Active packet:** steps 1–3 of L1 in `docs/harness/BUILD-PLAN.md` Part C, run read-only against the deployment at
+the owner's request (`docs/harness/LIVE.md`).
+
+- Baseline: smoke 6 PASS, 0 FAIL; 0 % gateway 5xx and 429 errors; no model traffic. The previews show no delete,
+  no modify and no Stage 1 change.
+- **LIVE-03:** do not use Stage 5 `-Apply` to upgrade the policy; it would replace the current revision's policy.
+- **Owner:** steps 4–6 (the revision deploy, Stage 7, the smoke tests and `-MakeCurrent`) from
+  `.env.live-customer/l1-2026-11-19/owner-commands.md`. Then Copilot re-runs the smoke against revision N and the
+  alert queries.
+
 ## Harness L0: live tooling (2026-11-19)
 
-**Active packet:** L0 of `docs/harness/BUILD-PLAN.md` on `harness/l0` (T1).
+**Packet:** L0, merged as #14.
 
 - `Test-LiveSmoke.ps1 -NoToken` runs without the missing `Get-E2ETestToken.ps1` (K-1 fixed).
   `harness/live/live-config.example.json` added; `tests/Test-LiveSmoke.ps1`: 48/48.

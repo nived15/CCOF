@@ -1,5 +1,20 @@
 # Change log
 
+## 2026-11-19 — Harness L1 (read-only part) at the customer deployment
+
+- The owner asked for L1 to run against the deployed resource group. Copilot ran only the read-only steps:
+  - the `-NoToken` smoke baseline;
+  - the alert queries;
+  - stage freshness;
+  - previews of Stages 0–7.
+  Every `az` call went through a read-only allow-list (48 calls, 0 blocked). The previews used a copy of the state,
+  and `state.json` was unchanged.
+- Result: nothing in the previews stops the upgrade (no delete, no modify, no Stage 1 change). One exception: Stage 5
+  `-Apply` would replace the live policy on the current revision. This is recorded as LIVE-03 in `docs/UNKNOWNS.md`;
+  upgrade the policy with `Deploy-GatewayRevision.ps1`.
+- The summary is in `docs/harness/LIVE.md`. The owner's commands for steps 4–6, with rollbacks, are kept in the
+  gitignored `.env.live-customer/`. No code change.
+
 ## 2026-11-19 — Harness L0: live tooling
 
 - `scripts/Test-LiveSmoke.ps1` no longer needs `scripts/Get-E2ETestToken.ps1` to load. That script is not in the
