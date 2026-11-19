@@ -42,11 +42,14 @@ JWT or secret marker that is not on the allow-list would be left.
 
 ## 3. Review and test
 
-Read every file under `tests/fixtures/customer/` before you commit it, then run:
+Read every file under `tests/fixtures/customer/` before you commit it. Then seal the state for the customer replay
+(see [GOLDEN.md](GOLDEN.md)) and run:
 
 ```powershell
+pwsh -File harness/customer/Seal-FixtureState.ps1
 node --test tests/harness-fixture-clean.test.ts
 pwsh -NoProfile -File tests/Test-HarnessCollector.ps1
+pwsh -NoProfile -File tests/Test-HarnessCustomerReplay.ps1
 ```
 
 Until a collection includes Cosmos samples, `tests/fixtures/customer/cosmos/` holds synthetic documents marked

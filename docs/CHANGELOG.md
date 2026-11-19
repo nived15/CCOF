@@ -1,5 +1,20 @@
 # Change log
 
+## 2026-11-19 — Harness P4: golden contracts
+
+- Golden tests under `tests/golden/` (update only with `CCOF_UPDATE_GOLDEN=1`; see `docs/harness/GOLDEN.md`):
+  - the gateway policy rendered for the customer fixture with Stage 5's own statements;
+  - the inventory of the 95 resources in `infra/staged/*.bicep`, with their create-only properties;
+  - the runtime names: functions and role guards, `Disabled` settings, app settings, Cosmos containers and partition
+    keys, trace sources and `ledger.kql` columns;
+  - `admin/openapi.yaml` compatibility, read with a small dependency-free YAML reader that matches PyYAML on it;
+  - the append-only rate card.
+- Customer replay: `harness/customer/Seal-FixtureState.ps1` seals the customer state with the deployed commit's
+  driver, and `tests/Test-HarnessCustomerReplay.ps1` reads it with the current driver. Stages 1-6 stay fresh and
+  0 and 7 stay stale, as at the customer.
+- Each test fails on a deliberate change of its kind. The invariant register lowers `knownGaps` from 8 to 3
+  (DEP-06, CLI-01, DOC-01). No runtime change.
+
 ## 2026-11-19 — Harness P3: customer fixture
 
 - Collected the deployment read-only in a new discovery mode (`-ResourceGroup`, `-SubscriptionId`), because its

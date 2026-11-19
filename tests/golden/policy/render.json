@@ -1,0 +1,15 @@
+{
+  "configurationId": "ccof-staged-gateway-1",
+  "apiId": "claude-messages",
+  "configSha256": "393fd74952291089ac44a4156b40340eeaf4ec091a1ef23d0f3b1bb9e06707d0",
+  "templateSha256": "37692015027a4e580c7c898fbe30595289514bd1698cf3477eb9f59984801d26",
+  "policySha256": "fb299ce50107ce377a296690dd3bd28618691a2f417c9fb385faba37d410e748",
+  "usageTemplateSha256": "ac6f8459355586cbed80f1d9eef196b66f32db951e01a7ea472b3d316aa90191",
+  "usagePolicySha256": "25f9cead330919fe0bfb3b9b98c095f4c61ecf2b6e7c200fd52fc109f5c185b7",
+  "fragments": [
+    "claude-messages-inbound-ca6d1190ce4d",
+    "claude-messages-backend-b097052b2da6",
+    "claude-messages-outbound-eaf760567a8a",
+    "claude-messages-on-error-7e158f4cd658"
+  ]
+}

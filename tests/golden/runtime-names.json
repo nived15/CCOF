@@ -1,0 +1,301 @@
+{
+  "functions": {
+    "src/resolver/function-app.ts": [
+      {
+        "name": "health",
+        "trigger": "http",
+        "role": null
+      },
+      {
+        "name": "myUsage",
+        "trigger": "http",
+        "role": null
+      },
+      {
+        "name": "resolve",
+        "trigger": "http",
+        "role": null
+      }
+    ],
+    "src/sync/function-app.ts": [
+      {
+        "name": "registrySeed",
+        "trigger": "timer",
+        "role": "sync"
+      },
+      {
+        "name": "snapshotApply",
+        "trigger": "timer",
+        "role": "sync"
+      },
+      {
+        "name": "syncEntitlement",
+        "trigger": "timer",
+        "role": "sync"
+      }
+    ],
+    "src/reconciler/function-app.ts": [
+      {
+        "name": "reconcileBudgets",
+        "trigger": "timer",
+        "role": "reconciler"
+      }
+    ],
+    "admin/src/function-app.ts": [
+      {
+        "name": "adminHealth",
+        "trigger": "http",
+        "role": null
+      },
+      {
+        "name": "adminHome",
+        "trigger": "http",
+        "role": null
+      },
+      {
+        "name": "adminUi",
+        "trigger": "http",
+        "role": null
+      },
+      {
+        "name": "adminUiV3",
+        "trigger": "http",
+        "role": null
+      },
+      {
+        "name": "adminV2",
+        "trigger": "http",
+        "role": null
+      },
+      {
+        "name": "adminV3",
+        "trigger": "http",
+        "role": null
+      },
+      {
+        "name": "classificationPolicy",
+        "trigger": "http",
+        "role": null
+      },
+      {
+        "name": "group",
+        "trigger": "http",
+        "role": null
+      },
+      {
+        "name": "groupAction",
+        "trigger": "http",
+        "role": null
+      },
+      {
+        "name": "groupDirectoryMembers",
+        "trigger": "http",
+        "role": null
+      },
+      {
+        "name": "groups",
+        "trigger": "http",
+        "role": null
+      },
+      {
+        "name": "project",
+        "trigger": "http",
+        "role": null
+      },
+      {
+        "name": "projectRetire",
+        "trigger": "http",
+        "role": null
+      },
+      {
+        "name": "projects",
+        "trigger": "http",
+        "role": null
+      },
+      {
+        "name": "projectSettings",
+        "trigger": "http",
+        "role": null
+      },
+      {
+        "name": "userTagPeople",
+        "trigger": "http",
+        "role": null
+      },
+      {
+        "name": "userTagPerson",
+        "trigger": "http",
+        "role": null
+      },
+      {
+        "name": "userTags",
+        "trigger": "http",
+        "role": null
+      },
+      {
+        "name": "userTagSettings",
+        "trigger": "http",
+        "role": null
+      }
+    ]
+  },
+  "disabledSettings": [
+    "reconcileBudgets",
+    "registrySeed",
+    "snapshotApply",
+    "syncEntitlement"
+  ],
+  "appRolesSetByInfra": [
+    "reconciler",
+    "resolver",
+    "sync"
+  ],
+  "settings": {
+    "resolver": [
+      "COSMOS_DATABASE",
+      "COSMOS_ENDPOINT",
+      "COSMOS_PREFERRED_REGIONS",
+      "RESOLVER_BUDGET_ENFORCEMENT",
+      "RESOLVER_BUDGET_STATE_GRACE_SECONDS",
+      "RESOLVER_BUDGET_STATE_HARD_LIMIT_SECONDS",
+      "RESOLVER_COSMOS_REQUEST_TIMEOUT_MS",
+      "RESOLVER_COSMOS_RETRY_ATTEMPTS",
+      "RESOLVER_COSMOS_RETRY_MAX_WAIT_SECONDS",
+      "RESOLVER_REQUEST_DEADLINE_MS",
+      "RESOLVER_REQUIRE_COMPLETE_USAGE",
+      "RESOLVER_USAGE_GROUP_TOTALS"
+    ],
+    "sync": [
+      "CCOF_SEED_DOCUMENTS",
+      "CCOF_SYNC_SNAPSHOT",
+      "CCOF_SYNC_SNAPSHOT_OPERATION_ID",
+      "CCOF_SYNC_SNAPSHOT_SHA256",
+      "COSMOS_DATABASE",
+      "COSMOS_ENDPOINT",
+      "SYNC_ENTITLEMENT_CONTAINER",
+      "SYNC_GRAPH_MAX_RETRIES",
+      "SYNC_GRAPH_MAX_RETRY_AFTER_SECONDS",
+      "SYNC_GRAPH_TIMEOUT_SECONDS",
+      "SYNC_LEASE_CONTAINER",
+      "SYNC_LEASE_SECONDS",
+      "SYNC_LIMITS_CONTAINER",
+      "SYNC_MANAGED_IDENTITY_CLIENT_ID",
+      "SYNC_MAX_REMOVALS_PER_RUN",
+      "SYNC_MAX_REMOVAL_FRACTION",
+      "SYNC_MEMBER_TYPES",
+      "SYNC_PROJECTS_CONTAINER",
+      "SYNC_SCHEDULE",
+      "SYNC_SNAPSHOT_MAX_AGE_SECONDS",
+      "SYNC_SNAPSHOT_MAX_BYTES",
+      "SYNC_SNAPSHOT_MAX_GROUPS",
+      "SYNC_SNAPSHOT_MAX_MEMBERS",
+      "SYNC_TENANT_ID",
+      "SYNC_WRITE_MODE"
+    ],
+    "reconciler": [
+      "COSMOS_DATABASE",
+      "COSMOS_ENDPOINT",
+      "RECONCILER_AGGREGATE_STATE_CONTAINER",
+      "RECONCILER_BUDGET_STATE_CONTAINER",
+      "RECONCILER_BUDGET_WARN_PERCENT",
+      "RECONCILER_ENTITLEMENT_CONTAINER",
+      "RECONCILER_HISTORY_CLOSE_AFTER_DAYS",
+      "RECONCILER_HISTORY_CONTAINER",
+      "RECONCILER_HISTORY_TTL_DAYS",
+      "RECONCILER_LEASE_CONTAINER",
+      "RECONCILER_LEASE_SECONDS",
+      "RECONCILER_LEDGER_GATEWAY_RESOURCE_ID",
+      "RECONCILER_LEDGER_MAX_ROWS",
+      "RECONCILER_LEDGER_TIMEOUT_SECONDS",
+      "RECONCILER_LOG_ANALYTICS_ENDPOINT",
+      "RECONCILER_LOG_ANALYTICS_WORKSPACE_ID",
+      "RECONCILER_MANAGED_IDENTITY_CLIENT_ID",
+      "RECONCILER_MAX_STATES",
+      "RECONCILER_OVERSHOOT_PERCENT",
+      "RECONCILER_PROJECTION_MINUTES",
+      "RECONCILER_PROJECTS_CONTAINER",
+      "RECONCILER_SCHEDULE",
+      "RECONCILER_VALIDITY_SECONDS",
+      "RECONCILER_WRITE_CONCURRENCY"
+    ],
+    "admin": [
+      "ADMIN_ALLOWED_CLIENT_IDS",
+      "ADMIN_CLIENT_ID",
+      "ADMIN_CLIENT_SCOPE",
+      "ADMIN_CLIENT_TENANT_ID",
+      "ADMIN_EDITOR_IDS",
+      "ADMIN_GATEWAY_URL",
+      "ADMIN_READER_IDS"
+    ]
+  },
+  "cosmosContainers": {
+    "adminConfig": "/scopeId",
+    "aggregateBudgetState": "/scopeId",
+    "backends": "/backendId",
+    "budgetState": "/personId",
+    "chargebackDaily": "/month",
+    "entitlement": "/personId",
+    "projects": "/projectId",
+    "reconcilerLease": "/id",
+    "subscriptionIndex": "/subscriptionId",
+    "syncLease": "/id"
+  },
+  "traceSources": [
+    "ccof.chargeback.coverage.v1",
+    "ccof.chargeback.daily.v1",
+    "ccof.reconciler.budget.v1",
+    "ccof.reconciler.run.v1",
+    "ccof.resolver.event.v1",
+    "ccof.resolver.v1",
+    "ccof.seed.result.v1",
+    "ccof.sync.event.v1",
+    "ccof.sync.run.v1",
+    "ccof.sync.snapshot.result.v1",
+    "ccof.sync.snapshot.v1",
+    "ccof.usage.v1"
+  ],
+  "ledgerColumns": [
+    "timestamp",
+    "ingestedAt",
+    "gatewayResourceId",
+    "gatewayRequestId",
+    "providerRequestId",
+    "personId",
+    "projectId",
+    "classification",
+    "backendId",
+    "deployment",
+    "model",
+    "streamed",
+    "classificationGroupId",
+    "classificationGroupDisplayName",
+    "classificationGroupNameState",
+    "admittedModelFamily",
+    "chargebackId",
+    "surface",
+    "requestFailed",
+    "gatewayOutcomeKnown",
+    "inputTokens",
+    "outputTokens",
+    "cacheWrite5mTokens",
+    "cacheWrite1hTokens",
+    "cacheReadTokens",
+    "inputTokensKnown",
+    "outputTokensKnown",
+    "cacheWrite5mTokensKnown",
+    "cacheWrite1hTokensKnown",
+    "cacheReadTokensKnown",
+    "inference_geo",
+    "inferenceGeoKnown",
+    "bodyInferenceGeo",
+    "geoMismatch",
+    "usageSource",
+    "inputSource",
+    "attributionKnown",
+    "traceConflict",
+    "llmConflict",
+    "traceObservedAt",
+    "llmCopies",
+    "traceCopies"
+  ]
+}

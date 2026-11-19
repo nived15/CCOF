@@ -21,7 +21,8 @@ const readJson = (p: string) => JSON.parse(readFileSync(p, "utf8"));
 
 test("committed customer fixtures hold no customer GUID, hostname, email, JWT or secret", () => {
   assert.ok(existsSync(fixtureDir), "tests/fixtures/customer/ is missing");
-  const files = walk(fixtureDir);
+  // The policy golden is rendered from the fixture and carries its values; the other goldens come from repository sources.
+  const files = [...walk(fixtureDir), ...walk(path.join(root, "tests", "golden", "policy"))];
   assert.ok(files.length > 0, "tests/fixtures/customer/ is empty");
   const leaks = files.flatMap((f) => scanForLeaks(readFileSync(f, "utf8")).map((p) => `${path.relative(root, f)}: ${p}`));
   assert.deepEqual(leaks, []);

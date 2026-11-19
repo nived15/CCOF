@@ -24,7 +24,7 @@
         { "id": "full-suite", "run": "npm test" },
         { "id": "admin-suite", "run": "npm --prefix admin test" },
         { "id": "client-suite", "run": "npm --prefix client test" },
-        { "id": "golden", "pendingPacket": "P4" },
+        { "id": "golden", "run": "node --test tests/harness-golden-admin-api.test.ts tests/harness-golden-bicep.test.ts tests/harness-golden-names.test.ts tests/harness-golden-policy.test.ts tests/harness-golden-ratecard.test.ts" },
         { "id": "version-skew", "pendingPacket": "P5" }
       ]
     },
@@ -32,7 +32,7 @@
       "name": "deployed behaviour",
       "checks": [
         { "id": "build", "run": "npx tsc -p tsconfig.json" },
-        { "id": "customer-replay", "pendingPacket": "P4" },
+        { "id": "customer-replay", "run": "pwsh -NoProfile -File tests/Test-HarnessCustomerReplay.ps1" },
         { "id": "scenarios", "pendingPacket": "P6" },
         { "id": "human-review", "manual": "A human reviews the diff against the touched invariants." },
         { "id": "live-lab", "manual": "Run the L1 lab upgrade test (BUILD-PLAN Part C) before the customer change window." }

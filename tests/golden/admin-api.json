@@ -1,0 +1,377 @@
+{
+  "/projects": {
+    "get": {
+      "params": {},
+      "bodyRequired": false,
+      "responses": {
+        "200": [
+          "projects",
+          "projects.[].backendId",
+          "projects.[].classifications",
+          "projects.[].displayName",
+          "projects.[].etag",
+          "projects.[].projectId",
+          "projects.[].status"
+        ],
+        "default": [
+          "error",
+          "problems",
+          "requestId"
+        ]
+      }
+    },
+    "post": {
+      "params": {},
+      "bodyRequired": true,
+      "responses": {
+        "201": [
+          "adminTags",
+          "backendId",
+          "classifications",
+          "designatedSubscriptionId",
+          "displayName",
+          "id",
+          "projectId",
+          "retiredAt",
+          "status",
+          "supersedes"
+        ],
+        "default": [
+          "error",
+          "problems",
+          "requestId"
+        ]
+      }
+    }
+  },
+  "/projects/{projectId}": {
+    "get": {
+      "params": {
+        "path:projectId": true
+      },
+      "bodyRequired": false,
+      "responses": {
+        "200": [
+          "adminTags",
+          "backendId",
+          "classifications",
+          "designatedSubscriptionId",
+          "displayName",
+          "id",
+          "projectId",
+          "retiredAt",
+          "status",
+          "supersedes"
+        ],
+        "default": [
+          "error",
+          "problems",
+          "requestId"
+        ]
+      }
+    }
+  },
+  "/projects/{projectId}/classifications/{code}/family-policy": {
+    "put": {
+      "params": {
+        "path:projectId": true,
+        "path:code": true,
+        "header:If-Match": true
+      },
+      "bodyRequired": true,
+      "responses": {
+        "200": [
+          "changed",
+          "project",
+          "project.adminTags",
+          "project.backendId",
+          "project.classifications",
+          "project.designatedSubscriptionId",
+          "project.displayName",
+          "project.id",
+          "project.projectId",
+          "project.retiredAt",
+          "project.status",
+          "project.supersedes",
+          "projectId"
+        ],
+        "default": [
+          "error",
+          "problems",
+          "requestId"
+        ]
+      }
+    }
+  },
+  "/projects/{projectId}/classifications/{code}/limits": {
+    "patch": {
+      "params": {
+        "path:projectId": true,
+        "path:code": true,
+        "header:If-Match": true
+      },
+      "bodyRequired": true,
+      "responses": {
+        "200": [
+          "changed",
+          "project",
+          "project.adminTags",
+          "project.backendId",
+          "project.classifications",
+          "project.designatedSubscriptionId",
+          "project.displayName",
+          "project.id",
+          "project.projectId",
+          "project.retiredAt",
+          "project.status",
+          "project.supersedes",
+          "projectId"
+        ],
+        "default": [
+          "error",
+          "problems",
+          "requestId"
+        ]
+      }
+    }
+  },
+  "/projects/{projectId}/settings": {
+    "put": {
+      "params": {
+        "path:projectId": true,
+        "header:If-Match": true
+      },
+      "bodyRequired": true,
+      "responses": {
+        "200": [
+          "changed",
+          "project",
+          "project.adminTags",
+          "project.backendId",
+          "project.classifications",
+          "project.designatedSubscriptionId",
+          "project.displayName",
+          "project.id",
+          "project.projectId",
+          "project.retiredAt",
+          "project.status",
+          "project.supersedes",
+          "projectId"
+        ],
+        "default": [
+          "error",
+          "problems",
+          "requestId"
+        ]
+      }
+    }
+  },
+  "/v2/projects": {
+    "get": {
+      "params": {
+        "query:search": false,
+        "query:tag": false,
+        "query:backendId": false,
+        "query:limit": false,
+        "query:cursor": false,
+        "query:tags": false,
+        "query:classification": false
+      },
+      "bodyRequired": false,
+      "responses": {
+        "200": [],
+        "default": [
+          "error",
+          "problems",
+          "requestId"
+        ]
+      }
+    }
+  },
+  "/v2/catalog": {
+    "get": {
+      "params": {},
+      "bodyRequired": false,
+      "responses": {
+        "200": [],
+        "default": [
+          "error",
+          "problems",
+          "requestId"
+        ]
+      }
+    },
+    "put": {
+      "params": {
+        "header:If-Match": false,
+        "header:If-None-Match": false
+      },
+      "bodyRequired": true,
+      "responses": {
+        "200": [],
+        "default": [
+          "error",
+          "problems",
+          "requestId"
+        ]
+      }
+    }
+  },
+  "/v2/{feature}": {
+    "get": {
+      "params": {
+        "path:feature": true,
+        "query:q": false,
+        "query:resourceId": false,
+        "query:limit": false,
+        "query:offset": false,
+        "query:search": false,
+        "query:projectId": false,
+        "query:minUsedPercent": false,
+        "query:attention": false
+      },
+      "bodyRequired": false,
+      "responses": {
+        "200": [],
+        "default": [
+          "error",
+          "problems",
+          "requestId"
+        ]
+      }
+    }
+  },
+  "/v3/chargeback/{view}": {
+    "get": {
+      "params": {
+        "path:view": true,
+        "query:period": false,
+        "query:from": false,
+        "query:to": false,
+        "query:project": false,
+        "query:group": false,
+        "query:developer": false,
+        "query:model": false,
+        "query:backend": false,
+        "query:family": false,
+        "query:interval": false,
+        "query:limit": false,
+        "query:offset": false
+      },
+      "bodyRequired": false,
+      "responses": {
+        "200": [],
+        "default": [
+          "error",
+          "problems",
+          "requestId"
+        ]
+      }
+    }
+  },
+  "/v3/reconciler/{kind}": {
+    "get": {
+      "params": {
+        "path:kind": true,
+        "query:period": false,
+        "query:scope": false,
+        "query:project": false,
+        "query:classification": false,
+        "query:person": false,
+        "query:state": false,
+        "query:budgetState": false,
+        "query:limit": false,
+        "query:offset": false
+      },
+      "bodyRequired": false,
+      "responses": {
+        "200": [],
+        "default": [
+          "error",
+          "problems",
+          "requestId"
+        ]
+      }
+    }
+  },
+  "/v3/audit": {
+    "get": {
+      "params": {
+        "query:project": false,
+        "query:actor": false,
+        "query:operation": false,
+        "query:outcome": false,
+        "query:from": false,
+        "query:to": false,
+        "query:limit": false,
+        "query:offset": false
+      },
+      "bodyRequired": false,
+      "responses": {
+        "200": [],
+        "default": [
+          "error",
+          "problems",
+          "requestId"
+        ]
+      }
+    }
+  },
+  "/v3/plan": {
+    "get": {
+      "params": {},
+      "bodyRequired": false,
+      "responses": {
+        "200": [],
+        "default": [
+          "error",
+          "problems",
+          "requestId"
+        ]
+      }
+    },
+    "post": {
+      "params": {},
+      "bodyRequired": true,
+      "responses": {
+        "200": [],
+        "422": [],
+        "default": [
+          "error",
+          "problems",
+          "requestId"
+        ]
+      }
+    }
+  },
+  "/v3/rate-card/review": {
+    "post": {
+      "params": {},
+      "bodyRequired": true,
+      "responses": {
+        "200": [],
+        "default": [
+          "error",
+          "problems",
+          "requestId"
+        ]
+      }
+    }
+  },
+  "/v3/{info}": {
+    "get": {
+      "params": {
+        "path:info": true
+      },
+      "bodyRequired": false,
+      "responses": {
+        "200": [],
+        "default": [
+          "error",
+          "problems",
+          "requestId"
+        ]
+      }
+    }
+  }
+}
