@@ -1,8 +1,20 @@
 # Current work
 
+## Harness P8: CI and the Copilot environment (2026-11-19)
+
+**Active packet:** P8 of `docs/harness/BUILD-PLAN.md` on `harness/p8`, with workflow changes approved by the owner.
+No runtime change.
+
+- `harness.yml`: on every pull request, run the tier's checks. Nightly, run the mutation sentinels and the dependency
+  audit. The audit fails until K-2's high advisories are resolved.
+- `copilot-setup-steps.yml` (Ubuntu) and a PR template. `tests/harness-workflows.test.ts`: 5/5. Two deliberate unsafe
+  edits (write permission, renamed setup job) were each caught.
+- **Human checkpoint:** in branch protection, require `Public source (Node 22)`, `Public source (Node 26)` and
+  `Harness tier checks` on `main` (`docs/harness/CI.md`). Next: P9 (per-area Copilot instructions and prompts).
+
 ## Harness P7: mutation sentinels (2026-11-19)
 
-**Active packet:** P7 of `docs/harness/BUILD-PLAN.md` on `harness/p7`. No runtime change.
+**Packet:** P7, merged as #10.
 
 - 47 mutants, all killed (`node harness/run-mutants.mjs`, about 6 minutes). Five survived the first run. A new
   scenario now kills each:

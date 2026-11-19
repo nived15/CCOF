@@ -1,0 +1,118 @@
+name: harness
+
+# BUILD-PLAN P8 (docs/harness/CI.md). Pull requests: classify the change and run every check its tier requires
+# (harness/run-checks.mjs). Nightly and on demand: the mutation sentinels and the dependency audit.
+# No Azure credentials, no secrets, no live or paid traffic.
+
+on:
+  pull_request:
+  schedule:
+    - cron: '30 20 * * *' # 02:00 IST
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: harness-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  CCOF_LIVE_TESTS: '0'
+  CCOF_LIVE_SMOKE: '0'
+  AZURE_CORE_COLLECT_TELEMETRY: 'false'
+
+jobs:
+  tier-checks:
+    name: Harness tier checks
+    if: github.event_name == 'pull_request'
+    runs-on: windows-latest
+    timeout-minutes: 90
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            admin/package-lock.json
+            client/package-lock.json
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      - name: Install locked dependencies (root, admin, client)
+        run: |
+          npm ci --ignore-scripts --no-audit --no-fund
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          npm --prefix admin ci --ignore-scripts --no-audit --no-fund
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          npm --prefix client ci --ignore-scripts --no-audit --no-fund
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Install reviewed Bicep compiler
+        run: az bicep install --version v0.46.1
+      - name: Classify the change and run its tier's checks
+        run: node harness/run-checks.mjs --base origin/${{ github.base_ref }}
+
+  mutants:
+    name: Mutation sentinels
+    if: github.event_name != 'pull_request'
+    runs-on: windows-latest
+    timeout-minutes: 60
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      - name: Install locked dependencies
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Run every mutant
+        run: node harness/run-mutants.mjs --out mutants-report.json
+      - name: Keep the report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mutants-report
+          path: mutants-report.json
+          if-no-files-found: ignore
+
+  dependency-audit:
+    name: Dependency audit
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Audit root, admin and client lockfiles (high and above)
+        run: |
+          $failed = @()
+          foreach ($dir in '.', 'admin', 'client') {
+            Write-Host "=== npm audit: $dir"
+            npm --prefix $dir audit --package-lock-only --audit-level=high
+            if ($LASTEXITCODE -ne 0) { $failed += $dir }
+          }
+          if ($failed.Count -gt 0) { throw "High or critical advisories in: $($failed -join ', ')" }
