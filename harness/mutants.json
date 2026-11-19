@@ -1,0 +1,461 @@
+{
+  "schemaVersion": 1,
+  "description": "Mutation sentinels (docs/harness/MUTANTS.md). Each mutant replaces one exact string in a T3 module; harness/run-mutants.mjs applies it in a temporary worktree and runs only its area's behavioural suites. Golden, digest and version-skew tests are excluded: they flag any edit and would catch every mutant for the wrong reason.",
+  "suites": {
+    "resolver": [
+      "tests/resolver-*.test.ts",
+      "tests/harness-scenarios.test.ts"
+    ],
+    "gateway": [
+      "tests/gateway-*.test.ts",
+      "tests/harness-scenarios.test.ts"
+    ],
+    "contracts": [
+      "tests/model-families-contract.test.ts",
+      "tests/resolver-*.test.ts",
+      "tests/sync-family-policy.test.ts",
+      "tests/gateway-family-quotas.test.ts",
+      "tests/harness-scenarios.test.ts"
+    ],
+    "money": [
+      "tests/reconciler-*.test.ts",
+      "tests/cost-*.test.ts",
+      "tests/budget-acceptance.test.ts",
+      "tests/integration-family-budget.test.ts",
+      "tests/harness-scenarios.test.ts"
+    ],
+    "sync": [
+      "tests/sync-*.test.ts",
+      "tests/harness-scenarios.test.ts"
+    ]
+  },
+  "excludedSuites": [
+    "tests/harness-golden-*.test.ts",
+    "tests/harness-version-skew.test.ts"
+  ],
+  "mutants": [
+    {
+      "id": "sec01-budget-missing-allows",
+      "invariant": "SEC-01",
+      "area": "resolver",
+      "file": "src/resolver/decide.ts",
+      "original": "if (!budget) return refuse(\"budget_state_missing\", resolved.projectId);",
+      "replacement": "if (!budget) return withBackend(backendRead, membership, { ...resolved, budgetEnforcement: \"budget-state\", aggregateStrict, aggregateState: null, personCeilingTokensPerMinute: 1000, degraded: false, degradedReasons: [], budgetState: \"fresh\" });",
+      "description": "A missing budget state is served as a fresh allow."
+    },
+    {
+      "id": "sec01-stale-served",
+      "invariant": "SEC-01",
+      "area": "resolver",
+      "file": "src/resolver/decide.ts",
+      "original": "return { ok: false, reason: `${prefix}budget_state_stale` };",
+      "replacement": "return { ok: true, degradedReason: `${prefix}budget_state_stale` };",
+      "description": "Budget state past the hard limit is served as degraded instead of refused."
+    },
+    {
+      "id": "sec01-invalid-exhausted-flag",
+      "invariant": "SEC-01",
+      "area": "resolver",
+      "file": "src/resolver/decide.ts",
+      "original": "if (typeof record.exhausted !== \"boolean\") return { ok: false, reason: `${prefix}budget_state_invalid` };",
+      "replacement": "",
+      "description": "A budget record without a boolean exhausted flag is accepted."
+    },
+    {
+      "id": "sec01-legacy-lease-ignored",
+      "invariant": "SEC-01",
+      "area": "resolver",
+      "file": "src/resolver/freshness.ts",
+      "original": "if (expiresAt < nowMs) return { usable: false, reason: \"entitlement_legacy_expired\" };",
+      "replacement": "",
+      "description": "A passed legacy lease no longer makes the record unusable."
+    },
+    {
+      "id": "sec01-future-verified-at",
+      "invariant": "SEC-01",
+      "area": "resolver",
+      "file": "src/resolver/freshness.ts",
+      "original": "if (verifiedAt > nowMs) return invalid(\"last_verified_at_in_future\");",
+      "replacement": "",
+      "description": "A record verified in the future is accepted."
+    },
+    {
+      "id": "sec01-unknown-aggregate-mode",
+      "invariant": "SEC-01",
+      "area": "resolver",
+      "file": "src/resolver/freshness.ts",
+      "original": "if (aggregateMode !== \"strict\" && aggregateMode !== \"notify\") return { ok: false, detail: \"invalid_aggregate_mode\" };",
+      "replacement": "",
+      "description": "An unknown aggregate mode is read as notify, skipping the group check."
+    },
+    {
+      "id": "sec01-key-person-mismatch",
+      "invariant": "SEC-01",
+      "area": "resolver",
+      "file": "src/resolver/select-membership.ts",
+      "original": "if (subIndex.personId !== input.personId) return refuse(\"subscription_person_mismatch\", keyProjectId);",
+      "replacement": "",
+      "description": "Someone else's subscription key is accepted."
+    },
+    {
+      "id": "sec01-duplicate-active",
+      "invariant": "SEC-01",
+      "area": "resolver",
+      "file": "src/resolver/select-membership.ts",
+      "original": "if (inProject.length > 1) return refuse(\"entitlement_record_invalid\", projectId, \"duplicate_active_membership\");",
+      "replacement": "",
+      "description": "Two active memberships in one project: the first wins instead of a refusal."
+    },
+    {
+      "id": "sec01-inactive-counted",
+      "invariant": "SEC-01",
+      "area": "resolver",
+      "file": "src/resolver/select-membership.ts",
+      "original": "membership?.status === \"active\";",
+      "replacement": "membership != null;",
+      "description": "Inactive memberships authorize."
+    },
+    {
+      "id": "mon05-exhausted-ignored",
+      "invariant": "MON-05",
+      "area": "resolver",
+      "file": "src/resolver/decide.ts",
+      "original": "if (budget.exhausted) return refuseExhausted(\"budget_exhausted\", membership, staleReasons);",
+      "replacement": "",
+      "description": "The resolver ignores an exhausted person budget."
+    },
+    {
+      "id": "mon05-strict-aggregate-skipped",
+      "invariant": "MON-05",
+      "area": "resolver",
+      "file": "src/resolver/decide.ts",
+      "original": "const aggregateStrict = membership.aggregateMode === \"strict\";",
+      "replacement": "const aggregateStrict = false;",
+      "description": "A strict group budget is treated as notify."
+    },
+    {
+      "id": "sec02-auth-off-open",
+      "invariant": "SEC-02",
+      "area": "resolver",
+      "file": "src/resolver/http-handler.ts",
+      "original": "if (!request.platformAuthEnabled) return { open: false, failure: \"platform_authentication_disabled\" };",
+      "replacement": "",
+      "description": "The handler serves requests with platform authentication off."
+    },
+    {
+      "id": "sec02-no-principal",
+      "invariant": "SEC-02",
+      "area": "resolver",
+      "file": "src/resolver/http-handler.ts",
+      "original": "if (!request.authenticatedPrincipal) return { open: false, failure: \"request_not_authenticated\" };",
+      "replacement": "",
+      "description": "The handler serves requests with no authenticated principal."
+    },
+    {
+      "id": "sec02-auth-setting-loose",
+      "invariant": "SEC-02",
+      "area": "resolver",
+      "file": "src/resolver/http-handler.ts",
+      "original": "return value?.toLowerCase() === \"true\";",
+      "replacement": "return value !== undefined;",
+      "description": "Any WEBSITE_AUTH_ENABLED value, including false, counts as on."
+    },
+    {
+      "id": "sec03-reasons-passed-through",
+      "invariant": "SEC-03",
+      "area": "resolver",
+      "file": "src/resolver/http-handler.ts",
+      "original": "if (PASSED_THROUGH.has(reason)) return reason;",
+      "replacement": "return reason;",
+      "description": "Internal refusal reasons reach the caller verbatim (enumeration oracle)."
+    },
+    {
+      "id": "sec03-distinct-status",
+      "invariant": "SEC-03",
+      "area": "resolver",
+      "file": "src/resolver/refusals.ts",
+      "original": "subscription_person_mismatch: 403,",
+      "replacement": "subscription_person_mismatch: 404,",
+      "description": "One key refusal gets its own status, so callers can tell refusals apart."
+    },
+    {
+      "id": "data01-resolver-version",
+      "invariant": "DATA-01",
+      "area": "resolver",
+      "file": "src/resolver/decide.ts",
+      "original": "decisionVersion: 3,\n    personId: input.personId,",
+      "replacement": "decisionVersion: 4,\n    personId: input.personId,",
+      "description": "The resolver emits a decision version the gateway does not accept."
+    },
+    {
+      "id": "sec04-gateway-case-insensitive",
+      "invariant": "SEC-04",
+      "area": "gateway",
+      "file": "infra/gateway/policy/claude-messages.template.xml",
+      "original": "string.Equals((string)allowed, model, StringComparison.Ordinal)",
+      "replacement": "string.Equals((string)allowed, model, StringComparison.OrdinalIgnoreCase)",
+      "description": "Model admission ignores case."
+    },
+    {
+      "id": "sec04-gateway-prefix-match",
+      "invariant": "SEC-04",
+      "area": "gateway",
+      "file": "infra/gateway/policy/claude-messages.template.xml",
+      "original": "string.Equals((string)allowed, model, StringComparison.Ordinal)",
+      "replacement": "model.StartsWith((string)allowed, StringComparison.Ordinal)",
+      "description": "Model admission accepts any model that starts with an allowed name (date suffixes, variants)."
+    },
+    {
+      "id": "sec04-gateway-ambiguous-family",
+      "invariant": "SEC-04",
+      "area": "gateway",
+      "file": "infra/gateway/policy/claude-messages.template.xml",
+      "original": "return matches == 1 ? admitted : \"\";",
+      "replacement": "return matches >= 1 ? admitted : \"\";",
+      "description": "A model listed under two families is admitted under the last one."
+    },
+    {
+      "id": "sec05-gateway-restricted",
+      "invariant": "SEC-05",
+      "area": "gateway",
+      "file": "infra/gateway/policy/claude-messages.template.xml",
+      "original": "&& classification != \"CYB\" && !(classification == \"group\" && context.Variables.GetValueOrDefault<bool>(\"ccofRestrictedFamiliesApproved\", false))) { return \"\"; }",
+      "replacement": "&& classification == \"NONE\" && !(classification == \"group\" && context.Variables.GetValueOrDefault<bool>(\"ccofRestrictedFamiliesApproved\", false))) { return \"\"; }",
+      "description": "Fable and mythos are admitted for any classification at request time."
+    },
+    {
+      "id": "data01-gateway-version",
+      "invariant": "DATA-01",
+      "area": "gateway",
+      "file": "infra/gateway/policy/claude-messages.template.xml",
+      "original": "(long)body[\"decisionVersion\"] != 3) { return false; }",
+      "replacement": "(long)body[\"decisionVersion\"] < 3) { return false; }",
+      "description": "A cached decision of a newer version is accepted."
+    },
+    {
+      "id": "data01-gateway-reply-version",
+      "invariant": "DATA-01",
+      "area": "gateway",
+      "file": "infra/gateway/policy/claude-messages.template.xml",
+      "original": "(long)body[\"decisionVersion\"] != 3) { return unavailable; }",
+      "replacement": "(long)body[\"decisionVersion\"] < 3) { return unavailable; }",
+      "description": "A resolver reply of a newer version is accepted."
+    },
+    {
+      "id": "data01-cache-namespace",
+      "invariant": "DATA-01",
+      "area": "gateway",
+      "file": "infra/gateway/policy/claude-messages.template.xml",
+      "original": "\"ccof-ent:d3:v",
+      "replacement": "\"ccof-ent:d2:v",
+      "description": "The entitlement cache namespace changes, so old and new decisions mix."
+    },
+    {
+      "id": "mon05-gateway-zero-ceiling",
+      "invariant": "MON-05",
+      "area": "gateway",
+      "file": "infra/gateway/policy/claude-messages.template.xml",
+      "original": "if ((long)ceiling == 0) {",
+      "replacement": "if ((long)ceiling < 0) {",
+      "description": "A zero ceiling (exhausted) reaches the backend instead of a budget refusal."
+    },
+    {
+      "id": "sec03-gateway-collapse",
+      "invariant": "SEC-03",
+      "area": "gateway",
+      "file": "infra/gateway/policy/claude-messages.template.xml",
+      "original": "code == \"aggregate_budget_exhausted\" ? code : \"not_authorized\";",
+      "replacement": "code == \"aggregate_budget_exhausted\" ? code : code;",
+      "description": "The gateway passes every refusal code through."
+    },
+    {
+      "id": "sec07-selector-lowercase",
+      "invariant": "SEC-07",
+      "area": "gateway",
+      "file": "infra/gateway/policy/claude-messages.template.xml",
+      "original": "? selector.ToLowerInvariant() : selector;",
+      "replacement": "? selector : selector;",
+      "description": "A group Object ID selector keeps its case at the gateway (equivalent end to end, P6; killed by tests/gateway-request-checks.test.ts at the expression level)."
+    },
+    {
+      "id": "sec05-contract-restricted",
+      "invariant": "SEC-05",
+      "area": "contracts",
+      "file": "src/contracts/model-families.ts",
+      "original": "return classification === \"CYB\" || (classification === GROUP_SCOPE_CODE && restrictedApproved);",
+      "replacement": "return true;",
+      "description": "Restricted families are allowed for every classification."
+    },
+    {
+      "id": "sec04-contract-case-insensitive",
+      "invariant": "SEC-04",
+      "area": "contracts",
+      "file": "src/contracts/model-families.ts",
+      "original": "parsed.value.families[family]?.models.includes(model)",
+      "replacement": "parsed.value.families[family]?.models.some((m) => m.toLowerCase() === model.toLowerCase())",
+      "description": "Contract-level model admission ignores case."
+    },
+    {
+      "id": "mon05-exhausted-strict",
+      "invariant": "MON-05",
+      "area": "money",
+      "file": "src/reconciler/reconcile-person.ts",
+      "original": "const exhausted = tally.spentCcu.greaterThanOrEqualTo(scope.personBudgetCcu);",
+      "replacement": "const exhausted = tally.spentCcu.greaterThan(scope.personBudgetCcu);",
+      "description": "Spend exactly at the budget is not exhausted."
+    },
+    {
+      "id": "mon05-exhausted-ceiling",
+      "invariant": "MON-05",
+      "area": "money",
+      "file": "src/reconciler/reconcile-person.ts",
+      "original": "realtimeCeilingTokensPerMinute: exhausted\n      ? 0",
+      "replacement": "realtimeCeilingTokensPerMinute: exhausted\n      ? 1",
+      "description": "An exhausted person keeps a non-zero ceiling."
+    },
+    {
+      "id": "mon05-guard-warning-boundary",
+      "invariant": "MON-05",
+      "area": "money",
+      "file": "src/reconciler/reconcile-person.ts",
+      "original": "const warning = projected.greaterThanOrEqualTo(budget.times(g.warnPercent).dividedBy(100));",
+      "replacement": "const warning = projected.greaterThan(budget.times(g.warnPercent).dividedBy(100));",
+      "description": "Projected spend exactly at the warning threshold does not warn."
+    },
+    {
+      "id": "mon01-ceiling-rounds-up",
+      "invariant": "MON-01",
+      "area": "money",
+      "file": "src/reconciler/compute-ceiling.ts",
+      "original": "const tokens = new Money(remainingCcu).dividedBy(worstCaseCcuPerToken).floor();",
+      "replacement": "const tokens = new Money(remainingCcu).dividedBy(worstCaseCcuPerToken).ceil();",
+      "description": "The ceiling rounds up, allowing a fraction of a token beyond the budget."
+    },
+    {
+      "id": "mon01-float-spend",
+      "invariant": "MON-01",
+      "area": "money",
+      "file": "src/reconciler/compute-ceiling.ts",
+      "original": "total = total.plus(new Decimal(event.tokens).dividedBy(1000).times(rate));",
+      "replacement": "total = new Decimal(total.toNumber() + (event.tokens / 1000) * Number(rate));",
+      "description": "Spend is summed in floating point."
+    },
+    {
+      "id": "mon02-four-categories",
+      "invariant": "MON-02",
+      "area": "money",
+      "file": "src/cost/token-categories.ts",
+      "original": "[\"input\", \"cacheWrite5m\", \"cacheWrite1h\", \"cacheRead\", \"output\"]",
+      "replacement": "[\"input\", \"cacheWrite5m\", \"cacheRead\", \"output\"]",
+      "description": "The 1 h cache-write category disappears."
+    },
+    {
+      "id": "mon02-partial-as-priced",
+      "invariant": "MON-02",
+      "area": "money",
+      "file": "src/cost/price-usage.ts",
+      "original": "status: complete ? \"priced\" : \"partial\",",
+      "replacement": "status: \"priced\",",
+      "description": "A row with unknown token categories is reported as fully priced."
+    },
+    {
+      "id": "mon03-closed-entry-in-force",
+      "invariant": "MON-03",
+      "area": "money",
+      "file": "src/cost/config-fields.ts",
+      "original": "return interval.fromMs <= atMs && (interval.toMs === null || atMs < interval.toMs);",
+      "replacement": "return interval.fromMs <= atMs;",
+      "description": "A closed rate-card entry stays in force after its effectiveTo."
+    },
+    {
+      "id": "mon04-ccu-rate",
+      "invariant": "MON-04",
+      "area": "money",
+      "file": "src/cost/budget-units.ts",
+      "original": "export const CCU_PER_USD: Decimal = new Money(100);",
+      "replacement": "export const CCU_PER_USD: Decimal = new Money(1000);",
+      "description": "1 USD becomes 1000 CCU."
+    },
+    {
+      "id": "mon04-currency-swapped",
+      "invariant": "MON-04",
+      "area": "money",
+      "file": "src/cost/budget-units.ts",
+      "original": "? { ccu: budget.amount, usd: ccuToUsd(budget.amount) }",
+      "replacement": "? { ccu: usdToCcu(budget.amount), usd: budget.amount }",
+      "description": "A CCU budget is read as USD."
+    },
+    {
+      "id": "mon06-entitlement-read-swallowed",
+      "invariant": "MON-06",
+      "area": "money",
+      "file": "src/reconciler/run.ts",
+      "original": "Promise.all([deps.readProjects(), deps.readEntitlements()])",
+      "replacement": "Promise.all([deps.readProjects(), deps.readEntitlements().catch(() => [])])",
+      "description": "A failed entitlement read is treated as nobody, and the run still writes."
+    },
+    {
+      "id": "sync01-failed-read-readable",
+      "invariant": "SYNC-01",
+      "area": "sync",
+      "file": "src/sync/plan.ts",
+      "original": "if (read?.ok) continue;",
+      "replacement": "if (read?.ok || read) continue;",
+      "description": "A failed group read counts as readable, so the project is not frozen."
+    },
+    {
+      "id": "sync02-count-floor-dropped",
+      "invariant": "SYNC-02",
+      "area": "sync",
+      "file": "src/sync/plan.ts",
+      "original": "if (removals <= limits.maxRemovalsPerRun) return false;",
+      "replacement": "",
+      "description": "Removals are withheld when they exceed the fraction alone."
+    },
+    {
+      "id": "sync02-fraction-dropped",
+      "invariant": "SYNC-02",
+      "area": "sync",
+      "file": "src/sync/plan.ts",
+      "original": "return removals * FRACTION_SCALE > scaledFraction * existingMemberships;",
+      "replacement": "return false;",
+      "description": "Removals beyond both limits are applied."
+    },
+    {
+      "id": "sync02-disabled-override-used",
+      "invariant": "SYNC-02",
+      "area": "sync",
+      "file": "src/sync/removal-limits.ts",
+      "original": "if (!doc.enabled) return fallback(\"override_disabled\");",
+      "replacement": "",
+      "description": "A disabled admin override still raises the removal limits."
+    },
+    {
+      "id": "sync03-conflict-picks-first",
+      "invariant": "SYNC-03",
+      "area": "sync",
+      "file": "src/sync/plan.ts",
+      "original": "? String(incumbent.classification) : null;",
+      "replacement": "? String(incumbent.classification) : codes[0];",
+      "description": "A person in two classification groups without an incumbent gets the first."
+    },
+    {
+      "id": "sync04-unknown-is-disabled",
+      "invariant": "SYNC-04",
+      "area": "sync",
+      "file": "src/sync/plan.ts",
+      "original": "if (member.accountEnabled === false) disabledIds.add(member.id);",
+      "replacement": "if (member.accountEnabled !== true) disabledIds.add(member.id);",
+      "description": "An account state Graph did not return is read as disabled."
+    },
+    {
+      "id": "sync04-disabled-admitted",
+      "invariant": "SYNC-04",
+      "area": "sync",
+      "file": "src/sync/plan.ts",
+      "original": "if (disabledIds.has(member.id)) {",
+      "replacement": "if (false) {",
+      "description": "Disabled accounts are admitted."
+    }
+  ]
+}

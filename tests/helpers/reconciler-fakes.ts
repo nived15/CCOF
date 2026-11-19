@@ -82,6 +82,7 @@ export interface FakeAzureOptions {
   // Fail the nth state write (1-based) with this error.
   failWrite?: { at: number; error: unknown };
   failProjects?: unknown;
+  failEntitlements?: unknown;
   // Chargeback history (ADR-0044); absent: the dependency is not wired.
   history?: MemoryHistory;
 }
@@ -151,6 +152,7 @@ export class FakeAzure {
       },
       readEntitlements: async () => {
         this.calls.push("readEntitlements");
+        if (this.options.failEntitlements !== undefined) throw this.options.failEntitlements;
         return this.options.entitlements ?? [];
       },
       queryLedger: async (query, timespan) => {

@@ -155,7 +155,9 @@ export async function runGateway(scenarios: Scenario[]): Promise<Obj[]> {
         readAggregateBudgetState: async (sc: string) => d.groups.find((g) => g.scopeId === sc) ?? null }) },
       now: () => NOW, log: (line: string) => logs.push(line),
     } as unknown as Parameters<typeof handleResolveRequest>[1]);
-    replies.push({ status: reply.status, body: reply.jsonBody, logs });
+    // given.replyPatch: fields a different resolver version would send, applied to a 200 before the gateway reads it.
+    const body = reply.status === 200 && s.given.replyPatch ? { ...(reply.jsonBody as Obj), ...s.given.replyPatch } : reply.jsonBody;
+    replies.push({ status: reply.status, body, logs });
   }
   const pending = live.filter((_, k) => replies[k]);
   const results = runExpressions({ Resolve: variable("ccofResolverResult") }, pending.map(({ s }) => {
@@ -188,6 +190,21 @@ export async function runGateway(scenarios: Scenario[]): Promise<Obj[]> {
       : { status: 200, group: groupName, chargedTo: reply?.body?.personId === CALLER ? "caller" : reply?.body?.personId };
     if (reply) out[i].logs = reply.logs;
   });
+  // when.cachedPatch: is this allow, with those fields changed, still a valid cached decision (DATA-01)?
+  const cacheChecks = pending.map(({ s }, p) => ({ s, p })).filter(({ s, p }) => s.when.cachedPatch && results[p]?.o === "allow");
+  const cacheValid = cacheChecks.length ? runExpressions({ Cached: variable("ccofCachedDecisionValid") }, cacheChecks.map(({ s, p }) => ({
+    label: s.id, method: "Cached", expected: null, vars: { ccofCached: JSON.stringify({ ...results[p], d: { ...results[p].d, ...s.when.cachedPatch } }) },
+  }))) as boolean[] : [];
+  cacheChecks.forEach(({ s }, c) => { out[scenarios.indexOf(s)].cachedDecisionValid = cacheValid[c]; });
+  // when.cachedRefusalCodes: the code a cached refusal entry yields (SEC-03: anything unknown collapses).
+  const withCodes = scenarios.filter((s) => Array.isArray(s.when.cachedRefusalCodes));
+  if (withCodes.length) {
+    const expr = attr(all.find((e) => e.name === "set-variable" && attr(e, "name") === "ccofRefusal" && (attr(e, "value") ?? "").includes('["c"]'))!, "value")!;
+    const vectors = withCodes.flatMap((s) => (s.when.cachedRefusalCodes as string[]).map((code) => ({ label: `${s.id} ${code}`, method: "Cached", expected: null, vars: { ccofCached: JSON.stringify({ o: "refuse", c: code }) } })));
+    const codes = runExpressions({ Cached: expr }, vectors) as string[];
+    let n = 0;
+    for (const s of withCodes) out[scenarios.indexOf(s)].cachedRefusals = Object.fromEntries((s.when.cachedRefusalCodes as string[]).map((code) => [code, codes[n++]]));
+  }
   return out;
 }
 
@@ -254,6 +271,7 @@ export async function runReconcilerRun(s: Scenario): Promise<Obj> {
     none: {},
     ledger: { ledger: async () => { throw new LedgerReadError("ledger_http_error", "503"); } },
     registry: { failProjects: new Error("cosmos read failed") },
+    entitlements: { failEntitlements: new Error("cosmos read failed") },
   };
   const azure = new FakeAzure({ projects: [pilotProject()], entitlements: [entitlementDoc(REC_PERSON, [{ projectId: "CCOFPILOT01", classification: "STD" }])],
     ledger: ledgerBody([ledgerRow(row)]), ...failures[s.when.failingRead] });
