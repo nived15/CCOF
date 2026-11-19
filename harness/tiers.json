@@ -1,0 +1,110 @@
+{
+  "_readme": "Risk tiers (BUILD-PLAN P2, ADR-0056). Every tracked file matches exactly one rule: a rule matches a path when any include glob matches and no exclude glob does. A change takes the highest tier of any file it touches. Checks are cumulative: a tier runs its own checks and those of every lower tier. Glob syntax: ** any path, * one segment, ? one character. Checks marked pendingPacket are listed but not yet runnable; they become required when that packet lands.",
+  "version": 1,
+  "tiers": {
+    "T0": {
+      "name": "docs",
+      "checks": [
+        { "id": "docs-node", "run": "node --test tests/docs-long-term-audit.test.ts tests/docs-pseudonymise.test.ts tests/docs-reader-pages.test.ts" },
+        { "id": "docs-portal-guide", "run": "pwsh -NoProfile -File tests/Test-PortalGuide.ps1" },
+        { "id": "docs-manual-guide", "run": "pwsh -NoProfile -File tests/Test-PublicManualGuide.ps1" }
+      ]
+    },
+    "T1": {
+      "name": "internal",
+      "checks": [
+        { "id": "typecheck", "run": "npx tsc -p tsconfig.typecheck.json" },
+        { "id": "harness", "run": "node --test tests/harness-invariants.test.ts tests/harness-tiers.test.ts" },
+        { "id": "affected-tests", "affected": true }
+      ]
+    },
+    "T2": {
+      "name": "contract",
+      "checks": [
+        { "id": "full-suite", "run": "npm test" },
+        { "id": "admin-suite", "run": "npm --prefix admin test" },
+        { "id": "client-suite", "run": "npm --prefix client test" },
+        { "id": "golden", "pendingPacket": "P4" },
+        { "id": "version-skew", "pendingPacket": "P5" }
+      ]
+    },
+    "T3": {
+      "name": "deployed behaviour",
+      "checks": [
+        { "id": "build", "run": "npx tsc -p tsconfig.json" },
+        { "id": "customer-replay", "pendingPacket": "P4" },
+        { "id": "scenarios", "pendingPacket": "P6" },
+        { "id": "human-review", "manual": "A human reviews the diff against the touched invariants." },
+        { "id": "live-lab", "manual": "Run the L1 lab upgrade test (BUILD-PLAN Part C) before the customer change window." }
+      ]
+    }
+  },
+  "rules": [
+    {
+      "id": "docs",
+      "tier": "T0",
+      "include": ["docs/**", "*.md"]
+    },
+    {
+      "id": "internal-tests",
+      "tier": "T1",
+      "include": ["tests/**", "admin/tests/**", "client/test/**"]
+    },
+    {
+      "id": "internal-tooling",
+      "tier": "T1",
+      "include": [
+        "harness/**", ".github/copilot-instructions.md", ".gitignore", "admin/.gitignore", "client/.gitignore",
+        "scripts/load/**", "scripts/diagnostics/**", "scripts/run-tests.ps1", "scripts/Test-LiveSmoke.ps1",
+        "scripts/Test-OwnerSmoke.ps1"
+      ]
+    },
+    {
+      "id": "admin-ui",
+      "tier": "T1",
+      "include": ["admin/ui/**", "admin/ui-v3/**", "admin/dev/**", "admin/Build-Ui.mjs"]
+    },
+    {
+      "id": "contracts",
+      "tier": "T2",
+      "include": ["src/contracts/**", "config/**", "admin/openapi.yaml", "analytics/**"]
+    },
+    {
+      "id": "developer-client",
+      "tier": "T2",
+      "include": ["client/**", "scripts/client/**"],
+      "exclude": ["client/test/**", "client/.gitignore"]
+    },
+    {
+      "id": "build-and-ci",
+      "tier": "T2",
+      "include": [
+        "package.json", "package-lock.json", "tsconfig.json", "tsconfig.typecheck.json",
+        "admin/package.json", "admin/package-lock.json", "admin/tsconfig.json",
+        ".github/workflows/**", ".ironclad/**"
+      ]
+    },
+    {
+      "id": "runtime",
+      "tier": "T3",
+      "include": ["src/**", "host.json"],
+      "exclude": ["src/contracts/**"]
+    },
+    {
+      "id": "admin-api",
+      "tier": "T3",
+      "include": ["admin/src/**", "admin/host.json", "admin/Build-AdminPackage.ps1", "admin/Configure-RegistryAccess.sh"]
+    },
+    {
+      "id": "deployment",
+      "tier": "T3",
+      "include": ["infra/**", "**/*.bicep", "scripts/*.ps1", "scripts/*.psm1", "scripts/manual/**", "scripts/portal/**", "scripts/history/**"],
+      "exclude": ["docs/**", "tests/**", "scripts/run-tests.ps1", "scripts/Test-LiveSmoke.ps1", "scripts/Test-OwnerSmoke.ps1"]
+    }
+  ],
+  "affected": [
+    { "include": ["tests/helpers/**", "tests/fixtures/**"], "run": "node --test tests/*.test.ts" },
+    { "include": ["admin/**"], "run": "npm --prefix admin test" },
+    { "include": ["client/**"], "run": "npm --prefix client test" }
+  ]
+}

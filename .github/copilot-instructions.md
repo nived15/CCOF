@@ -39,7 +39,7 @@ production system.
 8. **Stop and ask** if a task conflicts with an invariant below, needs a new dependency, or needs a
    change to `package.json`/lockfiles, `.github/workflows/`, or `.ironclad/charter.json`.
 
-## Invariants (short form; authoritative list: `harness/invariants.json` once built)
+## Invariants (short form; authoritative list: `harness/invariants.json`)
 
 Cite these IDs in commits, PRs and tests that protect them.
 
@@ -74,7 +74,7 @@ Cite these IDs in commits, PRs and tests that protect them.
 - **CLI-01** The client config schema and `signInMethod` (`msal` | `azure-cli`) stay compatible; every setup script has a restore script.
 - **DOC-01** Commands and parameters shown in docs exist in the scripts they name.
 
-## Risk tiers (authoritative mapping: `harness/tiers.json` once built)
+## Risk tiers (authoritative mapping: `harness/tiers.json`; classify a change with `node harness/classify-change.mjs --base main`)
 
 | Tier | Paths (examples) | Minimum checks |
 | --- | --- | --- |

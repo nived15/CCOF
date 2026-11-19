@@ -1,8 +1,19 @@
 # Current work
 
+## Harness P2: risk tiers and change classifier (2026-11-19)
+
+**Active packet:** P2 of `docs/harness/BUILD-PLAN.md` on `harness/p2`. No runtime change.
+
+- All 1,169 tracked files match exactly one rule: T0 531, T1 291, T2 93, T3 254. `tests/harness-tiers.test.ts`: 8/8;
+  an overlapping rule, a file left without a rule and lowest-instead-of-highest tier were each caught.
+- Placement calls for review: `admin/src/**` (admin API) is T3 because it writes the records the resolver reads;
+  root `scripts/*.ps1|psm1` (stage and onboarding scripts) and `scripts/manual|portal|history` are T3;
+  `scripts/client/**` is T2 with the client; `.github/workflows/**` and `.ironclad/**` are T2.
+- Next: P3 (customer fixture, needs the human).
+
 ## Harness P1: invariant register (2026-11-19)
 
-**Active packet:** P1 of `docs/harness/BUILD-PLAN.md` on `harness/p1`. No runtime change.
+**Done:** merged in #3.
 
 - `harness/invariants.json`: 30 invariants, 22 fully covered, 8 known gaps; MON-03 and DOC-01 are `unverified`
   (working rules not enforced in code). `tests/harness-invariants.test.ts`: 8/8 pass, and five deliberate
