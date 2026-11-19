@@ -275,8 +275,7 @@
       "file": "infra/gateway/policy/claude-messages.template.xml",
       "original": "? selector.ToLowerInvariant() : selector;",
       "replacement": "? selector : selector;",
-      "description": "A group Object ID selector keeps its case at the gateway.",
-      "equivalentReason": "The resolver lower-cases group Object IDs too (validateMembership), so the decision is the same end to end; the gateway lower-casing only normalises the cache key. Found in P6."
+      "description": "A group Object ID selector keeps its case at the gateway (equivalent end to end, P6; killed by tests/gateway-request-checks.test.ts at the expression level)."
     },
     {
       "id": "sec05-contract-restricted",

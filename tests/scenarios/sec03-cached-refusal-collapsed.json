@@ -1,0 +1,47 @@
+{
+  "id": "sec03-cached-refusal-collapsed",
+  "title": "A cached refusal keeps only the codes callers may see; any other collapses to not_authorized",
+  "source": "infra/gateway/policy/claude-messages.template.xml (fresh-refusal)",
+  "invariants": [
+    "SEC-03"
+  ],
+  "layer": "gateway",
+  "given": {
+    "groups": {
+      "alpha": {
+        "priority": 1,
+        "models": [
+          "claude-haiku-4-5"
+        ],
+        "budget": "10"
+      }
+    },
+    "callerIn": [
+      "alpha"
+    ],
+    "spend": {}
+  },
+  "when": {
+    "caller": "member",
+    "headers": {
+      "selector": "11111111-1111-4111-8111-111111111111"
+    },
+    "model": "claude-haiku-4-5",
+    "cachedRefusalCodes": [
+      "budget_exhausted",
+      "project_selection_required",
+      "subscription_person_mismatch",
+      "no_entitlement",
+      "anything_else"
+    ]
+  },
+  "then": {
+    "cachedRefusals": {
+      "budget_exhausted": "budget_exhausted",
+      "project_selection_required": "project_selection_required",
+      "subscription_person_mismatch": "not_authorized",
+      "no_entitlement": "not_authorized",
+      "anything_else": "not_authorized"
+    }
+  }
+}

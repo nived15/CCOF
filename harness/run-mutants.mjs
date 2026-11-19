@@ -83,8 +83,12 @@ function parseArgs(argv) {
   return args;
 }
 
-function failingTests(tap) {
-  return [...tap.matchAll(/^\s*not ok \d+ - (.+)$/gm)].map((m) => m[1].trim()).filter((n) => !n.endsWith(".test.ts")).slice(0, 5);
+function failures(tap) {
+  const names = [...tap.matchAll(/^\s*not ok \d+ - (.+)$/gm)].map((m) => m[1].trim());
+  return {
+    files: [...new Set(names.filter((n) => n.endsWith(".test.ts")).map((n) => path.basename(n)))].sort(),
+    tests: names.filter((n) => !n.endsWith(".test.ts")).slice(0, 5),
+  };
 }
 
 function runSuites(worktree, files, timeoutSeconds) {
@@ -99,7 +103,8 @@ function runSuites(worktree, files, timeoutSeconds) {
     env: { ...process.env, CCOF_LIVE_TESTS: "0", CCOF_LIVE_SMOKE: "0", CCOF_UPDATE_GOLDEN: "0", TEMP: scratch, TMP: scratch },
   });
   const timedOut = r.error?.code === "ETIMEDOUT";
-  return { passed: r.status === 0 && !timedOut, timedOut, seconds: Math.round((Date.now() - started) / 1000), failing: failingTests(r.stdout ?? "") };
+  const failed = failures(r.stdout ?? "");
+  return { passed: r.status === 0 && !timedOut, timedOut, seconds: Math.round((Date.now() - started) / 1000), failing: failed.tests, files: failed.files };
 }
 
 async function main() {
@@ -150,7 +155,7 @@ async function main() {
       }
       const status = run.passed ? "survived" : "killed";
       const equivalent = typeof m.equivalentReason === "string";
-      results.push({ id: m.id, invariant: m.invariant, area: m.area, status, timedOut: run.timedOut, seconds: run.seconds, killedBy: run.failing, equivalent });
+      results.push({ id: m.id, invariant: m.invariant, area: m.area, status, timedOut: run.timedOut, seconds: run.seconds, killedBy: run.failing, killedByFiles: run.files, equivalent });
       console.error(`${status.padEnd(8)} ${m.id} (${m.invariant}, ${run.seconds}s)${run.failing.length ? ` <- ${run.failing[0]}` : ""}`);
     }
   } finally {

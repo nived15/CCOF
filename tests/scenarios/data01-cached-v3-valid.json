@@ -1,0 +1,36 @@
+{
+  "id": "data01-cached-v3-valid",
+  "title": "A cached v3 allow is a valid cached decision",
+  "source": "infra/gateway/policy/claude-messages.template.xml (ccofCachedDecisionValid)",
+  "invariants": [
+    "DATA-01"
+  ],
+  "layer": "gateway",
+  "given": {
+    "groups": {
+      "alpha": {
+        "priority": 1,
+        "models": [
+          "claude-haiku-4-5"
+        ],
+        "budget": "10"
+      }
+    },
+    "callerIn": [
+      "alpha"
+    ],
+    "spend": {}
+  },
+  "when": {
+    "caller": "member",
+    "headers": {
+      "selector": "11111111-1111-4111-8111-111111111111"
+    },
+    "model": "claude-haiku-4-5",
+    "cachedPatch": {}
+  },
+  "then": {
+    "status": 200,
+    "cachedDecisionValid": true
+  }
+}

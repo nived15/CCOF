@@ -1,0 +1,17 @@
+{
+  "id": "mon06-entitlement-read-fails",
+  "title": "A failed entitlement read: the run writes nothing",
+  "source": "src/reconciler/run.ts",
+  "invariants": [
+    "MON-06"
+  ],
+  "layer": "reconciler-run",
+  "given": {},
+  "when": {
+    "failingRead": "entitlements"
+  },
+  "then": {
+    "writes": 0,
+    "outcome": "failed"
+  }
+}
