@@ -35,7 +35,7 @@ production system.
    the PR and the `golden-change` label.
 5. **Never edit `config/rate-card.json` entries in place.** Close the old entry with `effectiveTo` and add a new one.
 6. **Never edit generated output** (rendered policy, `dist/`, compiled workbooks). Change the source and re-render.
-7. **Never push, merge, force-push or change branch protection.** Work on a branch; the human merges.
+7. **Never push, merge, force-push or change branch protection unless the user explictly allows** Work on a branch; the human merges or asks you to merge.
 8. **Stop and ask** if a task conflicts with an invariant below, needs a new dependency, or needs a
    change to `package.json`/lockfiles, `.github/workflows/`, or `.ironclad/charter.json`.
 
