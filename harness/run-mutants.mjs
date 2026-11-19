@@ -85,10 +85,9 @@ function parseArgs(argv) {
 
 function failures(tap) {
   const names = [...tap.matchAll(/^\s*not ok \d+ - (.+)$/gm)].map((m) => m[1].trim());
-  return {
-    files: [...new Set(names.filter((n) => n.endsWith(".test.ts")).map((n) => path.basename(n)))].sort(),
-    tests: names.filter((n) => !n.endsWith(".test.ts")).slice(0, 5),
-  };
+  // Each failure's YAML block names its test file in `location:`.
+  const files = [...tap.matchAll(/location: '[^']*?([^\\/']+\.test\.ts):\d+/g)].map((m) => m[1]);
+  return { files: [...new Set(files)].sort(), tests: names.filter((n) => !n.endsWith(".test.ts")).slice(0, 5) };
 }
 
 function runSuites(worktree, files, timeoutSeconds) {
