@@ -302,7 +302,8 @@
       "protectedBy": [
         "tests/gateway-family-quotas.test.ts",
         "tests/gateway-render.test.ts",
-        "tests/harness-golden-policy.test.ts"
+        "tests/harness-golden-policy.test.ts",
+        "tests/harness-version-skew.test.ts"
       ],
       "coverage": "full",
       "evidence": "Tests: 'v3/d3 isolates legacy decisions and validates cached allows before fresh or LKG use', 'the entitlement cache key is versioned per tenant, person and selector'."
@@ -346,7 +347,8 @@
         "tests/reconciler-history.test.ts",
         "tests/reconciler-settings.test.ts",
         "tests/harness-golden-names.test.ts",
-        "tests/harness-golden-bicep.test.ts"
+        "tests/harness-golden-bicep.test.ts",
+        "tests/harness-version-skew.test.ts"
       ],
       "coverage": "full",
       "evidence": "harness-golden-names pins every Cosmos container with its partition key and the container settings each app reads; harness-golden-bicep fails if a container's create-only id or partition key changes."
