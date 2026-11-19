@@ -1,5 +1,14 @@
 # Current work
 
+## Harness P0: baseline (2026-11-19)
+
+**Active packet:** P0 of `docs/harness/BUILD-PLAN.md` on `harness/p0`. No code changes.
+
+- Results in `docs/harness/BASELINE.md`: three identical runs, no flaky tests. Node 1347/1353 pass (6 live skips),
+  PowerShell 619/620 (K-5, Windows `python3` alias), admin 220/220, client 79/80 (1 Windows skip), typecheck,
+  build and gate pass.
+- Waiting for the human checkpoint: confirm the baseline is green apart from the listed known issues. Next: P1.
+
 ## Release 23 (2026-10-28)
 
 **Active packet:** R23 — publish the rehearsal reader fixes (`test/rehearsal`) on top of release 22 (`30b1a9b`).
