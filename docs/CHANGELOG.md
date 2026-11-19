@@ -1,5 +1,18 @@
 # Change log
 
+## 2026-11-19 — Harness L0: live tooling
+
+- `scripts/Test-LiveSmoke.ps1` no longer needs `scripts/Get-E2ETestToken.ps1` to load. That script is not in the
+  repository, and no copy was found on the build machine. It is now loaded only when a token is requested; without it,
+  the token checks fail with that reason, and `-NoToken` runs without it (K-1).
+- The configuration is read and checked by `harness/live/LiveTestConfig.ps1`:
+  - every key the header lists is required, and placeholders are refused;
+  - `cloud.*` and `testClient.*` are required only when a token is requested.
+  The default `-ConfigPath` is now `.env.live-lab/live-config.json`, which is gitignored.
+- Add `harness/live/live-config.example.json`, which mirrors the header's keys.
+- Add `tests/Test-LiveSmoke.ps1` (48 assertions, offline, fake probes), which the header already referred to. Two
+  deliberate breakages were each caught. See `docs/harness/LIVE.md`.
+
 ## 2026-11-19 — Harness P10: agent eval bank
 
 - Add `harness/evals/` with 41 validated tasks:

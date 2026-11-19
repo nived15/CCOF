@@ -1,8 +1,19 @@
 # Current work
 
+## Harness L0: live tooling (2026-11-19)
+
+**Active packet:** L0 of `docs/harness/BUILD-PLAN.md` on `harness/l0` (T1).
+
+- `Test-LiveSmoke.ps1 -NoToken` runs without the missing `Get-E2ETestToken.ps1` (K-1 fixed).
+  `harness/live/live-config.example.json` added; `tests/Test-LiveSmoke.ps1`: 48/48.
+- The token path still needs `Get-E2ETestToken.ps1`, which has not been found. Use Stage 8 and
+  `Test-OwnerSmoke.ps1`.
+- **Next: L1.** The owner builds a lab at the customer's deployed commit (`9faa1fc`). Every write is the owner's
+  (`docs/harness/LIVE.md`).
+
 ## Harness P10: agent eval bank (2026-11-19)
 
-**Active packet:** P10 of `docs/harness/BUILD-PLAN.md` on `harness/p10`. No runtime change.
+**Packet:** P10, merged as #13.
 
 - 41 tasks (21 replay, 9 seeded, 8 trap, 3 docs-drift), all valid under `run-eval.mjs validate`. The grader passed
   five self-checks. `tests/harness-evals.test.ts`: 5/5.

@@ -7,7 +7,9 @@
     Runs only with CCOF_LIVE_SMOKE=1: it queries real Azure resources with the machine's az login, and
     the token check makes one small paid Claude request (gateway.probeModel, at most 16 output tokens).
     scripts/run-tests.ps1 and the gate never call it. The test token comes from
-    scripts/Get-E2ETestToken.ps1 and stays in memory.
+    scripts/Get-E2ETestToken.ps1, which is not in this repository: it is loaded only when a token is
+    requested, and without it the token checks FAIL with that reason. -NoToken never needs it. The token
+    check creates a short-lived test app secret in Entra, so at a customer it needs approval like any write.
 
     Statuses: PASS, FAIL, SKIP (could not run; the reason is shown), INFO (reported; never fails a run).
     Exit codes: 0 no FAIL and no regression; 1 a FAIL, or a check that passed in -BaselinePath and does
@@ -17,7 +19,8 @@
     info), NeedsToken, and Run = { param($Context) ... New-SmokeOutcome ... }. Reach Azure only through
     $Context.Probes (Az, Http, RunInVm, GetToken) so tests/Test-LiveSmoke.ps1 can drive it with fakes.
 
-    Config keys (infra/poc/live-test.config.json; for another environment, copy it and pass -ConfigPath):
+    Config keys (copy harness/live/live-config.example.json to .env.live-lab/ and pass -ConfigPath; checked by
+    harness/live/LiveTestConfig.ps1, which needs cloud.* and testClient.* only when a token is requested):
       tenantId, subscriptionId, resourceGroup   The gateway's tenant, subscription and resource group
       cloud.authorityHost, cloud.graphBaseUrl   Entra and Microsoft Graph endpoints (test token)
       gateway.apimName, gateway.apiId           The APIM instance, and the API whose backends are counted
@@ -43,7 +46,7 @@
 #>
 [CmdletBinding()]
 param(
-    [string]$ConfigPath = (Join-Path $PSScriptRoot '..' 'infra' 'poc' 'live-test.config.json'),
+    [string]$ConfigPath = (Join-Path $PSScriptRoot '..' '.env.live-lab' 'live-config.json'),
     [string[]]$Only,
     [string]$DnsCheckVmName,
     [switch]$NoToken,
@@ -53,10 +56,8 @@ param(
     [switch]$DotSourceOnly
 )
 
-# Dot-sourcing the token script rebinds its parameters in this scope, so keep this script's own values.
 $smokeOptions = @{ ConfigPath = $ConfigPath; DotSourceOnly = $DotSourceOnly.IsPresent }
-. (Join-Path $PSScriptRoot 'Get-E2ETestToken.ps1') -DotSourceOnly -ConfigPath $ConfigPath
-$ConfigPath = $smokeOptions.ConfigPath
+. (Join-Path $PSScriptRoot '..' 'harness' 'live' 'LiveTestConfig.ps1')
 
 $script:ArmApiVersion = 'api-version=2024-05-01'
 $script:PlainHostName = '^(?=.{1,253}$)([a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,63}$'
@@ -362,7 +363,7 @@ if (-not $smokeOptions.DotSourceOnly) {
     try {
         $overrides = @{}
         if ($DnsCheckVmName) { $overrides['network.dnsCheckVmName'] = $DnsCheckVmName }
-        $config = Read-LiveTestConfig -Path $ConfigPath -Overrides $overrides
+        $config = Read-LiveTestConfig -Path $ConfigPath -Overrides $overrides -RequireTokenSettings:(-not $NoToken)
         $baseline = if ($BaselinePath) { @(Read-LiveSmokeBaseline -Path $BaselinePath) } else { @() }
     }
     catch { Write-Output "Live smoke suite refused: $($_.Exception.Message)"; exit 2 }
@@ -379,6 +380,10 @@ if (-not $smokeOptions.DotSourceOnly) {
             if ($message -match '(?s)\[stdout\]\s*(.*?)\s*\[stderr\]') { $Matches[1] } else { $message }
         }
         GetToken = {
+            $tokenScript = Join-Path $PSScriptRoot 'Get-E2ETestToken.ps1'
+            if (-not (Test-Path -LiteralPath $tokenScript)) { throw 'scripts/Get-E2ETestToken.ps1 is not in this repository; run with -NoToken, and use Stage 8 or scripts/Test-OwnerSmoke.ps1 for the token path' }
+            # Dot-sourcing rebinds the token script's parameters in this scope only.
+            . $tokenScript -DotSourceOnly -ConfigPath $smokeOptions.ConfigPath
             Get-E2ETestToken -TenantId $config.tenantId -ClientAppName $config.testClient.appDisplayName -Audience $config.gateway.audience `
                 -AuthorityHost $config.cloud.authorityHost -GraphBaseUrl $config.cloud.graphBaseUrl `
                 -SecretLifetimeHours $config.testClient.secretLifetimeHours -SecretDisplayNamePrefix $config.testClient.secretDisplayNamePrefix
