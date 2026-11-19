@@ -1,0 +1,80 @@
+{
+  "synthetic": true,
+  "container": "entitlement",
+  "partitionKey": "/personId",
+  "type": "EntitlementRecord (src/resolver/decide.ts)",
+  "note": "Synthetic: Cosmos was not reachable from the collecting machine (private endpoint), so these documents are built from the TypeScript types and the shared test helpers, not copied from the customer.",
+  "documents": [
+    {
+      "id": "00000000-0000-4000-8000-000000900002",
+      "personId": "00000000-0000-4000-8000-000000900002",
+      "generation": 3,
+      "lastVerifiedAt": "2026-11-01T00:00:00Z",
+      "projectMemberships": [
+        {
+          "projectId": "00000000-0000-4000-8000-000000900001",
+          "classification": "group",
+          "classificationGroupId": "00000000-0000-4000-8000-000000900001",
+          "classificationGroupDisplayName": "Synthetic group 01",
+          "familyPolicy": {
+            "aggregateLimits": {
+              "person": {
+                "tokensPerMinute": 1000000,
+                "tokenQuota": 500000,
+                "tokenQuotaPeriod": "Daily"
+              },
+              "group": {
+                "tokensPerMinute": null,
+                "tokenQuota": 2000000,
+                "tokenQuotaPeriod": "Daily"
+              }
+            },
+            "families": {
+              "haiku": {
+                "models": [
+                  "claude-haiku-4-5"
+                ],
+                "person": {
+                  "tokensPerMinute": null,
+                  "tokenQuota": null,
+                  "tokenQuotaPeriod": null
+                },
+                "group": {
+                  "tokensPerMinute": null,
+                  "tokenQuota": null,
+                  "tokenQuotaPeriod": null
+                }
+              },
+              "sonnet": {
+                "models": [
+                  "claude-sonnet-5"
+                ],
+                "person": {
+                  "tokensPerMinute": null,
+                  "tokenQuota": null,
+                  "tokenQuotaPeriod": null
+                },
+                "group": {
+                  "tokensPerMinute": null,
+                  "tokenQuota": null,
+                  "tokenQuotaPeriod": null
+                }
+              }
+            }
+          },
+          "backendId": "foundry-synthetic-01",
+          "aggregateMode": "notify",
+          "denormalizedAt": "2026-11-01T00:00:00Z",
+          "joinedAt": "2026-10-27T00:00:00Z",
+          "status": "active",
+          "priority": 100,
+          "surfaces": [
+            "code"
+          ],
+          "chargebackId": "WBS-0000.01",
+          "restrictedFamiliesApproved": false
+        }
+      ]
+    }
+  ]
+}

@@ -1,5 +1,17 @@
 # Change log
 
+## 2026-11-19 — Harness P3: customer fixture tooling
+
+- Add `harness/customer/Collect-CustomerFixture.ps1`: a read-only collector (an allow-list of `show`, `list` and
+  `GET` Azure CLI commands) that writes only under `.env.customer-fixture/`. It collects the config, the state, stage
+  freshness from the staged driver, the gateway policies and fragments, function lists, app-setting names (values
+  are filtered out inside `az`) and, optionally, Cosmos samples.
+- Add `harness/pseudonymize-fixture.mjs`: stable, consistent fakes for IDs, names, emails, hostnames and hashes.
+  It writes only to `tests/fixtures/customer/` and refuses if an original value or a leak would remain.
+- Add synthetic Cosmos documents (`tests/fixtures/customer/cosmos/`, marked `"synthetic": true`), checked by the real
+  readers; `tests/harness-fixture-clean.test.ts` (7 tests); `tests/Test-HarnessCollector.ps1` (24 checks); and
+  `docs/harness/CUSTOMER-FIXTURE.md`. No runtime change.
+
 ## 2026-11-19 — Harness P2: risk tiers and change classifier
 
 - Add `harness/tiers.json`: ten disjoint rules put every tracked file in tier T0 (docs), T1 (internal), T2 (contract)

@@ -1,0 +1,84 @@
+{
+  "synthetic": true,
+  "container": "projects",
+  "partitionKey": "/projectId",
+  "type": "GroupRegistration (src/contracts/group-registration.ts)",
+  "note": "Synthetic: Cosmos was not reachable from the collecting machine (private endpoint), so these documents are built from the TypeScript types and the shared test helpers, not copied from the customer.",
+  "documents": [
+    {
+      "id": "00000000-0000-4000-8000-000000900001",
+      "kind": "group",
+      "groupId": "00000000-0000-4000-8000-000000900001",
+      "projectId": "00000000-0000-4000-8000-000000900001",
+      "displayName": "Synthetic group 01",
+      "status": "active",
+      "backendId": "foundry-synthetic-01",
+      "priority": 100,
+      "chargebackId": "WBS-0000.01",
+      "budget": {
+        "mode": "autoScale",
+        "perUser": {
+          "amount": 50,
+          "currency": "USD",
+          "period": "monthly"
+        },
+        "groupCap": null
+      },
+      "restrictedFamiliesApproved": false,
+      "familyPolicy": {
+        "aggregateLimits": {
+          "person": {
+            "tokensPerMinute": 1000000,
+            "tokenQuota": 500000,
+            "tokenQuotaPeriod": "Daily"
+          },
+          "group": {
+            "tokensPerMinute": null,
+            "tokenQuota": 2000000,
+            "tokenQuotaPeriod": "Daily"
+          }
+        },
+        "families": {
+          "haiku": {
+            "models": [
+              "claude-haiku-4-5"
+            ],
+            "person": {
+              "tokensPerMinute": null,
+              "tokenQuota": null,
+              "tokenQuotaPeriod": null
+            },
+            "group": {
+              "tokensPerMinute": null,
+              "tokenQuota": null,
+              "tokenQuotaPeriod": null
+            }
+          },
+          "sonnet": {
+            "models": [
+              "claude-sonnet-5"
+            ],
+            "person": {
+              "tokensPerMinute": null,
+              "tokenQuota": null,
+              "tokenQuotaPeriod": null
+            },
+            "group": {
+              "tokensPerMinute": null,
+              "tokenQuota": null,
+              "tokenQuotaPeriod": null
+            }
+          }
+        }
+      },
+      "surfaces": [
+        "code",
+        "chat"
+      ],
+      "cacheProfile": {
+        "expectedCacheReadPercent": 80,
+        "basis": "suggested"
+      }
+    }
+  ]
+}
