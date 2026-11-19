@@ -32,7 +32,7 @@ hashes, so the P4 replay uses this file.
 node harness/pseudonymize-fixture.mjs --from .env.customer-fixture/<collection folder>
 ```
 
-This replaces tenant, subscription, object and group IDs, resource, app, backend and display names, emails,
+This replaces tenant, subscription, object and group IDs, resource, app, backend, subscription and display names, emails and guest UPNs, user-profile paths,
 hostnames and config hashes with stable fake values, consistently across file contents and file names, and writes
 `tests/fixtures/customer/`. The mapping
 from original to fake values stays in `.env.customer-fixture/pseudonym-map.json` (gitignored), so a later

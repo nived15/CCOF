@@ -59,7 +59,7 @@
 		<choose>
 			<when condition="@(context.Variables.ContainsKey(&quot;ccofResolverToken&quot;) &amp;&amp; !string.IsNullOrEmpty((string)context.Variables[&quot;ccofResolverToken&quot;]))">
 				<send-request mode="new" response-variable-name="ccofUsageResponse" timeout="10" ignore-error="true">
-					<set-url>https://fake-name-02.azurewebsites.net/api/me/usage</set-url>
+					<set-url>https://fake-name-03.azurewebsites.net/api/me/usage</set-url>
 					<set-method>POST</set-method>
 					<set-header name="Content-Type" exists-action="override">
 						<value>application/json</value>

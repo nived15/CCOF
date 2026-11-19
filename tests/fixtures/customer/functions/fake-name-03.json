@@ -2,131 +2,36 @@
   "app": "fake-name-03",
   "functions": [
     {
-      "name": "adminHealth",
+      "name": "health",
       "disabled": false,
       "trigger": "httpTrigger"
     },
     {
-      "name": "adminHome",
+      "name": "myUsage",
       "disabled": false,
       "trigger": "httpTrigger"
     },
     {
-      "name": "adminUi",
-      "disabled": false,
-      "trigger": "httpTrigger"
-    },
-    {
-      "name": "adminUiV3",
-      "disabled": false,
-      "trigger": "httpTrigger"
-    },
-    {
-      "name": "adminV2",
-      "disabled": false,
-      "trigger": "httpTrigger"
-    },
-    {
-      "name": "adminV3",
-      "disabled": false,
-      "trigger": "httpTrigger"
-    },
-    {
-      "name": "classificationPolicy",
-      "disabled": false,
-      "trigger": "httpTrigger"
-    },
-    {
-      "name": "group",
-      "disabled": false,
-      "trigger": "httpTrigger"
-    },
-    {
-      "name": "groupAction",
-      "disabled": false,
-      "trigger": "httpTrigger"
-    },
-    {
-      "name": "groupDirectoryMembers",
-      "disabled": false,
-      "trigger": "httpTrigger"
-    },
-    {
-      "name": "groups",
-      "disabled": false,
-      "trigger": "httpTrigger"
-    },
-    {
-      "name": "project",
-      "disabled": false,
-      "trigger": "httpTrigger"
-    },
-    {
-      "name": "projectRetire",
-      "disabled": false,
-      "trigger": "httpTrigger"
-    },
-    {
-      "name": "projects",
-      "disabled": false,
-      "trigger": "httpTrigger"
-    },
-    {
-      "name": "projectSettings",
-      "disabled": false,
-      "trigger": "httpTrigger"
-    },
-    {
-      "name": "userTagPeople",
-      "disabled": false,
-      "trigger": "httpTrigger"
-    },
-    {
-      "name": "userTagPerson",
-      "disabled": false,
-      "trigger": "httpTrigger"
-    },
-    {
-      "name": "userTags",
-      "disabled": false,
-      "trigger": "httpTrigger"
-    },
-    {
-      "name": "userTagSettings",
+      "name": "resolve",
       "disabled": false,
       "trigger": "httpTrigger"
     }
   ],
   "appSettingNames": [
-    "ADMIN_ALLOWED_CLIENT_IDS",
-    "ADMIN_AUDIENCE",
-    "ADMIN_BACKENDS",
-    "ADMIN_CHARGEBACK_HISTORY_CONTAINER",
-    "ADMIN_CLIENT_ID",
-    "ADMIN_CONFIG_CONTAINER",
-    "ADMIN_EDITOR_IDS",
-    "ADMIN_GATEWAY_RESOURCE_ID",
-    "ADMIN_GATEWAY_URL",
-    "ADMIN_GROUP_SEARCH_ENABLED",
-    "ADMIN_LOG_RESOURCE_IDS",
-    "ADMIN_LOG_RETENTION_DAYS",
-    "ADMIN_PROJECT_HEADER",
-    "ADMIN_PROJECTS_CONTAINER",
-    "ADMIN_READER_IDS",
-    "ADMIN_RECONCILER_INTERVAL_MINUTES",
-    "ADMIN_RECONCILER_RESOURCE_ID",
-    "ADMIN_SCOPE",
-    "ADMIN_TENANT_ID",
-    "ADMIN_UI_CLIENT_ID",
-    "ADMIN_UI_SCOPE",
-    "ADMIN_USER_NAMES_ENABLED",
-    "ADMIN_V3_ENABLED",
-    "ADMIN_WORKSPACE_ID",
     "APPLICATIONINSIGHTS_AUTHENTICATION_STRING",
     "APPLICATIONINSIGHTS_CONNECTION_STRING",
     "AzureWebJobsStorage__accountName",
     "AzureWebJobsStorage__credential",
+    "CCOF_APP_ROLE",
     "COSMOS_DATABASE",
-    "COSMOS_ENDPOINT"
+    "COSMOS_ENDPOINT",
+    "COSMOS_PREFERRED_REGIONS",
+    "RESOLVER_BUDGET_ENFORCEMENT",
+    "RESOLVER_COSMOS_REQUEST_TIMEOUT_MS",
+    "RESOLVER_COSMOS_RETRY_ATTEMPTS",
+    "RESOLVER_COSMOS_RETRY_MAX_WAIT_SECONDS",
+    "RESOLVER_REQUEST_DEADLINE_MS",
+    "RESOLVER_REQUIRE_COMPLETE_USAGE",
+    "RESOLVER_USAGE_GROUP_TOTALS"
   ]
 }

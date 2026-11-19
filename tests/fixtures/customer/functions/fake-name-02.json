@@ -2,36 +2,39 @@
   "app": "fake-name-02",
   "functions": [
     {
-      "name": "health",
+      "name": "reconcileBudgets",
       "disabled": false,
-      "trigger": "httpTrigger"
-    },
-    {
-      "name": "myUsage",
-      "disabled": false,
-      "trigger": "httpTrigger"
-    },
-    {
-      "name": "resolve",
-      "disabled": false,
-      "trigger": "httpTrigger"
+      "trigger": "timerTrigger"
     }
   ],
   "appSettingNames": [
-    "APPLICATIONINSIGHTS_AUTHENTICATION_STRING",
-    "APPLICATIONINSIGHTS_CONNECTION_STRING",
+    "AzureWebJobs.reconcileBudgets.Disabled",
     "AzureWebJobsStorage__accountName",
+    "AzureWebJobsStorage__clientId",
     "AzureWebJobsStorage__credential",
     "CCOF_APP_ROLE",
     "COSMOS_DATABASE",
     "COSMOS_ENDPOINT",
-    "COSMOS_PREFERRED_REGIONS",
-    "RESOLVER_BUDGET_ENFORCEMENT",
-    "RESOLVER_COSMOS_REQUEST_TIMEOUT_MS",
-    "RESOLVER_COSMOS_RETRY_ATTEMPTS",
-    "RESOLVER_COSMOS_RETRY_MAX_WAIT_SECONDS",
-    "RESOLVER_REQUEST_DEADLINE_MS",
-    "RESOLVER_REQUIRE_COMPLETE_USAGE",
-    "RESOLVER_USAGE_GROUP_TOTALS"
+    "RECONCILER_AGGREGATE_STATE_CONTAINER",
+    "RECONCILER_BUDGET_STATE_CONTAINER",
+    "RECONCILER_BUDGET_WARN_PERCENT",
+    "RECONCILER_ENTITLEMENT_CONTAINER",
+    "RECONCILER_HISTORY_CLOSE_AFTER_DAYS",
+    "RECONCILER_HISTORY_CONTAINER",
+    "RECONCILER_LEASE_CONTAINER",
+    "RECONCILER_LEASE_SECONDS",
+    "RECONCILER_LEDGER_GATEWAY_RESOURCE_ID",
+    "RECONCILER_LEDGER_MAX_ROWS",
+    "RECONCILER_LEDGER_TIMEOUT_SECONDS",
+    "RECONCILER_LOG_ANALYTICS_ENDPOINT",
+    "RECONCILER_LOG_ANALYTICS_WORKSPACE_ID",
+    "RECONCILER_MANAGED_IDENTITY_CLIENT_ID",
+    "RECONCILER_MAX_STATES",
+    "RECONCILER_OVERSHOOT_PERCENT",
+    "RECONCILER_PROJECTION_MINUTES",
+    "RECONCILER_PROJECTS_CONTAINER",
+    "RECONCILER_SCHEDULE",
+    "RECONCILER_VALIDITY_SECONDS",
+    "RECONCILER_WRITE_CONCURRENCY"
   ]
 }

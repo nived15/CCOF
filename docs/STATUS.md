@@ -11,9 +11,10 @@
   pseudonymized and committed on `harness/p3-fixture`: 16 files plus the synthetic Cosmos documents. An independent
   search for the tenant, subscription, client and principal IDs, resource-group and resource names finds none.
 - Deployed gateway = release 17 (`9faa1fc`): its template digest is the only one that matches the live policy header.
-  A config reconstructed read-only from the deployment history (`.env.staged/`, gitignored) renders the deployed
-  policy exactly with that commit; its group, client and acceptance sections are assumed (Cosmos is private).
-  The P4 customer replay still needs the real `state.json`.
+- The real `staged.config.json` and `.staged-state/state.json` were found on the deploying machine and collected
+  (pseudonymized) with stage freshness: Stages 1-6 fresh; 0 and 7 stale because the config was saved after they ran
+  (same verdict under release 17 code, so not a DEP-04 regression); Stage 8 never ran. A config reconstructed
+  read-only from the deployment history matched the real one in all 210 values.
 
 ## Harness P2: risk tiers and change classifier (2026-11-19)
 

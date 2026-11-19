@@ -36,7 +36,8 @@ const GUID_RE = /\b[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\
 const HASH_RE = /\b[0-9a-f]{64}\b/gi;
 const AZURE_HOST_RE = new RegExp(String.raw`\b([a-z0-9][a-z0-9-]*)\.${AZURE_SUFFIX}\b`, "gi");
 const URL_HOST_RE = /\bhttps?:\/\/([a-z0-9.-]+)/gi;
-const EMAIL_RE = /\b[a-z0-9._%+-]+@[a-z0-9-]+(?:\.[a-z0-9-]+)+\b/gi;
+const EMAIL_RE = /\b[a-z0-9._%+#-]+@[a-z0-9-]+(?:\.[a-z0-9-]+)+\b/gi; // # and _ cover Entra guest UPNs (x_domain#EXT#@tenant)
+const USER_PATH_RE = /(?:[A-Za-z]:(?:\\\\|\\|\/)|\/)(?:Users|home)(?:\\\\|\\|\/)([^\\\/"'\s<>]+)/g;
 const ARM_RE = /\/subscriptions\/[^/\s"'<>]+\/resourceGroups\/([^/\s"'<>?]+)(?:\/providers\/[^/\s"'<>]+\/[^/\s"'<>]+\/([^/\s"'<>?]+))?/gi;
 const JWT_RE = /\beyJ[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]{4,}/g;
 const SECRET_RE = /AccountKey=|SharedAccessSignature|SharedAccessKey=|InstrumentationKey=|[?&]sig=[A-Za-z0-9%]{16,}|"(?:password|clientSecret|client_secret|primaryKey|secondaryKey)"\s*:/i;
@@ -44,9 +45,20 @@ const SECRET_RE = /AccountKey=|SharedAccessSignature|SharedAccessKey=|Instrument
 const SENSITIVE_KEYS = new Set([
   "resourceGroup", "groupDisplayName", "displayName", "organizationName", "apimPublisherEmail", "apimPublisherName",
   "members", "adminEditors", "adminReaders", "group", "resourceName", "url", "endpoint", "gatewayUrl", "app", "backendId",
+  "upn", "userPrincipalName", "account", "storageAccount",
 ]);
-const NOT_SENSITIVE_KEYS = new Set(["databaseName", "apiDisplayName", "roleName", "roleNames", "modelName", "deploymentName", "containerName", "configurationId"]);
+const NOT_SENSITIVE_KEYS = new Set(["locationName", "location", "region", "databaseName", "apiDisplayName", "roleName", "roleNames", "modelName", "deploymentName", "containerName", "configurationId"]);
 const isFakeHost = (h) => /^fake/i.test(h) || /\.example\.test$/i.test(h);
+// Words that are part of public host names (for example an organizationName of "Microsoft"): replacing them would
+// break login.microsoftonline.com or schemas.microsoft.com, and they do not identify the customer's deployment.
+const PUBLIC_LABELS = new Set([...PUBLIC_HOSTS].flatMap((h) => h.split(".")).filter((l) => l.length >= 4));
+// CCOF's own vocabulary (app roles, Cosmos containers, function names): contracts, never customer identifiers.
+const CONTRACT_WORDS = new Set([
+  "resolver", "sync", "reconciler", "admin", "gateway", "apim", "cosmos", "foundry",
+  "adminconfig", "aggregatebudgetstate", "backends", "budgetstate", "chargebackdaily", "entitlement", "projects",
+  "reconcilerlease", "subscriptionindex", "synclease", "resolve", "health", "myusage", "syncentitlement",
+  "registryseed", "snapshotapply", "reconcilebudgets", "app-package", "claude-messages", "anthropic",
+]);
 
 export function isAllowedGuid(g) { const x = g.toLowerCase(); return PUBLIC_GUIDS.has(x) || FAKE_GUID.test(x); }
 
@@ -60,17 +72,21 @@ export function scanForLeaks(text) {
     if (!PUBLIC_HOSTS.has(host) && !isFakeHost(host) && !host.startsWith("fake")) problems.push(`host ${host}`);
   }
   for (const m of text.matchAll(EMAIL_RE)) if (!/@example\.(test|com)$/i.test(m[0])) problems.push(`email ${m[0]}`);
+  for (const m of text.matchAll(USER_PATH_RE)) if (!/^(fake|public|default)/i.test(m[1])) problems.push(`user profile path ${m[0]}`);
   for (const m of text.matchAll(JWT_RE)) problems.push(`jwt ${m[0].slice(0, 12)}...`);
   const secret = text.match(SECRET_RE);
   if (secret) problems.push(`secret marker ${secret[0]}`);
   return problems;
 }
 
-function collectFromJson(value, key, add) {
-  if (Array.isArray(value)) { for (const v of value) collectFromJson(v, key, add); return; }
-  if (value && typeof value === "object") { for (const [k, v] of Object.entries(value)) collectFromJson(v, k, add); return; }
-  if (typeof value !== "string" || !key || NOT_SENSITIVE_KEYS.has(key)) return;
-  if (SENSITIVE_KEYS.has(key) || /Name$/.test(key)) {
+// A plain "name" is identifying under these parents (for example the subscription name in state.json).
+const NAMED_PARENTS = new Set(["subscription", "tenant", "user", "account", "signedInUser"]);
+
+function collectFromJson(value, key, add, parent = null) {
+  if (Array.isArray(value)) { for (const v of value) collectFromJson(v, key, add, parent); return; }
+  if (value && typeof value === "object") { for (const [k, v] of Object.entries(value)) collectFromJson(v, k, add, key); return; }
+  if (typeof value !== "string" || !key || NOT_SENSITIVE_KEYS.has(key) || /HeaderName$/.test(key)) return;
+  if (SENSITIVE_KEYS.has(key) || /Name$/.test(key) || (key === "name" && NAMED_PARENTS.has(parent))) {
     if (/^https?:\/\//i.test(value)) { const host = value.replace(/^https?:\/\//i, "").split(/[/:?]/)[0]; add(host.split(".")[0], "name"); }
     else add(value, key === "resourceGroup" ? "rg" : "name");
   }
@@ -80,9 +96,9 @@ export function findOriginals(files) {
   const found = new Map();
   const add = (value, kind) => {
     const v = value.trim();
-    if (v.length < 4 || v.startsWith("@") || v.startsWith("REPLACE")) return;
+    if (v.length < 4 || v.startsWith("@") || v.startsWith("REPLACE") || /^privatelink\./i.test(v)) return;
     if (kind === "guid" && isAllowedGuid(v)) return;
-    if ((kind === "name" || kind === "rg") && (/^fake/i.test(v) || PUBLIC_HOSTS.has(v.toLowerCase()))) return;
+    if ((kind === "name" || kind === "rg") && (/^fake/i.test(v) || PUBLIC_HOSTS.has(v.toLowerCase()) || PUBLIC_LABELS.has(v.toLowerCase()) || CONTRACT_WORDS.has(v.toLowerCase()))) return;
     const k = v.toLowerCase();
     if (!found.has(k)) found.set(k, { value: v, kind });
   };
@@ -96,7 +112,17 @@ export function findOriginals(files) {
       if (!PUBLIC_HOSTS.has(host) && !new RegExp(String.raw`\.${AZURE_SUFFIX}$`, "i").test(host)) add(host, "host");
     }
     for (const m of text.matchAll(EMAIL_RE)) add(m[0], "email");
+    for (const m of text.matchAll(USER_PATH_RE)) if (!/^(public|default)$/i.test(m[1])) add(m[1], "user");
     if (name.endsWith(".json")) { try { collectFromJson(JSON.parse(text), null, add); } catch { /* not JSON: regexes only */ } }
+  }
+  // Any other word that contains a generated, distinctive part of a known name (a deployment's unique suffix, as in
+  // a storage account name) is a resource name too.
+  const segments = [...new Set([...found.entries()].filter(([, e]) => e.kind === "name" || e.kind === "rg")
+    .flatMap(([k]) => k.split(/[^a-z0-9]+/)).filter((s) => s.length >= 8 && /[a-z]/.test(s) && /\d/.test(s)))];
+  for (const { text, name } of files) {
+    for (const s of segments) {
+      for (const m of `${name}\n${text}`.matchAll(new RegExp(`[A-Za-z0-9-]*${s}[A-Za-z0-9-]*`, "gi"))) add(m[0], "name");
+    }
   }
   return found;
 }
@@ -109,6 +135,7 @@ function fakeFor(kind, n, original) {
     case "rg": return `fake-rg-${nn}`;
     case "email": return `person${nn}@example.test`;
     case "host": return `fake-host-${nn}.example.test`;
+    case "user": return `fakeuser${nn}`;
     default:
       if (/\s/.test(original) || /[A-Z]/.test(original)) return `Fake Name ${nn}`;
       return /^[a-z0-9]+$/.test(original) ? `fakename${nn}` : `fake-name-${nn}`;

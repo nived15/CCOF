@@ -163,11 +163,13 @@ if ($ConfigPath -and -not (Test-Path -LiteralPath $ConfigPath -PathType Leaf)) {
 
 $out = Resolve-FixtureOutput $OutputDirectory
 $account = Invoke-FixtureAz @('account', 'show', '--query', '{tenantId:tenantId, subscriptionId:id}', '-o', 'json') | ConvertFrom-Json
-if ($ConfigPath) {
+# Dot-sourcing the staged driver runs its param block, which resets $ConfigPath and $StateDirectory here: keep copies.
+$configFile = $ConfigPath; $stateDirectoryArg = $StateDirectory; $commit = $DeployedCommit; $withCosmos = [bool]$IncludeCosmos; $sampleCount = $CosmosSampleCount
+if ($configFile) {
     . (Join-Path $script:FixtureRepo 'infra/staged/Invoke-StagedDeployment.ps1') -DotSourceOnly
     $ErrorActionPreference = 'Stop'
-    $cfg = Read-StgConfig $ConfigPath
-    $stateDir = if ($StateDirectory) { [IO.Path]::GetFullPath($StateDirectory) } else { Join-Path (Split-Path $cfg.__path -Parent) '.staged-state' }
+    $cfg = Read-StgConfig $configFile
+    $stateDir = if ($stateDirectoryArg) { [IO.Path]::GetFullPath($stateDirectoryArg) } else { Join-Path (Split-Path $cfg.__path -Parent) '.staged-state' }
     $statePath = Join-Path $stateDir 'state.json'
     if (-not (Test-Path -LiteralPath $statePath -PathType Leaf)) { throw "state_missing: $statePath" }
     $state = Get-Content -LiteralPath $statePath -Raw | ConvertFrom-Json -AsHashtable -Depth 100
@@ -183,19 +185,19 @@ if ($ConfigPath) {
 }
 
 New-Item -ItemType Directory -Force -Path $out | Out-Null
-if ($ConfigPath) {
+if ($configFile) {
     Copy-Item -LiteralPath $cfg.__path -Destination (Join-Path $out 'staged.config.json')
     Copy-Item -LiteralPath $statePath -Destination (Join-Path $out 'state.json')
     Save-FixtureJson (Get-FixtureFreshness $cfg $state) (Join-Path $out 'freshness.json')
 }
 Get-FixtureGateway $cfg $state $out
 Get-FixtureFunctions $cfg $out
-$cosmosNote = if ($IncludeCosmos) { Get-FixtureCosmos $cfg $out $CosmosSampleCount } else { 'not requested (-IncludeCosmos)' }
+$cosmosNote = if ($withCosmos) { Get-FixtureCosmos $cfg $out $sampleCount } else { 'not requested (-IncludeCosmos)' }
 $azVersion = (Invoke-FixtureAz @('version', '-o', 'json') | ConvertFrom-Json).'azure-cli'
 Save-FixtureJson ([ordered]@{
-    deployedCommit = $DeployedCommit; collectedAt = [DateTime]::UtcNow.ToString('o'); azureCli = $azVersion
-    stagedConfig = [bool]$ConfigPath
-    stagedConfigNote = if ($ConfigPath) { 'copied' } else { 'discovery mode: no staged config or state on the collecting machine; no freshness' }
+    deployedCommit = $commit; collectedAt = [DateTime]::UtcNow.ToString('o'); azureCli = $azVersion
+    stagedConfig = [bool]$configFile
+    stagedConfigNote = if ($configFile) { 'copied' } else { 'discovery mode: no staged config or state on the collecting machine; no freshness' }
     cosmosSamples = [bool](Test-Path -LiteralPath (Join-Path $out 'cosmos')); cosmosNote = $cosmosNote
     files = @(Get-ChildItem -LiteralPath $out -Recurse -File | ForEach-Object { [IO.Path]::GetRelativePath($out, $_.FullName).Replace('\', '/') } | Sort-Object)
 }) (Join-Path $out 'manifest.json')

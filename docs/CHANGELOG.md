@@ -9,6 +9,10 @@
 - Fixed the pseudonymizer after the first real run left three Function App names in file names and content, and the
   backend ID in a fragment. It now rewrites file names, treats `app` and `backendId` as identifying, and refuses if a
   generated part of a known name (the unique suffix) survives anywhere. Two new tests (9 in total).
+- Added the real staged config, state and stage freshness to the fixture (collected with `-ConfigPath`). Fixed: the
+  collector lost `-ConfigPath` when it dot-sourced the staged driver; the pseudonymizer now also replaces guest UPNs,
+  user-profile paths, subscription names and any word carrying a known name's generated suffix, keeps CCOF contract
+  words, and the leak scan flags UPNs and user-profile paths. 10 fixture tests, 25 collector checks.
 
 ## 2026-11-19 — Harness P3: customer fixture tooling
 

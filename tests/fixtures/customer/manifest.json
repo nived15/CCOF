@@ -1,16 +1,17 @@
 {
   "deployedCommit": "9faa1fc",
-  "collectedAt": "2026-11-19T08:14:55.9219104Z",
+  "collectedAt": "2026-11-19T08:20:53.8565822Z",
   "azureCli": "2.93.0",
-  "stagedConfig": false,
-  "stagedConfigNote": "discovery mode: no staged config or state on the collecting machine; no freshness",
+  "stagedConfig": true,
+  "stagedConfigNote": "copied",
   "cosmosSamples": false,
   "cosmosNote": "not requested (-IncludeCosmos)",
   "files": [
+    "freshness.json",
+    "functions/fake-name-01.json",
+    "functions/fake-name-02.json",
     "functions/fake-name-03.json",
     "functions/fake-name-04.json",
-    "functions/fake-name-02.json",
-    "functions/fake-name-05.json",
     "gateway/api-policy.xml",
     "gateway/backends.json",
     "gateway/fragment-claude-messages-backend-b097052b2da6.xml",
@@ -21,6 +22,8 @@
     "gateway/global-policy.xml",
     "gateway/op-get-my-usage.xml",
     "gateway/operations.json",
-    "gateway/revisions.json"
+    "gateway/revisions.json",
+    "staged.config.json",
+    "state.json"
   ]
 }
