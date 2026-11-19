@@ -1,5 +1,12 @@
 # Change log
 
+## 2026-11-19 — Harness P0: baseline
+
+- Add `docs/harness/BASELINE.md`: `npm test`, typecheck, build, admin and client tests and the `--no-run` gate, each
+  run three times at `b4ccd38`. No flaky tests; the one failure (`Test-QuickstartSeed.ps1`) is a Windows `python3`
+  Store alias, recorded as K-5. The dependency finding is corrected: the client also has one high-severity finding.
+  No code changed.
+
 ## 2026-10-28 — Release 23 review fixes
 
 - Council review of `main..test/rehearsal`: security review found no vulnerabilities; code review found one Medium and one
