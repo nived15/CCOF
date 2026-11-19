@@ -1,0 +1,28 @@
+{
+  "id": "replay-891aa24",
+  "kind": "replay",
+  "source": "891aa24 release 20: high availability options (zone redundancy, Foundry failover)",
+  "baseRef": "887035848bdf609a310794ce725d74584463cc6d",
+  "releaseRef": "891aa240461407bec04f4ea52a1986c59d4a8ce6",
+  "prompt": "Implement the following change in this repository, with tests, following .github/copilot-instructions.md.\n\nrelease 20: high availability options (zone redundancy, Foundry failover)\n\nOpt-in, create-only zone redundancy for API Management (zones and units), Function Apps and storage, with a Stage 0 HA check and suggestions (ADR-0052). A standby Foundry account per backend behind an API Management circuit breaker and priority pool (ADR-0053). Stage 0 and the Stage 7 preview refuse client model aliases that name no configured deployment. Pages: get-started/high-availability.md, get-started/foundry-failover.md.\n\nCo-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>\n\nCopilot-Session: 5bb3e04f-333e-428c-9afa-3adedd66884c",
+  "hiddenTests": [
+    "tests/Test-HaZones.ps1",
+    "tests/Test-Stage7GroupDrift.ps1",
+    "tests/Test-StagedClientAliases.ps1",
+    "tests/Test-StagedCustomerDeployment.ps1",
+    "tests/Test-StagedFoundryFailover.ps1",
+    "tests/Test-StagedFoundryNetwork.ps1",
+    "tests/Test-StagedPreviews.ps1",
+    "tests/Test-StagedStages.ps1",
+    "tests/docs-reader-pages.test.ts"
+  ],
+  "hiddenFrom": "release",
+  "allowedPaths": [
+    "admin/**",
+    "docs/**",
+    "infra/**",
+    "tests/**"
+  ],
+  "expected": "pass",
+  "filesChanged": 40
+}

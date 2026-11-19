@@ -1,0 +1,18 @@
+{
+  "id": "replay-92a9e54",
+  "kind": "replay",
+  "source": "92a9e54 release 23: deployment-day fixes from a live novice rehearsal",
+  "baseRef": "eae438ef9b3a80c1daf06f04eeb48f94aa50fe44",
+  "releaseRef": "92a9e54bed112fe9885f54faeac43c8cd26fd6e6",
+  "prompt": "Implement the following change in this repository, with tests, following .github/copilot-instructions.md.\n\nrelease 23: deployment-day fixes from a live novice rehearsal\n\nA full novice rehearsal of the deployment-day guide (Central India, HA settings, two groups, developer sign-in) produced reader fixes: Cosmos zonal refusal recovery, plan zone readback through ARM, a runnable admin API sign-in example, the functions network-access decision, usage checks after a reconciler run, the streamed prompt-cache lower bound, and console captures from the group-only console.",
+  "hiddenTests": [
+    "tests/docs-reader-pages.test.ts"
+  ],
+  "hiddenFrom": "release",
+  "allowedPaths": [
+    "docs/**",
+    "tests/**"
+  ],
+  "expected": "pass",
+  "filesChanged": 51
+}

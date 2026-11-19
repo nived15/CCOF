@@ -1,0 +1,28 @@
+{
+  "id": "replay-9a9b4ca",
+  "kind": "replay",
+  "source": "9a9b4ca release 12: novice reader fixes",
+  "baseRef": "fcb187c2a663a2c3a1adf7bac1062aef944ccda0",
+  "releaseRef": "9a9b4ca4463b23030b65bf80c18b2047eb8e5186",
+  "prompt": "Implement the following change in this repository, with tests, following .github/copilot-instructions.md.\n\nrelease 12: novice reader fixes\n\nDeveloper setup starts with getting the code; each stage shows its preview command;\nStage 7 success checklist; sourced rough lab cost and where to check spend; the\nconsole's earlier-model page is labelled Legacy projects; 13 earlier guides and run\nrecords moved to docs/archive with a README.\n\nCo-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>\nCopilot-Session: 5bb3e04f-333e-428c-9afa-3adedd66884c",
+  "hiddenTests": [
+    "tests/Test-AdminHandWorkbook.ps1",
+    "tests/Test-ManualDeployment.ps1",
+    "tests/Test-QuickstartSteps.ps1",
+    "tests/docs-reader-pages.test.ts",
+    "tests/manual-guide.test.ts"
+  ],
+  "hiddenFrom": "release",
+  "allowedPaths": [
+    "README.md",
+    "admin/**",
+    "config/**",
+    "docs/**",
+    "infra/**",
+    "scripts/**",
+    "src/**",
+    "tests/**"
+  ],
+  "expected": "pass",
+  "filesChanged": 85
+}

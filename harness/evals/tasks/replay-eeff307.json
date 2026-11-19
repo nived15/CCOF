@@ -1,0 +1,22 @@
+{
+  "id": "replay-eeff307",
+  "kind": "replay",
+  "source": "eeff307 fix(resolver): precedence by actual month-to-date spend, not per-user budget",
+  "baseRef": "95f0b86eb825b108ee5439be504d19d4e25a203f",
+  "releaseRef": "eeff3070ea140aba0968c8b920cb5b2f78288bd9",
+  "prompt": "Implement the following change in this repository, with tests, following .github/copilot-instructions.md.\n\nfix(resolver): precedence by actual month-to-date spend, not per-user budget\n\nA person in several groups gets the group with the higher usage spend this\nmonth (reconciler spentCcu), then the lower priority. Lab identifiers are\nscrubbed from this public tree.\n\nCo-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>\nCopilot-Session: 5bb3e04f-333e-428c-9afa-3adedd66884c",
+  "hiddenTests": [
+    "tests/resolver-group-precedence.test.ts",
+    "tests/sync-group-documents.test.ts"
+  ],
+  "hiddenFrom": "release",
+  "allowedPaths": [
+    "admin/**",
+    "docs/**",
+    "infra/**",
+    "src/**",
+    "tests/**"
+  ],
+  "expected": "pass",
+  "filesChanged": 18
+}

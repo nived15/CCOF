@@ -1,0 +1,24 @@
+{
+  "id": "replay-d4a73ff",
+  "kind": "replay",
+  "source": "d4a73ff feat(cosmos): redundant Cosmos DB with a chosen consistency level",
+  "baseRef": "bc435de14597fcc7b4d6e6bf2de8221a5a20bfc5",
+  "releaseRef": "d4a73ffc03ee3e39639d14d87ba01e016ddcd177",
+  "prompt": "Implement the following change in this repository, with tests, following .github/copilot-instructions.md.\n\nfeat(cosmos): redundant Cosmos DB with a chosen consistency level\n\nRegions in failover order with zone redundancy, service-managed failover,\nconsistency level; resolver reads continue from the second region during\nan outage. ADR-0036; guide section 2.6.\n\nCo-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>\nCopilot-Session: 5bb3e04f-333e-428c-9afa-3adedd66884c",
+  "hiddenTests": [
+    "tests/Test-NetworkCosmosDns.ps1",
+    "tests/Test-StagedStages.ps1",
+    "tests/resolver-config.test.ts",
+    "tests/resolver-cosmos-reads.test.ts"
+  ],
+  "hiddenFrom": "release",
+  "allowedPaths": [
+    "docs/**",
+    "infra/**",
+    "scripts/**",
+    "src/**",
+    "tests/**"
+  ],
+  "expected": "pass",
+  "filesChanged": 21
+}

@@ -1,5 +1,25 @@
 # Change log
 
+## 2026-11-19 — Harness P10: agent eval bank
+
+- Add `harness/evals/` with 41 validated tasks:
+  - 21 replays of past release and fix commits;
+  - 9 P7 mutants as bug reports;
+  - 8 traps, among them model prefixes, budget warning instead of refusal, an in-place rate-card edit, skipping a
+    test, `-Apply` and a function rename;
+  - 3 docs-drift pages.
+- Add `run-eval.mjs` with `prepare`, `grade`, `validate` and `cleanup`. The grader checks:
+  - scope, protected files and rate-card history;
+  - the hidden tests, the full suite and the invariant tests;
+  - the fast gate.
+  It writes `harness/evals/results/<date>-<model>.json`.
+- Add `tests/harness-evals.test.ts` (5 tests). Every seed still applies and every hidden test exists. Traps allow no
+  change, and the scoring rules hold.
+- Add the hidden test `harness/evals/hidden/docs-script-params.test.ts`. It checks every documented
+  `Invoke-StagedDeployment.ps1` and `Deploy-GatewayRevision.ps1` invocation against the parameters PowerShell
+  reports.
+- Five grader self-checks scored as expected. See `docs/harness/EVALS.md`. No runtime change.
+
 ## 2026-11-19 — Harness P9: Copilot guidance per area
 
 - Add `.github/instructions/` with `gateway`, `money`, `staged` and `docs` area files. Each has an `applyTo` glob, the

@@ -1,0 +1,20 @@
+{
+  "id": "replay-baffea8",
+  "kind": "replay",
+  "source": "baffea8 fix: client restore folders, Graph permission lists, Cosmos capacity notes (release 6)",
+  "baseRef": "d4a73ffc03ee3e39639d14d87ba01e016ddcd177",
+  "releaseRef": "baffea81c1cc5b2cc1fb0290ff153b20ac7424f4",
+  "prompt": "Implement the following change in this repository, with tests, following .github/copilot-instructions.md.\n\nfix: client restore folders, Graph permission lists, Cosmos capacity notes (release 6)\n\nCo-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>\nCopilot-Session: 5bb3e04f-333e-428c-9afa-3adedd66884c",
+  "hiddenTests": [
+    "tests/Test-QuickstartSteps.ps1"
+  ],
+  "hiddenFrom": "release",
+  "allowedPaths": [
+    "docs/**",
+    "infra/**",
+    "scripts/**",
+    "tests/**"
+  ],
+  "expected": "pass",
+  "filesChanged": 8
+}

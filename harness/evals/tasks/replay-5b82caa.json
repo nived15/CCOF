@@ -1,0 +1,27 @@
+{
+  "id": "replay-5b82caa",
+  "kind": "replay",
+  "source": "5b82caa release 9: budget guard (projected spend, rate guard, 80% warning)",
+  "baseRef": "66ea82c1b71f1bbce9ff938153a6c550be398bff",
+  "releaseRef": "5b82caa597f64de1d00174d4faeb484a2c8bfa80",
+  "prompt": "Implement the following change in this repository, with tests, following .github/copilot-instructions.md.\n\nrelease 9: budget guard (projected spend, rate guard, 80% warning)\n\nCo-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>\nCopilot-Session: 5bb3e04f-333e-428c-9afa-3adedd66884c",
+  "hiddenTests": [
+    "tests/Test-Quickstart.ps1",
+    "tests/Test-StagedStages.ps1",
+    "tests/reconciler-budget-guard.test.ts",
+    "tests/reconciler-settings.test.ts",
+    "tests/resolver-my-usage.test.ts"
+  ],
+  "hiddenFrom": "release",
+  "allowedPaths": [
+    "client/**",
+    "config/**",
+    "docs/**",
+    "infra/**",
+    "scripts/**",
+    "src/**",
+    "tests/**"
+  ],
+  "expected": "pass",
+  "filesChanged": 26
+}

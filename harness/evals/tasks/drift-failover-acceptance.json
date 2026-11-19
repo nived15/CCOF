@@ -1,0 +1,26 @@
+{
+  "id": "drift-failover-acceptance",
+  "kind": "docs-drift",
+  "invariants": [
+    "DOC-01"
+  ],
+  "baseRef": "e9cd233f9fbed561e19386d2c48e790d5b8d5a9e",
+  "seed": {
+    "edits": [
+      {
+        "file": "docs/get-started/foundry-failover.md",
+        "original": "-Stage 8 -ConfigPath $config -Apply",
+        "replacement": "-Stage 8 -ConfigPath $config -Execute"
+      }
+    ]
+  },
+  "prompt": "The Stage 8 acceptance command on the Foundry failover page does not run. Fix the documentation.",
+  "hiddenTests": [
+    "tests/docs-script-params.test.ts"
+  ],
+  "hiddenFrom": "evals",
+  "allowedPaths": [
+    "docs/**"
+  ],
+  "expected": "pass"
+}

@@ -1,0 +1,26 @@
+{
+  "id": "drift-staged-guide",
+  "kind": "docs-drift",
+  "invariants": [
+    "DOC-01"
+  ],
+  "baseRef": "e9cd233f9fbed561e19386d2c48e790d5b8d5a9e",
+  "seed": {
+    "edits": [
+      {
+        "file": "docs/STAGED-DEPLOYMENT-GUIDE.md",
+        "original": "-Stage 1 -ConfigPath $cfg -Apply     # change, then verify",
+        "replacement": "-Stage 1 -ConfigFile $cfg -Apply     # change, then verify"
+      }
+    ]
+  },
+  "prompt": "An operator following docs/STAGED-DEPLOYMENT-GUIDE.md reports that one of the Stage 1 commands fails with \"A parameter cannot be found that matches parameter name\". Fix the documentation.",
+  "hiddenTests": [
+    "tests/docs-script-params.test.ts"
+  ],
+  "hiddenFrom": "evals",
+  "allowedPaths": [
+    "docs/**"
+  ],
+  "expected": "pass"
+}

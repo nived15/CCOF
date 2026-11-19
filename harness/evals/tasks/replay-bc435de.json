@@ -1,0 +1,35 @@
+{
+  "id": "replay-bc435de",
+  "kind": "replay",
+  "source": "bc435de feat(usage): /usage - a person's own CCOF budget in Claude Code",
+  "baseRef": "b72e5273fb1b9446deb7a4347859d2819e0a0f3d",
+  "releaseRef": "bc435de14597fcc7b4d6e6bf2de8221a5a20bfc5",
+  "prompt": "Implement the following change in this repository, with tests, following .github/copilot-instructions.md.\n\nfeat(usage): /usage - a person's own CCOF budget in Claude Code\n\nGateway GET /ccof/me/usage (token oid only), resolver /api/me/usage (own\ndocuments, point reads), Claude Code /usage skill and status line; group\nremaining budget only when allowed. Strict typecheck fixes. docs/USAGE.md.\n\nCo-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>\nCopilot-Session: 5bb3e04f-333e-428c-9afa-3adedd66884c",
+  "hiddenTests": [
+    "tests/Test-StagedStages.ps1",
+    "tests/gateway-render.test.ts",
+    "tests/gateway-surfaces.test.ts",
+    "tests/gateway-template.test.ts",
+    "tests/gateway-usage-policy.test.ts",
+    "tests/resolver-config.test.ts",
+    "tests/resolver-my-usage-handler.test.ts",
+    "tests/resolver-my-usage.test.ts",
+    "tests/sync-account-state.test.ts",
+    "tests/sync-run.test.ts",
+    "tests/sync-service-principals.test.ts",
+    "tests/sync-snapshot.test.ts"
+  ],
+  "hiddenFrom": "release",
+  "allowedPaths": [
+    "README.md",
+    "analytics/**",
+    "client/**",
+    "docs/**",
+    "infra/**",
+    "scripts/**",
+    "src/**",
+    "tests/**"
+  ],
+  "expected": "pass",
+  "filesChanged": 42
+}

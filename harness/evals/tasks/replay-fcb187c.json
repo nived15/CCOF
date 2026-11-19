@@ -1,0 +1,19 @@
+{
+  "id": "replay-fcb187c",
+  "kind": "replay",
+  "source": "fcb187c release 11: first-time reader follow-up",
+  "baseRef": "2f84715fcbe28551b3f83d3793e6f0da18d4a647",
+  "releaseRef": "fcb187c2a663a2c3a1adf7bac1062aef944ccda0",
+  "prompt": "Implement the following change in this repository, with tests, following .github/copilot-instructions.md.\n\nrelease 11: first-time reader follow-up\n\nExplains the main deployment values and the single-subscription lab route, uses the readable onboarding review screenshot, refreshes the exhausted-budget output with the current status line, and simplifies the README live summary.\n\nCo-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>\nCopilot-Session: 5bb3e04f-333e-428c-9afa-3adedd66884c",
+  "hiddenTests": [
+    "tests/docs-reader-pages.test.ts"
+  ],
+  "hiddenFrom": "release",
+  "allowedPaths": [
+    "README.md",
+    "docs/**",
+    "tests/**"
+  ],
+  "expected": "pass",
+  "filesChanged": 11
+}

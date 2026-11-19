@@ -1,0 +1,26 @@
+{
+  "id": "seeded-mon05-exhausted-strict",
+  "kind": "seeded",
+  "source": "harness/mutants.json mon05-exhausted-strict",
+  "invariants": [
+    "MON-05"
+  ],
+  "baseRef": "e9cd233f9fbed561e19386d2c48e790d5b8d5a9e",
+  "seed": {
+    "mutant": "mon05-exhausted-strict"
+  },
+  "prompt": "Bug report: A developer who has spent exactly USD 10.00 of a USD 10 monthly budget can still send requests. They should be refused once spending reaches the budget.\n\nFind and fix the cause, with a test, following .github/copilot-instructions.md.",
+  "hiddenTests": [
+    "tests/budget-acceptance.test.ts",
+    "tests/harness-scenarios.test.ts",
+    "tests/reconciler-budget-guard.test.ts"
+  ],
+  "hiddenFrom": "base",
+  "allowedPaths": [
+    "src/reconciler/**",
+    "src/cost/**",
+    "tests/**",
+    "docs/**"
+  ],
+  "expected": "pass"
+}

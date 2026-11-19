@@ -1,0 +1,25 @@
+{
+  "id": "seeded-sync04-unknown-is-disabled",
+  "kind": "seeded",
+  "source": "harness/mutants.json sync04-unknown-is-disabled",
+  "invariants": [
+    "SYNC-04"
+  ],
+  "baseRef": "e9cd233f9fbed561e19386d2c48e790d5b8d5a9e",
+  "seed": {
+    "mutant": "sync04-unknown-is-disabled"
+  },
+  "prompt": "Bug report: People whose account state Graph did not return are being removed by the sync as if their accounts were disabled.\n\nFind and fix the cause, with a test, following .github/copilot-instructions.md.",
+  "hiddenTests": [
+    "tests/harness-scenarios.test.ts",
+    "tests/sync-account-state.test.ts",
+    "tests/sync-family-policy.test.ts"
+  ],
+  "hiddenFrom": "base",
+  "allowedPaths": [
+    "src/sync/**",
+    "tests/**",
+    "docs/**"
+  ],
+  "expected": "pass"
+}

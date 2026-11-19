@@ -1,0 +1,26 @@
+{
+  "id": "drift-gateway-rollback",
+  "kind": "docs-drift",
+  "invariants": [
+    "DOC-01"
+  ],
+  "baseRef": "e9cd233f9fbed561e19386d2c48e790d5b8d5a9e",
+  "seed": {
+    "edits": [
+      {
+        "file": "docs/GATEWAY.md",
+        "original": "-MakeCurrent -Revision <N> -ReleaseNote '<why>'",
+        "replacement": "-Promote -Revision <N> -ReleaseNote '<why>'"
+      }
+    ]
+  },
+  "prompt": "The command in docs/GATEWAY.md for making a gateway revision current fails: PowerShell says the parameter does not exist. Fix the documentation.",
+  "hiddenTests": [
+    "tests/docs-script-params.test.ts"
+  ],
+  "hiddenFrom": "evals",
+  "allowedPaths": [
+    "docs/**"
+  ],
+  "expected": "pass"
+}

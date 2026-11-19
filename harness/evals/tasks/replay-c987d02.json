@@ -1,0 +1,31 @@
+{
+  "id": "replay-c987d02",
+  "kind": "replay",
+  "source": "c987d02 feat: configurable WBS labels and verified budget-admission limits (release 7)",
+  "baseRef": "baffea81c1cc5b2cc1fb0290ff153b20ac7424f4",
+  "releaseRef": "c987d02d4b7f4fe7f6e7bc0cdff25cfc8971a6d3",
+  "prompt": "Implement the following change in this repository, with tests, following .github/copilot-instructions.md.\n\nfeat: configurable WBS labels and verified budget-admission limits (release 7)\n\nAdd persisted admin-defined user-tag labels across tagging, filters and CSV exports. Retain monetary admission ceilings and optionally require complete budget accounting. Include cross-stack ten-dollar boundary and group-family tests, sanitized browser screenshots and a staged guide walkthrough. Document that no atomic dollar cap exists and that full live gateway/Portal acceptance remains blocked; observed direct Foundry list estimate is USD 0.011476, not USD 10.\n\nCo-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>\nCopilot-Session: 5bb3e04f-333e-428c-9afa-3adedd66884c",
+  "hiddenTests": [
+    "tests/Test-StagedStages.ps1",
+    "tests/budget-acceptance.test.ts",
+    "tests/gateway-chargeback.test.ts",
+    "tests/gateway-dollar-ceiling.test.ts",
+    "tests/gateway-family-quotas.test.ts",
+    "tests/gateway-surfaces.test.ts",
+    "tests/reconciler-reconcile.test.ts",
+    "tests/resolver-budget-exhaustion.test.ts",
+    "tests/resolver-config.test.ts",
+    "tests/user-tags.test.ts"
+  ],
+  "hiddenFrom": "release",
+  "allowedPaths": [
+    "admin/**",
+    "docs/**",
+    "infra/**",
+    "scripts/**",
+    "src/**",
+    "tests/**"
+  ],
+  "expected": "pass",
+  "filesChanged": 55
+}
