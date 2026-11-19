@@ -1,8 +1,17 @@
 # Current work
 
+## Harness P1: invariant register (2026-11-19)
+
+**Active packet:** P1 of `docs/harness/BUILD-PLAN.md` on `harness/p1`. No runtime change.
+
+- `harness/invariants.json`: 30 invariants, 22 fully covered, 8 known gaps; MON-03 and DOC-01 are `unverified`
+  (working rules not enforced in code). `tests/harness-invariants.test.ts`: 8/8 pass, and five deliberate
+  register mutations were each caught. ADR-0056.
+- Waiting for the human checkpoint: correct any invariant that does not match how the customer is operated. Next: P2.
+
 ## Harness P0: baseline (2026-11-19)
 
-**Active packet:** P0 of `docs/harness/BUILD-PLAN.md` on `harness/p0`. No code changes.
+**Done:** merged in #2.
 
 - Results in `docs/harness/BASELINE.md`: three identical runs, no flaky tests. Node 1347/1353 pass (6 live skips),
   PowerShell 619/620 (K-5, Windows `python3` alias), admin 220/220, client 79/80 (1 Windows skip), typecheck,
