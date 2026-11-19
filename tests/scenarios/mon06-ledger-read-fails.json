@@ -1,0 +1,17 @@
+{
+  "id": "mon06-ledger-read-fails",
+  "title": "A failed ledger read writes nothing",
+  "source": "src/reconciler/run.ts",
+  "invariants": [
+    "MON-06"
+  ],
+  "layer": "reconciler-run",
+  "given": {},
+  "when": {
+    "failingRead": "ledger"
+  },
+  "then": {
+    "writes": 0,
+    "outcome": "failed"
+  }
+}

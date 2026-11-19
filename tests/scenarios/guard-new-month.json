@@ -1,0 +1,30 @@
+{
+  "id": "guard-new-month",
+  "title": "A new month starts from zero: last month's spend does not count",
+  "source": "src/reconciler/period.ts",
+  "invariants": [
+    "MON-05"
+  ],
+  "layer": "reconciler",
+  "given": {
+    "budget": "10",
+    "guard": {
+      "warnPercent": 80,
+      "overshootPercent": 5,
+      "projectionMinutes": 5
+    },
+    "computedAt": "2026-11-01T00:10:00Z",
+    "rows": [
+      {
+        "usd": "9.99",
+        "at": "2026-10-31T23:00:00.0000000Z"
+      }
+    ]
+  },
+  "when": {},
+  "then": {
+    "spentUsd": "0",
+    "exhausted": false,
+    "ceiling": "positive"
+  }
+}

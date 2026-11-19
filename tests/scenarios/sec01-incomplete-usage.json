@@ -1,0 +1,37 @@
+{
+  "id": "sec01-incomplete-usage",
+  "title": "Incomplete accounting with the complete-usage guard is 503, not an allow (REH-3)",
+  "source": "docs/status/BUDGET-ACCEPTANCE-2026-10-23.md Offline acceptance",
+  "invariants": [
+    "SEC-01",
+    "MON-01"
+  ],
+  "layer": "gateway",
+  "given": {
+    "groups": {
+      "alpha": {
+        "priority": 1,
+        "models": [
+          "claude-haiku-4-5"
+        ],
+        "budget": "10"
+      }
+    },
+    "callerIn": [
+      "alpha"
+    ],
+    "spend": {},
+    "partialUsage": [
+      "alpha"
+    ]
+  },
+  "when": {
+    "caller": "member",
+    "model": "claude-haiku-4-5"
+  },
+  "then": {
+    "status": 503,
+    "errorType": "api_error",
+    "refusal": "budget_state_unavailable"
+  }
+}

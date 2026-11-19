@@ -1,0 +1,35 @@
+{
+  "id": "sync01-failed-read-freezes",
+  "title": "A failed group read freezes the project: the existing membership stays, nobody is added",
+  "source": "src/sync/plan.ts",
+  "invariants": [
+    "SYNC-01"
+  ],
+  "layer": "sync",
+  "given": {
+    "reads": {
+      "STD": {
+        "failed": true
+      },
+      "PRM": {
+        "members": [
+          "B"
+        ]
+      }
+    },
+    "existing": {
+      "A": [
+        "STD"
+      ]
+    }
+  },
+  "when": {},
+  "then": {
+    "holdings": {
+      "A": [
+        "STD"
+      ]
+    },
+    "projectsFrozen": 1
+  }
+}

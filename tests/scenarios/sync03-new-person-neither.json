@@ -1,0 +1,27 @@
+{
+  "id": "sync03-new-person-neither",
+  "title": "A new person in two classification groups gets neither",
+  "source": "src/sync/plan.ts",
+  "invariants": [
+    "SYNC-03"
+  ],
+  "layer": "sync",
+  "given": {
+    "reads": {
+      "STD": {
+        "members": [
+          "A"
+        ]
+      },
+      "PRM": {
+        "members": [
+          "A"
+        ]
+      }
+    }
+  },
+  "when": {},
+  "then": {
+    "holdings": {}
+  }
+}

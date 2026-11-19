@@ -1,0 +1,33 @@
+{
+  "id": "sec05-mythos-approved",
+  "title": "With restrictedFamiliesApproved the group's Mythos model is admitted",
+  "source": "docs/adr/0034-group-centric-onboarding.md",
+  "invariants": [
+    "SEC-05"
+  ],
+  "layer": "gateway",
+  "given": {
+    "groups": {
+      "alpha": {
+        "priority": 1,
+        "models": [
+          "claude-mythos-5-1"
+        ],
+        "budget": "10",
+        "restrictedFamiliesApproved": true
+      }
+    },
+    "callerIn": [
+      "alpha"
+    ],
+    "spend": {}
+  },
+  "when": {
+    "caller": "member",
+    "model": "claude-mythos-5-1"
+  },
+  "then": {
+    "status": 200,
+    "group": "alpha"
+  }
+}

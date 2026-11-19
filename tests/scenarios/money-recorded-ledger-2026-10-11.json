@@ -1,0 +1,24 @@
+{
+  "id": "money-recorded-ledger-2026-10-11",
+  "title": "A ledger response recorded from the 2026-10-11 lab prices to the same exact amounts",
+  "source": "tests/fixtures/reconciler/ledger-response-2026-10-11.json",
+  "invariants": [
+    "MON-01",
+    "MON-02"
+  ],
+  "layer": "ledger",
+  "given": {
+    "fixture": "reconciler/ledger-response-2026-10-11.json",
+    "computedAt": "2026-10-11T13:00:00Z"
+  },
+  "when": {},
+  "then": {
+    "rows": 75,
+    "priced": 0,
+    "partial": 20,
+    "unpriced": 55,
+    "spentUsd": "0.00068",
+    "listUsd": "0.00068"
+  },
+  "note": "Golden money: the amounts today's pricing gives the recorded rows. 55 rows are unpriced (no matching rate-card entry for their recorded model or tokens) and 20 partial; a change to any of these numbers is a pricing change to review."
+}

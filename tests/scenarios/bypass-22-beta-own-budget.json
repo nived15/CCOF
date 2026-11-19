@@ -1,0 +1,48 @@
+{
+  "id": "bypass-22-beta-own-budget",
+  "title": "After Alpha's exhaustion, Beta selector, Haiku: admitted on Beta's own budget",
+  "source": "docs/status/BUDGET-ACCEPTANCE-2026-10-23.md §4",
+  "invariants": [
+    "MON-05"
+  ],
+  "layer": "gateway",
+  "given": {
+    "groups": {
+      "alpha": {
+        "priority": 1,
+        "models": [
+          "claude-haiku-4-5",
+          "claude-sonnet-5"
+        ],
+        "budget": "10"
+      },
+      "beta": {
+        "priority": 2,
+        "models": [
+          "claude-haiku-4-5"
+        ],
+        "budget": "1"
+      }
+    },
+    "callerIn": [
+      "alpha",
+      "beta",
+      "gamma"
+    ],
+    "spend": {
+      "alpha": "11.25",
+      "beta": "0.01"
+    }
+  },
+  "when": {
+    "caller": "member",
+    "headers": {
+      "selector": "55555555-5555-4555-8555-555555555555"
+    },
+    "model": "claude-haiku-4-5"
+  },
+  "then": {
+    "status": 200,
+    "group": "beta"
+  }
+}

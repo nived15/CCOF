@@ -1,0 +1,47 @@
+{
+  "id": "bypass-06-not-onboarded-group",
+  "title": "Selector of a group the caller is in but which is not onboarded: refused",
+  "source": "docs/status/BUDGET-ACCEPTANCE-2026-10-23.md §1",
+  "invariants": [
+    "SEC-01",
+    "SEC-07"
+  ],
+  "layer": "gateway",
+  "given": {
+    "groups": {
+      "alpha": {
+        "priority": 1,
+        "models": [
+          "claude-haiku-4-5",
+          "claude-sonnet-5"
+        ],
+        "budget": "10"
+      },
+      "beta": {
+        "priority": 2,
+        "models": [
+          "claude-haiku-4-5"
+        ],
+        "budget": "1"
+      }
+    },
+    "callerIn": [
+      "alpha",
+      "beta",
+      "gamma"
+    ],
+    "spend": {}
+  },
+  "when": {
+    "caller": "member",
+    "headers": {
+      "selector": "66666666-6666-4666-8666-666666666666"
+    },
+    "model": "claude-haiku-4-5"
+  },
+  "then": {
+    "status": 403,
+    "errorType": "permission_error",
+    "refusal": "not_authorized"
+  }
+}

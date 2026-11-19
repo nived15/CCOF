@@ -1,0 +1,45 @@
+{
+  "id": "bypass-02-alpha-selector",
+  "title": "Alpha selector, allowed model: admitted to Alpha",
+  "source": "docs/status/BUDGET-ACCEPTANCE-2026-10-23.md §1",
+  "invariants": [
+    "SEC-07"
+  ],
+  "layer": "gateway",
+  "given": {
+    "groups": {
+      "alpha": {
+        "priority": 1,
+        "models": [
+          "claude-haiku-4-5",
+          "claude-sonnet-5"
+        ],
+        "budget": "10"
+      },
+      "beta": {
+        "priority": 2,
+        "models": [
+          "claude-haiku-4-5"
+        ],
+        "budget": "1"
+      }
+    },
+    "callerIn": [
+      "alpha",
+      "beta",
+      "gamma"
+    ],
+    "spend": {}
+  },
+  "when": {
+    "caller": "member",
+    "headers": {
+      "selector": "11111111-1111-4111-8111-111111111111"
+    },
+    "model": "claude-haiku-4-5"
+  },
+  "then": {
+    "status": 200,
+    "group": "alpha"
+  }
+}

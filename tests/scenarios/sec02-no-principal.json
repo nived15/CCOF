@@ -1,0 +1,34 @@
+{
+  "id": "sec02-no-principal",
+  "title": "A call that reached the resolver without the platform principal is not admitted",
+  "source": "docs/adr/0009-resolver-entra-auth-for-apim-managed-identity.md",
+  "invariants": [
+    "SEC-02"
+  ],
+  "layer": "gateway",
+  "given": {
+    "groups": {
+      "alpha": {
+        "priority": 1,
+        "models": [
+          "claude-haiku-4-5"
+        ],
+        "budget": "10"
+      }
+    },
+    "callerIn": [
+      "alpha"
+    ],
+    "spend": {},
+    "platformAuth": "no-principal"
+  },
+  "when": {
+    "caller": "member",
+    "model": "claude-haiku-4-5"
+  },
+  "then": {
+    "status": 503,
+    "errorType": "api_error",
+    "refusal": "entitlement_unavailable"
+  }
+}

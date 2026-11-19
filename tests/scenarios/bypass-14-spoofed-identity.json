@@ -1,0 +1,47 @@
+{
+  "id": "bypass-14-spoofed-identity",
+  "title": "Spoofed identity headers: admitted and charged to the real caller",
+  "source": "docs/status/BUDGET-ACCEPTANCE-2026-10-23.md §1",
+  "invariants": [
+    "SEC-07"
+  ],
+  "layer": "gateway",
+  "given": {
+    "groups": {
+      "alpha": {
+        "priority": 1,
+        "models": [
+          "claude-haiku-4-5",
+          "claude-sonnet-5"
+        ],
+        "budget": "10"
+      },
+      "beta": {
+        "priority": 2,
+        "models": [
+          "claude-haiku-4-5"
+        ],
+        "budget": "1"
+      }
+    },
+    "callerIn": [
+      "alpha",
+      "beta",
+      "gamma"
+    ],
+    "spend": {}
+  },
+  "when": {
+    "caller": "member",
+    "headers": {
+      "x-ms-client-principal-id": "99999999-9999-4999-8999-999999999999",
+      "x-ccof-person": "99999999-9999-4999-8999-999999999999"
+    },
+    "model": "claude-haiku-4-5"
+  },
+  "then": {
+    "status": 200,
+    "group": "alpha",
+    "chargedTo": "caller"
+  }
+}

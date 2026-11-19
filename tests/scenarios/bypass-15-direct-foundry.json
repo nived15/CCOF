@@ -1,0 +1,20 @@
+{
+  "id": "bypass-15-direct-foundry",
+  "title": "Direct call to the private Foundry endpoint, bypassing the gateway",
+  "source": "docs/status/BUDGET-ACCEPTANCE-2026-10-23.md §1",
+  "invariants": [
+    "SEC-02"
+  ],
+  "layer": "live-only",
+  "given": {
+    "foundry": "private endpoint, public network access disabled"
+  },
+  "when": {
+    "call": "POST https://<foundry>.services.ai.azure.com/anthropic/v1/messages with a developer token"
+  },
+  "then": {
+    "status": 403,
+    "evidence": "docs/status/BUDGET-ACCEPTANCE-2026-10-23.md §1: 403 \"Public access is disabled\""
+  },
+  "note": "Network-level: cannot run offline. The customer deployment read on 2026-11-18 showed the Foundry account with public network access Enabled (default action Allow); re-check before relying on this result there."
+}

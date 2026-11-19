@@ -1,0 +1,43 @@
+{
+  "id": "bypass-12-other-audience-token",
+  "title": "Token for another audience (Azure Resource Manager): 401",
+  "source": "docs/status/BUDGET-ACCEPTANCE-2026-10-23.md §1",
+  "invariants": [
+    "SEC-02"
+  ],
+  "layer": "gateway",
+  "given": {
+    "groups": {
+      "alpha": {
+        "priority": 1,
+        "models": [
+          "claude-haiku-4-5",
+          "claude-sonnet-5"
+        ],
+        "budget": "10"
+      },
+      "beta": {
+        "priority": 2,
+        "models": [
+          "claude-haiku-4-5"
+        ],
+        "budget": "1"
+      }
+    },
+    "callerIn": [
+      "alpha",
+      "beta",
+      "gamma"
+    ],
+    "spend": {}
+  },
+  "when": {
+    "caller": "member",
+    "token": "other-audience",
+    "audience": "https://management.azure.com",
+    "model": "claude-haiku-4-5"
+  },
+  "then": {
+    "status": 401
+  }
+}

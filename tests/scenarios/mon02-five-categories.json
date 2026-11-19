@@ -1,0 +1,32 @@
+{
+  "id": "mon02-five-categories",
+  "title": "Each of the five token categories is priced at its own rate, exactly",
+  "source": "src/cost/token-categories.ts",
+  "invariants": [
+    "MON-02",
+    "MON-01"
+  ],
+  "layer": "pricing",
+  "given": {
+    "model": "claude-haiku-4-5",
+    "ratesPerThousand": {
+      "input": 0.001,
+      "output": 0.005,
+      "cacheWrite5m": 0.00125,
+      "cacheWrite1h": 0.002,
+      "cacheRead": 0.0001
+    }
+  },
+  "when": {
+    "tokens": {
+      "input": 1000,
+      "output": 1000,
+      "cacheWrite5m": 1000,
+      "cacheWrite1h": 1000,
+      "cacheRead": 1000
+    }
+  },
+  "then": {
+    "usd": "0.00935"
+  }
+}

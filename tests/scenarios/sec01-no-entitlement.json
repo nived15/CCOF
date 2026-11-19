@@ -1,0 +1,34 @@
+{
+  "id": "sec01-no-entitlement",
+  "title": "A caller with no entitlement record is refused",
+  "source": "src/resolver/decide.ts",
+  "invariants": [
+    "SEC-01",
+    "SEC-03"
+  ],
+  "layer": "gateway",
+  "given": {
+    "groups": {
+      "alpha": {
+        "priority": 1,
+        "models": [
+          "claude-haiku-4-5"
+        ],
+        "budget": "10"
+      }
+    },
+    "callerIn": [
+      "alpha"
+    ],
+    "spend": {}
+  },
+  "when": {
+    "caller": "stranger",
+    "model": "claude-haiku-4-5"
+  },
+  "then": {
+    "status": 403,
+    "errorType": "permission_error",
+    "refusal": "not_authorized"
+  }
+}

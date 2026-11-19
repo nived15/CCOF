@@ -1,0 +1,27 @@
+{
+  "id": "mon02-unknown-category",
+  "title": "The undivided legacy cacheWrite category is unknown and throws, never priced as a sixth rate",
+  "source": "src/cost/token-categories.ts",
+  "invariants": [
+    "MON-02"
+  ],
+  "layer": "pricing",
+  "given": {
+    "model": "claude-haiku-4-5",
+    "ratesPerThousand": {
+      "input": 0.001,
+      "output": 0.005,
+      "cacheWrite5m": 0.00125,
+      "cacheWrite1h": 0.002,
+      "cacheRead": 0.0001
+    }
+  },
+  "when": {
+    "tokens": {
+      "cacheWrite": 1000
+    }
+  },
+  "then": {
+    "error": "unknown usage category cacheWrite for model claude-haiku-4-5"
+  }
+}

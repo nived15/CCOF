@@ -1,5 +1,12 @@
 # Current deployment unknowns
 
+## Harness read-only analysis of the customer deployment (2026-11-18)
+
+| ID | State | Question / evidence |
+| --- | --- | --- |
+| LIVE-01 | OPEN | The deployed Foundry account (`foundry.create: false` in the staged config, so CCOF does not manage it) has public network access Enabled with default action Allow, although the config records `publicNetworkAccess: Disabled` and Stage 6 created its private endpoint. Local (key) auth is disabled, so a direct call needs an Entra token with a Cognitive Services role on the account. The acceptance bypass "direct call to the private Foundry endpoint → 403" (scenario `bypass-15-direct-foundry`, live-only) therefore depends on role assignments there, not on the network. Owner decision: disable public access on the account, or record the exception. |
+| LIVE-02 | OPEN | No scheduled-query alert rules or action groups are deployed in the resource group, although `analytics/alerts/` defines them; only the Application Insights smart-detection rules exist. The L1/L2/L3 steps of `docs/harness/BUILD-PLAN.md` read those alerts. |
+
 ## Novice deployment-day rehearsal
 
 | ID | State | Question / evidence |

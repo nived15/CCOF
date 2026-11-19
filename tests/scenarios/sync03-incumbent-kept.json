@@ -1,0 +1,36 @@
+{
+  "id": "sync03-incumbent-kept",
+  "title": "A person in two classification groups keeps the incumbent",
+  "source": "src/sync/plan.ts",
+  "invariants": [
+    "SYNC-03"
+  ],
+  "layer": "sync",
+  "given": {
+    "reads": {
+      "STD": {
+        "members": [
+          "A"
+        ]
+      },
+      "PRM": {
+        "members": [
+          "A"
+        ]
+      }
+    },
+    "existing": {
+      "A": [
+        "STD"
+      ]
+    }
+  },
+  "when": {},
+  "then": {
+    "holdings": {
+      "A": [
+        "STD"
+      ]
+    }
+  }
+}

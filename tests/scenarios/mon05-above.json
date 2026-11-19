@@ -1,0 +1,23 @@
+{
+  "id": "mon05-above",
+  "title": "USD 10.10 of 10: exhausted",
+  "source": "docs/status/BUDGET-ACCEPTANCE-2026-10-23.md Offline acceptance",
+  "invariants": [
+    "MON-05"
+  ],
+  "layer": "reconciler",
+  "given": {
+    "budget": "10",
+    "rows": [
+      {
+        "usd": "10.10"
+      }
+    ]
+  },
+  "when": {},
+  "then": {
+    "spentUsd": "10.1",
+    "exhausted": true,
+    "ceiling": "zero"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "id": "sync01-missing-read-is-failed",
+  "title": "A group missing from the read results is treated as failed, never as empty",
+  "source": "src/sync/plan.ts",
+  "invariants": [
+    "SYNC-01"
+  ],
+  "layer": "sync",
+  "given": {
+    "reads": {
+      "PRM": {
+        "members": []
+      }
+    },
+    "existing": {
+      "A": [
+        "STD"
+      ]
+    }
+  },
+  "when": {},
+  "then": {
+    "holdings": {
+      "A": [
+        "STD"
+      ]
+    },
+    "projectsFrozen": 1
+  }
+}
